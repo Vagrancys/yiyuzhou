@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.mange_theme_title} - {$seo.title}</title>
+    <link   href="/static/index/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @media screen and (max-width: 600px)
+        {
+            .special-brief{
+                min-height: 200px;
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="grow-post">
+                    <div class="crumbs">
+                        <div class="crumbs-left">
+                            <a href="/index.html">首页</a> &gt;
+                            <a href="/level/1">成长区</a> &gt;
+                            <a href="/grow/{$vi.mange_theme_id}">{$vi.mange_theme_title}</a>
+                        </div>
+                        <div class="crumbs-right">
+                            由 <a href="/users/{$vi.mange_theme_user}">{$vi.name}</a> 整理分享
+                        </div>
+                    </div>
+                    <div class="special-item special-item-left">
+                        <div class="special-image">
+                            <img src="{$vi.mange_theme_img}" alt="{$vi.mange_theme_title}">
+                        </div>
+                        <div class="special-brief">
+                            <div class="special-head">
+                                <h1 class="grow-title" title="{$vi.mange_theme_title}" data-aid="{$vi.mange_theme_id}" >{$vi.mange_theme_title}</h1>
+                                <span class="special-style-item level" data-val="{$number.level}">观看量:{$number.number}</span>
+                                <span class="special-style-item"><a href="/main/{$vi.mange_theme_id}">作品主页</a></span>
+                            </div>
+                        </div>
+                        <div class="level-cheng">
+                            <div class="level-title">
+                                {$l_text}
+                            </div>
+                            {$level_text}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

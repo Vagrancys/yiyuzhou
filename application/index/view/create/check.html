@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的创作中心</title>
+    <style>
+        .profile-m a {
+            color: #000;
+        }
+        .security-left{
+            height: 700px;
+            border-right: 1px solid #e1e2e5;
+        }
+        @media screen and (max-width: 600px){
+            .security-left {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="create_content">
+    <div  class="security-left">
+        <span  class="security-title">创作中心</span>
+        <ul class="security-ul ser-ul">
+            <li  class="security-list">
+                <span  class="security-nav-name"><a href="/create.html">首页</a></span></li>
+            <li  class="security-list on">
+                <span class="security-nav-name">投稿管理</span></li>
+        </ul>
+        <ul class="security-ul">
+            <li  class="security-list-jump">
+                <a  href="/users/{$form.id}" target="_blank" class="security-list-link-jump">个人空间</a>
+            </li>
+        </ul>
+    </div>
+    <div class="security-right">
+        <div class="data-check">
+        <p class="data-check-p"><a href="/create.html?url=article">投稿管理</a> > {$video.mange_part_name}</p>
+        <div class="special-item">
+            <div class="special-image">
+                <img src="{$video.mange_part_img}" alt="{$video.mange_part_name}">
+            </div>
+            <div class="special-brief">
+                <div class="special-update-left">
+                    <div class="special-update">
+                        <div class="special-update">
+                            <div class="special-label">归纳于：</div>
+                            <em>{$video.page}</em>
+                        </div>
+                        <div class="special-update">
+                            <span>更新时间{$video.mange_part_time|date="Y-m-d H-i-s",###}</span>
+                        </div>
+                        <div class="special-update special-width">
+                            <div class="special-desc">
+                                <div class="special-label">简介：</div>
+                                {$video.mange_part_text}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-check-item inner">
+                <div class="crumbs">
+                    <p>{$video.mange_part_name}资源</p>
+                </div>
+                <ul class="data-check-ul">
+                    <li  class="special-collection-li">
+                        <div class="data-check-text">
+                            <p class="data-check-title">播放地址</p>
+                            <p>{$video.mange_part_line}</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

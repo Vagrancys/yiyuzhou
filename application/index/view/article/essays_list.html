@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$article.manga_article_title} - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap assess-header">
+                    <a href="/index.html">首页</a> &gt;
+                    <a href="/article_list/{$vi.mange_theme_id}">{$vi.mange_theme_title}</a> &gt;
+                    {$article.manga_article_title}
+                    <div class="crumbs-right articles-right">
+                        由 <a href="/users/{$article.id}">{$article.name}</a> 投稿
+                    </div>
+                </div>
+                <div class="wap articles-text">
+                    <div style="padding-left: 30px;text-align: center;">{$article.manga_article_text}</div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

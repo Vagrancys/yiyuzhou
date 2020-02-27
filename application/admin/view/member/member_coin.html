@@ -1,0 +1,92 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+
+<?php include("static/admin/header.php")?>
+<title>用户收支记录</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 用户收支记录 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<form method="post" action="member_list.html">
+		<div class="text-c"> 用户名：
+			<input type="text" name="name" class="input-text Wdate" style="width:120px;">
+			用户ID：
+			<input type="text" name="id" class="input-text Wdate" style="width:120px;">
+			用户组：
+			<input type="text" name="level" class="input-text" style="width:250px">
+			<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="r">共有数据：<strong>{$number}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" id="controlAll"></th>
+				<th width="80">ID</th>
+				<th width="100">购买者</th>
+				<th width="200">作品名</th>
+				<th width="150">购买时间</th>
+				<th width="90">购买金币</th>
+				<th width="200">购买作品子类</th>
+				<th width="100">作者</th>
+				<th width="100">购买种类</th>
+				<th width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		<form method="post" action="coin_del.html" id="form">
+			{foreach $data as $v}
+				<tr class="text-c">
+					<td><input type="checkbox" class="ck" value="{$v.coin_id}" name="item[]"></td>
+					<td>{$v.coin_id}</td>
+					<td>{$v.user}</td>
+					<td>{$v.title}</td>
+					<td>{$v.coin_time|date="Y-m-d H-i-s",###}</td>
+					<td>{$v.coin}个</td>
+					<td>{$v.Text}</td>
+					<td>{$v.users}</td>
+					<td>
+						{switch name="$v.classify"}
+						{case value="1"}观看作品{/case}
+						{case value="2"}次元奖励{/case}
+						{/switch}</td>
+					<td class="td-manage">
+						<a title="删除" href="javascript:;" onclick="coin_del(this,'{$v.coin_id}')" class="ml-5" style="text-decoration:none">
+							<i class="Hui-iconfont">&#xe6e2;</i>
+						</a>
+					</td>
+				</tr>
+			{/foreach}
+		</form>
+		</tbody>
+	</table>
+		<div class="paging-wrap" style="display: block;">
+			<div class="s-paging">
+				{$page}
+			</div>
+		</div>
+	</div>
+</div>
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+	/*用户财富-删除*/
+	function coin_del(obj,id){
+		layer.confirm('确认要删除吗？',function(index){
+			$.ajax({
+				type: 'get',
+				url: 'coin_del.html',
+				dataType: 'json',
+				data:{id:id},
+				success: function(data){
+					$(obj).parents("tr").remove();
+					layer.msg('已删除!',{icon:1,time:1000});
+				},
+			});
+		});
+	}
+</script>
+</body>
+</html>

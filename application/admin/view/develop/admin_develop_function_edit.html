@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+	<?php include("static/admin/header.php")?>
+<title>修改网站数据</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add" action="admin_develop_update.html" method="post">
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上级id：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="hidden" class="input-text" name="static" value="function">
+			<input type="hidden" class="input-text" name="develop_function_id" value="{$if.develop_function_id}">
+			<input type="text" class="input-text" name="develop_function_uid" value="{$if.develop_function_uid}">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>名称：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" name="develop_function_name" value="{$if.develop_function_name}">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>赞：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" name="develop_function_praise" value="{$if.develop_function_praise}">
+		</div>
+	</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>等级：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="develop_function_level" value="{$if.develop_function_level}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>赞的上限：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="develop_function_praise_up" value="{$if.develop_function_praise_up}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>状态：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="develop_function_static" value="{$if.develop_function_static}">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>标记：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="develop_function_title" value="{$if.develop_function_title}">
+			</div>
+		</div>
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+		</div>
+	</div>
+	</form>
+</article>
+<?php include("static/admin/footer.php")?>
+</body>
+</html>

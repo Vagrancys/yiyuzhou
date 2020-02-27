@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>找回密码-{$seo.title}</title>
+</head>
+<body>
+
+<div class="wrapper-outer">
+{include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="register-index">
+                <div class="register">
+                    <div class="register-page">
+                    <header class="page-header">
+                        <h1 class="page-title">找回密码</h1>
+                    </header>
+                        <p>
+                            <label>邮箱地址<span class="register-user-tips tips1"></span>
+                            <input type="text" name="register-user" id="retrieve-email" class="input" size="20"></label>
+                        </p>
+                        <input name="register-user-submit" type="button" value="发送" class="register-btn" id="retrieve-email-submit">
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script src="__PUBLIC__/js/jquery-3.2.1.min.js"  type="text/javascript"></script>
+<script src="__PUBLIC__/js/common.js"  type="text/javascript"></script>
+<script>
+    $("#retrieve-email-submit").click(function(){
+        var text=$("#retrieve-email").val();
+        if(text==""){
+            var tet="邮箱未填！";
+            $(".register-user-tips").html(tet).show();
+        }
+        $.ajax({
+            type: 'post',
+            url: '/retrieve_email.html',
+            dataType: 'json',
+            data:{text:text},
+            success: function (data) {
+                if(data.msg==1){
+                    alert(data.text);
+                }else{
+                    $(".register-user-tips").html(data.text).show();
+                }
+            },
+        })
+    })
+</script>
+</html>

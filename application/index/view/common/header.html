@@ -1,0 +1,208 @@
+<div class="nav">
+    <div class="nav-image"></div>
+    <div class="nav-top-header"></div>
+    <div class="nav-top">
+        <div class="top-left">
+            <ul class="top-ul">
+                <li><a href="/index.html">异宇宙动漫</a></li>
+                <li><a href="/develop.html">发展状况</a></li>
+                <li><a href="/sign.html" >签到池</a></li>
+                <li><a href="/help.html">帮助</a></li>
+                <li><a href="/article.html">公告</a></li>
+            </ul>
+            {if condition="$name.id eq ''"}
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button">
+                    <span>异宇宙动漫</span>
+                </button>
+                <div class="dropdown-menu" style="position: absolute; transform: translate3d(0px, 44px, 0px); right:100%;top: -3px;left: 15px; will-change: transform;">
+                    <a class="dropdown-item dropdown-active" href="/index.html">首页</a>
+                    {foreach $nav as $data}
+                    <a class="dropdown-item" href="/home/{$data.english}.html" >{$data.name}</a>
+                    {/foreach}
+                    <a class="dropdown-item" href="/search.html" >搜索</a>
+                    <a class="dropdown-item" href="/lists/1-6-2-----" >全库</a>
+                    <a class="dropdown-item" href="/ranking.html" >排行榜</a>
+                    <a class="dropdown-item" href="/develop.html">发展状况</a>
+                    <a class="dropdown-item" href="/sign.html">签到池</a>
+                    <a class="dropdown-item" href="/level/1" >成长区</a>
+                    <a class="dropdown-item" href="/taobao.html" >导师区</a>
+                    <a class="dropdown-item" href="/rise.html" >升阶区</a>
+                    <a class="dropdown-item" href="/help.html" >帮助</a>
+                    <a class="dropdown-item" href="/article.html">公告</a>
+                    <a class="dropdown-item" href="/total.html">新番总结区</a>
+                </div>
+            </div>
+            {else /}
+            <div class="dropdown-user">
+                <a id="slide-out-open" class="slide-out-open">
+                    <span></span>
+                </a>
+            </div>
+            {/if}
+      </div>
+        <div class="top-right">
+            {if condition="$name.id eq ''"}
+            <div class="right-login">
+                <a href="/login.html">登录</a>
+                <a href="/register.html">注册</a>
+                <a href="/login.html">投稿</a>
+            </div>
+            {else /}
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle" type="button">
+                    <span>异宇宙动漫</span>
+                </button>
+                <div class="dropdown-menu" style="position: absolute; transform: translate3d(0px, 44px, 0px); top: -3px; right: 30px; will-change: transform;">
+                    <a class="dropdown-item dropdown-active" href="/index.html" >首页</a>
+                    {foreach $nav as $data}
+                    <a class="dropdown-item" href="/home/{$data.english}.html" >{$data.name}</a>
+                    {/foreach}
+                    <a class="dropdown-item" href="/search.html" >搜索</a>
+                    <a class="dropdown-item" href="/lists/1-6-2-----" >全库</a>
+                    <a class="dropdown-item" href="/ranking.html">排行榜</a>
+                    <a class="dropdown-item" href="/develop.html" >发展状况</a>
+                    <a class="dropdown-item" href="/sign.html" >签到池</a>
+                    <a class="dropdown-item" href="/level/1" >成长区</a>
+                    <a class="dropdown-item" href="/taobao.html" >导师区</a>
+                    <a class="dropdown-item" href="/rise.html">升阶区</a>
+                    <a class="dropdown-item" href="/help.html">帮助</a>
+                    <a class="dropdown-item" href="/article.html">公告</a>
+                    <a class="dropdown-item" href="/total.html">新番总结区</a>
+                    <a class="dropdown-item" href="/works.html">单集投稿</a>
+                    <a class="dropdown-item" href="/theme.html">系列投稿</a>
+                </div>
+            </div>
+            <div class="right-member">
+                <ul class="right-ul">
+                    <li class="right-li" id="core">
+                        <a href="/users/{$name.id}" target="_blank" class="t">
+                            <div class="i-face">
+                                {if condition="$name.img eq ''"}
+                                <img src="/images/head-images/default.jpg" class="face">
+                                {else /}
+                                <img src="/images/head-images/{$name.img}" class="face">
+                                {/if}
+                            </div>
+                        </a>
+                        <div class="select-ul profile-m dd-bubble" id="right-core" style="left: -50px;">
+                            <div class="header-u-info">
+                                <a href="/users/{$name.id}">{$name.name}</a>
+                            </div>
+                            <div class="member-menu">
+                                <ul class="clearfix">
+                                    <li>
+                                        <a href="/core.html" class="account">个人中心</a>
+                                    </li>
+                                    <li>
+                                        <a href="/create.html" class="member">创作中心</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="member-bottom">
+                                <a id="quit" onclick="quit(this)" class="logout">退出</a>
+                            </div>
+                        </div>
+                    </li>
+                    {if condition="$sign eq 1"}{else /}
+                    <li class="right-li" id="sign">
+                        <a class="sign-css" onclick="sign('{$name.id}');">签到</a>
+                    </li>
+                    {/if}
+                    <li class="right-li" id="asset">
+                        资产
+                        <ul class="select-ul profile-m dd-bubble" id="right-asset" style="top:35px;left: -50px;">
+                            <li><a href="/core.html?url=money" >金币：<i>{$users.money}</i></a></li>
+                            <li><a href="/core.html?url=money">收支</a></li>
+                        </ul>
+                    </li>
+                    <li class="right-li" id="news">
+                            <button>消息
+                                {if condition="$new.static eq 0"}
+                                {else /}
+                                <span class="news-count"></span>
+                                {/if}
+                            </button>
+                        <ul class="select-ul profile-m dd-bubble" id="right-news" style="top:35px;left: -50px;">
+                            <li id="new1">
+                                <a href="/user_new.html?static=reply" >回复我的</a>
+                            </li>
+                            <li><a href="/user_new.html?static=i">@我</a></li>
+                            <li><a href="/user_new.html?static=praise" >收到的赞</a></li>
+                            <li><a href="/user_new.html?static=system">系统通知</a>
+                                {if condition="$new.system eq 0"}
+                                {else /}
+                                <span class="new-count"></span>
+                                {/if}
+                            </li>
+                            <li><a href="/user_new.html">我的消息</a></li>
+                        </ul>
+                    </li>
+                    {if condition="$name.static eq 1"}
+                    <li class="right-li" id="manage">
+                        管理
+                        <ul class="select-ul profile-m dd-bubble" id="right-manage" style="top:35px;left: -50px;">
+                            <li><a href="/admins.html">站务中心</a></li>
+                            {if condition="$name.index_static eq 1"}
+                            <li><a href="/admin.html">管理中心</a></li>
+                            {/if}
+                        </ul>
+                    </li>
+                    {/if}
+                    <li class="right-li" id="submission">
+                        投稿
+                        <ul class="select-ul profile-m dd-bubble" id="right-submission" style="top:35px;left: -50px;">
+                            <li><a href="/contribute.html">投稿</a></li>
+                            <li><a href="/works.html">单集投稿</a></li>
+                            <li><a href="/theme.html">系列投稿</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            {/if}
+        </div>
+    </div>
+    <div class="nav-search">
+        <div class="search-search">
+            <a class="rank" href="/ranking.html"><div class="search-rank">排行榜</div></a>
+            <div class="search-box">
+                <form class="search-form" method="post" action="/search.html">
+                    <input class="search-input"  placeholder="查询" name="keyword">
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="nav-button-header">
+    <div class="nav-button">
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/index.html">首页</a>
+            </li>
+            {foreach $nav as $data}
+            <li class="nav-item">
+                <a href="/home/{$data.english}.html">{$data.name}</a>
+                <ul class="sub-nav" style="margin-left: -18px;">
+                    {foreach $data.one as $vd}
+                    <li class="sub-nav-item">
+                        <a href="/lists/1-{$data.id}-{$data.level}-{$vd.id}----">{$vd.name}</a>
+                    </li>
+                    {/foreach}
+                </ul>
+            </li>
+            {/foreach}
+            <li class="nav-item">
+                <a href="/level/1">成长区</a>
+            </li>
+            <li class="nav-item">
+                <a href="/taobao.html">导师区</a>
+            </li>
+            <li class="nav-item">
+                <a href="/rise.html" >升阶区</a>
+            </li>
+            <li class="nav-item">
+                <a href="/total.html">新番总结区</a>
+            </li>
+        </ul>
+    </div>
+</div>

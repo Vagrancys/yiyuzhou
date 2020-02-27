@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>文章投稿区-{$seo.title}</title>
+    <style>
+        #editor{
+            width: 620px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wrapper-form">
+    <h1 class="contribute-title">{$vi.title}文章资讯发布</h1>
+    <form class="conform" name="post" action="/articleCb_post.html" method="post">
+        <div class="form-title">
+            <dt>标题</dt>
+            <dd>
+                <input type="hidden" name="manga_article_manga" value="{$vi.manga_id}">
+                <input type="text" class="title-input" name="manga_article_title" onchange="article_conform(this)" placeholder="请输入标题" >
+                <p class="title-p"></p>
+            </dd>
+        </div>
+        <div class="form-ul">
+                <ul class="form-post">
+                    <li class="form-post-h4"><h4>作品信息</h4></li>
+                    <li>
+                        <dt>类型</dt>
+                        <dd>
+                            <select class="form-select" type="text" name="manga_article_class">
+                                <option value="0">请选择</option>
+                                {foreach $class as $c}
+                                <option value="{$c.manga_article_class_id}">{$c.manga_article_class_name}</option>
+                                {/foreach}
+                            </select>
+                        </dd>
+                    </li>
+                    <li>
+                        <dt>文章编辑</dt>
+                        <dd>
+                            <div id="editor"></div>
+                            <textarea id="text1" style="display:none;width:100%; height:200px;" name="manga_article_text"></textarea>
+                        </dd>
+                    </li>
+                </ul>
+        </div>
+        <div>
+            <button type="submit"  class="form-submit">
+                <span> 发表文章 </span>
+            </button>
+        </div>
+    </form>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="//unpkg.com/wangeditor/release/wangEditor.min.js"></script>
+<script type="text/javascript">
+    var E = window.wangEditor;
+    var editor = new E('#editor');
+    editor.customConfig.onchange = function (html) {
+        $("#text1").val(html)
+    };
+    editor.create();
+</script>
+</body>
+</html>

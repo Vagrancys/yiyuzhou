@@ -1,0 +1,170 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+<title>新增导航 - 导航管理</title>
+</head>
+<body>
+<article class="page-container" style="padding: 0 0 10px 0;">
+	<nav class="breadcrumb" ><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 导航管理 <span class="c-gray en">&gt;</span> 添加导航 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<form action="nav_form.html" method="post" class="form form-horizontal" id="form-article-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>导航主页面：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select class="select" id="select" size="1"  name="page">
+						<option selected>请选择</option>
+						{foreach $data as $vo}
+						<option value="{$vo.id}">{$vo.name}</option>
+						{/foreach}
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>判断导航储存方式：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select class="select" id="select4" size="1" onchange="doSome();" name="vo">
+						<option selected>请选择</option>
+						<option value="1">首页导航</option>
+						<option value="2">排行榜导航</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>判断导航还是全库：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select class="select"  size="1"  name="nav">
+						<option selected>请选择</option>
+						<option value="1">首页导航</option>
+						<option value="2">全库导航</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>页面主分类：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select class="select" id="select5" size="1" name="pages">
+						<option selected>请选择</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>导航主页面等级：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select class="select" id="select1" onchange="doTotal();" size="1" name="level">
+						<option selected>请选择</option>
+						<option value="1">顶级导航</option>
+						<option value="2">二级导航</option>
+						<option value="3">三级导航</option>
+						<option value="4">四级导航</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>页面单项总导航：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+						<span class="select-box">
+							<select class="select" id="select2" size="1" onchange="doNav();" name="total">
+								<option value="0" selected>请选择</option>
+							</select>
+						</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>页面单项导航：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+					<select class="select" id="select3" size="1" name="single">
+						<option selected>请选择</option>
+					</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>页面导航名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2"><span class="c-red">*</span>英文名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="english">
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button class="btn btn-primary radius" type="submit"><i class="Hui-iconfont">&#xe632;</i> 保存</button>
+			</div>
+		</div>
+	</form>
+</article>
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+	function doSome(){
+		var val=$("#select option:selected").val();
+		var total=$("#select4 option:selected").val();
+		$.ajax({
+			type: 'post',
+			url: "nav_single.html",
+			dataType: 'json',
+			data:{'id':val,'total':total},
+			async:false,
+			success: function(text){
+				if(!text==''){
+					$("#select5").empty().append(text);
+				}
+			}
+		});
+	}
+
+	function doTotal(){
+		var val=$("#select option:selected").val();
+		var total=$("#select1 option:selected").val();
+		var vo=$("#select4 option:selected").val();
+		var v5=$("#select5 option:selected").val();
+		$.ajax({
+			type: 'post',
+			url: "nav_total.html",
+			dataType: 'json',
+			data:{'id':val,'total':total,'vo':vo,'v5':v5},
+			async:false,
+			success: function(text){
+				if(!text==''){
+					$("#select2").empty().append(text);
+				}
+			}
+		});
+	}
+
+	function doNav(){
+		var val=$("#select2 option:selected").val();
+		var total=$("#select1 option:selected").val();
+		var vo=$("#select4 option:selected").val();
+		$.ajax({
+			type: 'post',
+			url: "nav_nav.html",
+			dataType: 'json',
+			data:{'id':val,'total':total,'vo':vo},
+			async:false,
+			success: function(text){
+				if(!text==''){
+					$("#select3").empty().append(text);
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>

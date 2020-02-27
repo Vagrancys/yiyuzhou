@@ -1,0 +1,94 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+    <?php include("static/admin/header.php")?>
+
+    <title>新建网站角色 - 管理员管理</title>
+   </head>
+<body>
+<article class="page-container">
+    <form class="form form-horizontal" action="role_update_add.html" method="post" >
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="hidden" class="input-text" value="{$form.id}" name="id">
+                <input type="text" class="input-text" value="{$form.title}" name="title">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">备注：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$form.text}" name="text">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3">网站角色：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                {foreach $menu as $m}
+                <dl class="permission-list">
+                    <dt>
+                        <label>
+                            <input type="checkbox">
+                            {$m.title}
+                        </label>
+                    </dt>
+                    <dd>
+                        {foreach $m.two as $t}
+                        <dl class="cl permission-list2">
+                    <dt>
+                        <label>
+                            <input type="checkbox" value="{$t.id}" name="item[]">
+                            {$t.title}
+                        </label>
+                    </dt>
+                    <dd>
+                        {foreach $t.where as $w}
+                        <label>
+                            <input type="checkbox" value="{$w.id}" name="rules[]">
+                            {$w.title}
+                        </label>
+                        {/foreach}
+                    </dd>
+                </dl>
+                {/foreach}
+                </dd>
+                </dl>
+                {/foreach}
+            </div>
+        </div>
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;确定&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+    $(function(){
+        $(".permission-list dt input:checkbox").click(function(){
+            $(this).closest("dl").find("dd input:checkbox").prop("checked",$(this).prop("checked"));
+        });
+        $(".permission-list2 dd input:checkbox").click(function(){
+            var l =$(this).parent().parent().find("input:checked").length;
+            var l2=$(this).parents(".permission-list").find(".permission-list2 dd").find("input:checked").length;
+            if($(this).prop("checked")){
+                $(this).closest("dl").find("dt input:checkbox").prop("checked",true);
+                $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",true);
+            }
+            else{
+                if(l==0){
+                    $(this).closest("dl").find("dt input:checkbox").prop("checked",false);
+                }
+                if(l2==0){
+                    $(this).parents(".permission-list").find("dt").first().find("input:checkbox").prop("checked",false);
+                }
+            }
+        });
+    });
+</script>
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

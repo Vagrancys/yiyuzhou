@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.mange_theme_title}的荣誉汇总 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap assess-header">
+                    <a href="/index.html">首页</a> &gt;
+                    <a href="/theme/{$vi.mange_theme_id}">{$vi.mange_theme_title}</a> &gt;
+                    {$vi.mange_theme_title}的荣誉汇总
+                </div>
+                <div class="line">
+                    <div class="assess-left">
+                        <div class="assess-user" id="manga-id" data-aid="{$vi.mange_theme_id}">
+                            <img src="{$vi.mange_theme_img}">
+                        </div>
+                    </div>
+                    <div class="assess-right">
+                    <ul class="assess-ul">
+                        <li>
+                            <h4>作品名称</h4>
+                            <p>{$vi.mange_theme_title}</p>
+                        </li>
+                        <li>
+                            <h4>荣誉数</h4>
+                            <p>
+                                {if condition="$vi.number neq 0"}
+                                <i>
+                                    {$vi.number}</i>
+                                <b>个</b>
+                                {else /}
+                                还没有荣誉
+                                {/if}
+                            </p>
+                        </li>
+                        <li>
+                            <h4>官方荣誉数</h4>
+                            <p>
+                                {if condition="$vi.Vip neq 0"}
+                                <i>
+                                    {$vi.Vip}</i>
+                                <b>个</b>
+                                {else /}
+                                还没有荣誉
+                                {/if}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+                <div class="sign-table">
+        <table>
+            <tbody>
+            <tr>
+                <th style="width:90px;">排序</th>
+                <th style="width:90px;">荣誉类别</th>
+                <th style="width:90px;">荣誉等级</th>
+                <th style="width:150px;">荣誉名称</th>
+                <th style="width:90px;">荣誉获得时间</th>
+            </tr>
+            </tbody>
+            {foreach $honor as $h}
+            <tr>
+                <th>{$vi.numbers++}</th>
+                <th>{switch name="$h.manga_honor_class"}
+                    {case value="1"}官方荣誉{/case}
+                    {case value="2"}普通荣誉{/case}
+                    {/switch}
+                </th>
+                <th>{$h.manga_honor_level}</th>
+                <th>{$h.manga_honor_text}</th>
+                <th>{$h.manga_honor_time|date="Y-m-d H:i:s",###}</th>
+            </tr>
+            {/foreach}
+        </table>
+    </div>
+                <div class="paging-wrap" style="display: block;">
+                    <div class="s-paging">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

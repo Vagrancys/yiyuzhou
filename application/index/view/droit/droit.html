@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的权利中心 - {$seo.title}</title>
+    <link   href="/static/index/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+            .level-title p{
+                font-size: 10px;
+            }
+            .settings-item-wrapper {
+                padding-left: 50px;
+            }
+            .settings-item-wrapper h2 {
+                font-size: 20px;
+            }
+        .settings-item-right{
+            margin-bottom: 16px;
+            margin-top: 20px;
+        }
+            .security_content{
+                height: 820px;
+                position: relative;
+            }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="security_content">
+                    <div class="module-yun-tip" style="">
+                        <div class="tip-inner">
+                            <span class="tip-msg">修改成功</span>
+                        </div>
+                    </div>
+                    <section class="settings-item-wrapper">
+                        <h2>签到池设置</h2>
+                        <p class="settings-item-intro">你可以在这里设定签到池的各种便捷。</p>
+                        <div data-type="question_invite" class="settings-item settings-item-solidline clearfix">
+                            <h3 class="zg-left settings-item-left">自动签到</h3>
+                            <div class="zg-left settings-item-right">
+                                <div class="row settings-receive">
+                                    {if condition="$droit.droit_list_sign eq '1'"}
+                                    <label>
+                                        <input type="radio" name="question-invite-receive" value="all" checked="">
+                                        自动签到
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="question-invite-receive" value="follow">
+                                        不自动签到
+                                    </label>
+                                    {else /}
+                                    <label>
+                                        <input type="radio" name="question-invite-receive" value="all" >
+                                        自动签到
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="question-invite-receive" value="follow" checked="">
+                                        不自动签到
+                                    </label>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                        <div data-type="column_update" class="settings-item settings-item-solidline clearfix">
+                            <h3 class="zg-left settings-item-left">签到提示</h3>
+                            <div class="zg-left settings-item-right">
+                                <div class="row settings-receive">
+                                    {if condition="$droit.droit_list_sign eq '1'"}
+                                    <label>
+                                        <input type="radio" name="column-update-receive" value="al" checked="">
+                                        签到有提示
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="column-update-receive" value="no">
+                                        签到无提示
+                                    </label>
+                                    {else /}
+                                    <label>
+                                        <input type="radio" name="column-update-receive" value="al">
+                                        签到有提示
+                                    </label>
+                                    <label>
+                                        <input type="radio" name="column-update-receive" value="no" checked="">
+                                        签到无提示
+                                    </label>
+                                    {/if}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $('input[name=column-update-receive]').change(function() {
+        var text=$(this).val();
+        droit_static(text);
+    });
+    $('input[name=question-invite-receive]').change(function() {
+        var text=$(this).val();
+        droit_static(text);
+    });
+    function droit_static(text){
+        $.ajax({
+            type: 'POST',
+            url: '/droit_static.html',
+            dataType: 'json',
+            data:{text:text},
+            success: function(data){
+                if(data.msg==1){
+                    $(".module-yun-tip").show();
+                    $(".tip-msg").text(data.text);
+                }else{
+                    $(".module-yun-tip").show();
+                    $(".tip-msg").text(data.text);
+                }
+                setTimeout(function(){
+                    $(".module-yun-tip").hide();
+                },3000)
+            },
+        });
+    }
+</script>
+</html>

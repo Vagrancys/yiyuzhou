@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>淘宝区 - {$seo.title}</title>
+    <style>
+        .nav-span{
+            width: 165px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap main">
+    <div class="nav-filter">
+        <div class="nav-filter-content">
+            <div class="nav-filter-section" style="height: 40px;">
+                <h3 class="dt"><a href="/taobao.html">导师区</a></h3>
+                <span class="nav-span">按时间来排位</span>
+
+                <div class="nav-location">
+                    <a class="btn-success" href="javascript:location.replace(location.href);" title="刷新" >刷新</a>
+                </div>
+            </div>
+            <div class="taobao-div">
+                <p><a href="taobao.html">未拥有导师</a></p><p class="taobao-active">拥有导师</p>
+            </div>
+        </div>
+    </div>
+    <div class="videos">
+        <ul class="videos-ul">
+            {empty name="$zx"}
+             <h1 class="h1">视频库为空！</h1>
+            {else /}
+            {foreach $zx as $c}
+            <li class="nav-video-item">
+                <div >
+                    <a href="/tor/{$c.mange_theme_id}" target="_blank" title="{$c.mange_theme_title}" class="nav-video-link">
+                        <img src="{$c.mange_theme_img}" alt="{$c.mange_theme_title}">
+                    </a>
+                </div>
+                <div class="nav-video-primary">
+                    <h4 class="nav-video-title">
+                        <a href="/tor/{$c.mange_theme_id}" title="{$c.mange_theme_title}" target="_blank">{$c.mange_theme_title}</a>
+                    </h4>
+                </div>
+            </li>
+            {/foreach}
+            {/empty}
+        </ul>
+    </div>
+    <div class="paging-wrap" style="display: block;">
+        <div class="s-paging">
+            {$page}
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>次元中心-{$seo.title}</title>
+    <style>
+    .login-quit {
+    height: 15px;
+    width: 15px;
+    }
+    #slide-out-open span, #slide-out-open span:after, #slide-out-open span:before, .login-quit span, .login-quit span:after {
+        width: 15px;
+    }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wrapper-form">
+                    <h1 class="contribute-title">作品发布</h1>
+                    <form class="conform" name="post" action="works_post.html" method="post">
+                        <div class="form-title">
+                            <dt>标题</dt>
+                            <dd>
+                                <input type="hidden" name="mange_part_user" value="{$users.id}">
+                                <input type="text" class="title-input" name="mange_part_name" onchange="manga_conform(this)" placeholder="请输入标题">
+                                <p class="title-p"></p>
+                            </dd>
+                        </div>
+                        <div class="form-ul">
+                            <ul class="form-post">
+                                <li class="form-post-h4"><h4>作品信息</h4></li>
+                                <li>
+                                    <dt>类型</dt>
+                                    <dd>
+                                        <select class="form-select" id="select" type="text"
+                                                name="mange_part_level">
+                                            <option value="0">请选择</option>
+                                            {foreach $na as $n}
+                                            <option value="{$n.mange_theme_id}">{$n.mange_theme_title}</option>
+                                            {/foreach}
+                                        </select>
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>封面</dt>
+                                    <dd style="height: 350px;width: 645px;" id="head-text">
+                                        <div id="uploader" class="wu-example" onclick="head_image();">
+                                            点击选择封面
+                                        </div>
+                                        <div id="head-image" class="head-image">
+                                        </div>
+                                        <input id="head-name" name="mange_part_img" value="" type="hidden">
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>详细简介</dt>
+                                    <dd>
+                                        <textarea name="mange_part_text" style="height:200px" class="form-select form-text"></textarea>
+                                        <span class="form-prompt">填写你想填的</span>
+                                    </dd>
+                                </li>
+                                <li class="form-post-h4 ">
+                                    <h4>你的资源信息</h4>
+                                </li>
+                                <li class="li-190">
+                                    <table class="collect-table">
+                                        <tbody id="trCb">
+                                        <tr>
+                                            <th>在线播放地址 <span class="form-prompt"> 填写正确的播放地址参数或播放参数</span></th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-collect" name="mange_part_line">
+                                            </td>
+                                            <td>
+                                                <input class="collect" type="button" value="必须">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <button type="button" class="form-submit" id="form-submit">
+                            发表作品
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $("#form-submit").click(function(){
+        var t1=false,t2=false,t8=false;
+        var title=$(".title-input").val();
+        var select=$("#select option:selected").val();
+        var img=$("#head-name").val();
+        if(img==""){
+            tips("封面未选择！");
+        }else{
+            t8=true;
+        }
+        if(select==''){
+            tips("类型未选择！");
+        }else{
+            t2=true;
+        }
+        if(!(title=="")){
+            t1=true;
+        }else{
+            tips("标题未取！");
+        }
+        if(t1&&t2&&t8){
+            $('form').submit();
+            return true;
+        }
+
+    });
+    function tips(text){
+        $("body").append(
+                "<div class='login'> <h1>错误提示！<a class='login-quit'> <span></span> " +
+                "</a></h1> " +
+                        "<p>"+text+"</p>"+
+                "</div>"
+        );
+        width(".login");
+    }
+</script>
+</html>

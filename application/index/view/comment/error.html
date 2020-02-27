@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>异宇宙-{$seo.title}</title>
+    <style type="text/css">
+        .jump{
+            padding-left: 400px;
+        }
+        .video-cuo-button {
+            display: inline-block;
+            line-height: 40px;
+            vertical-align: middle;
+            text-align: center;
+            background: #00a1d6;
+            color: #fff;
+            padding: 0 10px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 0 30%;
+        }
+        #time{
+            height: 40px;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+{include file="common/header"}
+    <div class="wrapper" style="margin-bottom: 25px;">
+        <div class="video-cuo">
+            <h1>{$text}</h1>
+            <p class="jump">
+                页面自动 <a class="video-cuo-button" id="href" href="/{$url}.html">跳转</a> 等待时间： <b id="time">{$time}</b>
+                <a class="video-cuo-button" href="/{$url}.html">返回{$h1}</a>
+            </p>
+        </div>
+    </div>
+{include file="common/footer"}
+<script type="text/javascript">
+    (function(){
+        var time = document.getElementById('time'),
+                href = document.getElementById('href').href;
+        var interval = setInterval(function(){
+            var times = --time.innerHTML;
+            if(times <= 0) {
+                location.href = href;
+                clearInterval(interval);
+            };
+        }, 1000);
+    })();
+</script>
+</body>
+</html>

@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>升阶区 - {$seo.title}</title>
+    <link   href="/static/index/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .wap{
+            text-align: center;
+        }
+        .wap h1{
+            height: 60px;
+            line-height: 60px;
+        }
+        .comment-list{
+            text-align: left;
+        }
+        .rise-div{
+            overflow: auto;
+            padding: 15px 0;
+        }
+        .rise-ul{
+            width: 50%;
+            overflow: auto;
+            margin:0 auto;
+        }
+        .rise-ul li{
+            padding: 45px;
+            float: left;
+        }
+        .rise-div p{
+            height: 30px;
+            line-height: 30px;
+        }
+        .level-text-p {
+            margin: 0 auto;
+            width: 55%;
+        }
+        .rise-comment-input{
+            height: 25px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #93a1a1;
+            float: left;
+        }
+        .level-div{
+            width: 85%;
+            float: left;
+        }
+        .level-text-p1 {
+            width: 80%;
+        }
+        .form-submit{
+            margin-top: 0;
+            float: right;
+        }
+        .rise-submit{
+            float: none;
+            margin-left: 10px;
+        }
+        label {
+            display: inherit;
+        }
+        .form-color{
+            background-color: #99a2aa;
+        }
+        @media screen and (max-width: 600px){
+            .rise-ul {
+                width: 100%;
+            }
+            .rise-ul li {
+                padding:10px 8px;
+            }
+            .level-text-p {
+                width: 100%;
+            }
+            .level-div {
+                width: 72%;
+            }
+            .level-text-p1 {
+                width: 65%;
+            }
+            .user-face {
+                margin: 10px 0 0 5px;
+            }
+            .list-item img {
+                width: 40px;
+                height: 40px;
+            }
+            .user-con {
+                margin-left: 50px;
+                padding: 0;
+            }
+            .rise-div p {
+                height:100%;
+                line-height: 20px;
+            }
+            .user-i-nfo {
+                line-height: 20px;
+            }
+            .user-reply-con {
+                width: 78%;
+                float: right;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap">
+                    <h1>{$member.name}</h1>
+                    <div class="rise-div">
+                        <ul class="rise-ul">
+                            <li><a href="rise.html?id={$rise.rise_level_date_id}&static=level">导师等级</a></li>
+                            <li><a href="rise.html?id={$rise.rise_level_date_id}&static=tor">导师历史</a></li>
+                            <li><a href="rise.html?id={$rise.rise_level_date_id}&static=comment">评论历史</a></li>
+                            <li><a href="rise.html?id={$rise.rise_level_date_id}&static=article">文章历史</a></li>
+                        </ul>
+                    </div>
+                    <div class="rise-div">
+                        <p>活动资金</p>
+                        <p class="rises-money">{$rise.rise_level_date_money}个硬币</p>
+                    </div>
+                    <div class="rise-div">
+                        <p>公告</p>
+                        <p>{$rise.rise_level_date_text}</p>
+                    </div>
+                    <div class="rise-div">
+                        <p>升级条件</p>
+                        <div class="level-text-p level-text-p2">
+                            <div class="level-div">
+                            <div class="level-text-div">粉丝应援：</div>
+                            <div class="level-text-p1 progress">
+                                <div class="progress-bar progress-bar-warning" id="rise-fans-bar-width" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" {$rise.fans_width}>
+                                    <span id="rise-fans-bar-span">{$rise['rise_level_date_fans']}/{$rise['rise_level_date_fans_up']}</span>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="form-fans">
+                                {if condition="$rise.rise_power eq '0'"}
+                            {if condition="$name.id eq ''"}
+                            <button type="submit" class="form-submit" onclick="login(this)" style="margin-left: 10px;">登录</button>
+                            {else /}
+                            {if condition="$rise.login_static eq '1'"}
+                            {else /}
+                            {if condition="$rise.fans_static eq '0'"}
+                            <button type="submit" class="form-submit" onclick="rise_fans('{$rise.rise_level_date_id}')" style="margin-left: 10px;">支持</button>
+                            {else /}
+                            <button type="submit" class="form-submit" style="margin-left: 10px;">已支持</button>
+                            {/if}
+                            {/if}
+                            {/if}
+                                {else /}
+                                <button type="submit" class="form-submit" style="margin-left: 10px;">升阶完成</button>
+                                {/if}
+                            </div>
+                        </div>
+                        <div class="level-text-p">
+                            <div class="level-div">
+                            <div class="level-text-div">支持数：</div>
+                            <div class="level-text-p1 progress">
+                                <div class="progress-bar progress-bar-warning" id="rise-support-bar-width" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" {$rise.support_width}>
+                                    <span id="rise-support-bar-span">{$rise['rise_level_date_support']}/{$rise['rise_level_date_support_up']}</span>
+                                </div>
+                            </div>
+                        </div>
+                            <div class="form-support">
+                                {if condition="$rise.rise_power eq '0'"}
+                            {if condition="$name.id eq ''"}
+                            <button type="submit" class="form-submit" onclick="login(this)" style="margin-left: 10px;">登录</button>
+                            {else /}
+                            {if condition="$rise.login_static eq '1'"}
+                            {else /}
+                            {if condition="$rise.support_static eq '0'"}
+                            {if condition="$rise.support_level eq '1'"}
+                            <button type="submit" class="form-submit" onclick="rise_support('{$rise.rise_level_date_id}')" style="margin-left: 10px;">支持</button>
+                            {else /}
+                            <button type="submit" class="form-submit" style="margin-left: 10px;">等级不够</button>
+                            {/if}
+                            {else /}
+                            <button type="submit" class="form-submit" style="margin-left: 10px;">已支持</button>
+                            {/if}
+                            {/if}
+                            {/if}
+                                {else /}
+                                <button type="submit" class="form-submit" style="margin-left: 10px;">升阶完成</button>
+                                {/if}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rise-div">
+                        {if condition="$rise.rise_power eq '0'"}
+                        {if condition="$rise.level_power eq '1'"}
+                        <button type="submit" class="form-submit" style="margin-left: 10px;float: none;" onclick="level_power('{$rise.rise_level_date_level}');">获取权限</button>
+                        {else /}
+                        <button type="submit" class="form-submit" style="margin-left: 10px;float: none;">等待完成</button>
+                        {/if}
+                        {else /}
+                        <button type="submit" class="form-submit" style="margin-left: 10px;float: none;">升阶完成</button>
+                        {/if}
+                    </div>
+                    <div class="rise-div">
+                        <p>评论区</p>
+                        <div class="comment-send">
+                            {if condition="$name.id neq ''"}
+                            <div class="comment-face">
+                                {if condition="$member.image eq ''"}
+                                <img class="user-head" src="/images/head-images/default.jpg">
+                                {else /}
+                                <img class="user-head" src="/images/head-images/{$member.image}">
+                                {/if}
+                            </div>
+                            <div class="comment-text-area">
+                                <textarea class="comment-txt"  cols="80" rows="5" id="text"></textarea>
+                                <button data-aid="{$rise.rise_level_date_id}" id="rise-comment" class="comment-submit" type="submit">发表评论</button>
+                            </div>
+                            {else /}
+                            <div class="comment-face">
+                                <img class="user-head" src="/images/head-images/default.jpg">
+                            </div>
+                            <div class="comment-text-area">
+                                <textarea class="comment-txt" cols="80" name="msg" rows="5"></textarea>
+                                <button class="comment-submit" type="submit" onclick="login(this)">请先登录</button>
+                            </div>
+                            {/if}
+                        </div>
+                        <div class="comment-list" id="rise-comment-list">
+                            {foreach $comment as $c}
+                            <div class="list-item reply-wrap">
+                                <div class="user-face">
+                                    <a href="/users/{$c.rise_comment_member}" target="_blank">
+                                        {if condition="$c.image eq ''"}
+                                        <img class="user-head" src="/images/head-images/default.jpg" alt="{$c.name}">
+                                        {else /}
+                                        <img class="user-head" src="/images/head-images/{$c.image}" alt="{$c.name}">
+                                        {/if}
+                                    </a>
+                                </div>
+                                <div class="user-con" id="floor{$c.rise_comment_floor}">
+                                    <div class="user">
+                                        <a data-aid="{$c.rise_comment_member}" class="comments_a" href="/users/{$c.rise_comment_member}" target="_blank">{$c.name}</a>
+                                        <a href="#" target="_blank">
+                                            <i>{$c.level}</i>级
+                                        </a>
+                                    </div>
+                                    <p class="user-text">{$c.rise_comment_text}</p>
+                                    <div class="user-i-nfo" >
+                                        <span class="number">{$c.rise_comment_floor}楼</span>
+                                        <span>{$c.rise_comment_time|date="Y-m-d H:i:s",###}</span>
+                                        <span data-aid="{$c.rise_comment_floor}"data-value="{$c.name}" data-val="{$c.rise_comment_member}" class="rise-comments">回复</span>
+                                    </div>
+                                    {empty name="$c.comment"}
+                                    {else /}
+                                    {foreach $c.comment as $cc}
+                                    <div class="user-item">
+                                        <a class="user-item-a" href="/users/{$cc.rise_comment_member}" target="_blank" class="reply-face">
+                                            {if condition="$cc.image eq ''"}
+                                            <img class="user-head" src="/images/head-images/default.jpg" alt="{$cc.name}">
+                                            {else /}
+                                            <img class="user-head" src="/images/head-images/{$cc.image}" alt="{$cc.name}">
+                                            {/if}
+                                        </a>
+                                        <div class="user-reply-con">
+                                            <div class="user-user">
+                                                <a href="/users/{$cc.rise_comment_member}" target="_blank" class="name ">{$cc.name}</a>
+                                                <a href="#" target="_blank">
+                                                    <i>{$cc.level}</i>级
+                                                </a>
+                                                <span class="text-con">{$cc.rise_comment_text}</span>
+                                            </div>
+                                            <div class="user-i-nfo">
+                                                <span>{$cc.rise_comment_time|date="Y-m-d H:i:s",###}</span>
+                                                <span data-aid="{$c.rise_comment_floor}" data-value="{$cc.name}" data-val="{$c.rise_comment_member}" class="rise-comments">回复</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {/foreach}
+                                    <div class="paging-box" style="display: block;">
+                                        {$c.pages}
+                                    </div>
+                                    {/empty}
+                                </div>
+                            </div>
+                            {/foreach}
+                        </div>
+                        <div class="paging-wrap" style="display: block;">
+                            <div class="s-paging">
+                                {$page}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    /*升阶回复*/
+    $(document).on('click','.rise-comments',function(){
+        var val=$(this).data('value');
+        var user=$(this).data('val');
+        var aid=$(this).data('aid');
+        $(this).hide();
+        var text="回复"+val+":";
+        $(this).parent().parent().append("<div class='rise-comment-div'><input class='rise-comment-input' id='rise-comment-input' value='"+text+"'><button class='form-submit rise-submit form-color'>取消</button><button class='form-submit rise-submit rise-floor-comment' data-id='"+user+"' data-aid='"+aid+"'>回复</button></div>");
+    });
+
+    $(document).on('click','.form-color',function(){
+        $(".rise-comments").show();
+        $(this).parent().remove();
+    })
+
+    $(document).on('click','.rise-floor-comment',function(){
+        var value=$("#rise-comment-input").val();
+        var id=$("#rise-comment").data('aid');
+        var user=$(this).data('id');
+        var number=$(this).data('aid');
+        if(value==""){
+            alert("评论不能为空！");
+        }else{
+            $.ajax({
+                type: 'post',
+                url: '/rise_comment.html',
+                dataType: 'json',
+                data:{id:id,value:value,user:user,number:number},
+                success: function (data) {
+                    if(data.msg=='1'){
+                        var comment;
+                        $("#text").val("");
+                            time=Time(data.text.rise_comment_time);
+                            comment="<div class='user-item '> " +
+                                    "<a class'user-item-a' href='/users/"+data.text.rise_comment_member+"' target='_blank'> " +
+                                    "<img class='user-head' src='/images/head-images/"+data.text.images+"' alt='"+data.text.name+"'> </a>  " +
+                                    "<div class='user-reply-con'> <div class='user-user'> " +
+                                    "<a class='name' href='/users/"+data.text.rise_comment_member+"' target='_blank'>"+data.text.name+"</a> " +
+                                    "<a href='#' target='_blank'> <i>"+data.text.level+"</i>级 </a> <spen class='text-con'>"+data.text.rise_comment_text+"</spen> " +
+                                    "<div class='user-i-nfo'>  <span>"+time+"</span> " +
+                                    "<span data-aid='"+data.text.rise_comment_floor+"' data-value='"+data.text.name+"' data-val='"+data.text.rise_comment_member+"' class='rise-comments'>回复</span> " +
+                                    "</div> </div>";
+                            $("#floor"+data.text.rise_comment_floor).append(comment);
+                        $(".rise-comments").show();
+                        $(".rise-comment-div").remove();
+                        alert("评论成功！");
+                    }else{
+                        alert("评论失败！")
+                    }
+                }
+            })
+
+        }
+    })
+
+    /*升阶评论*/
+    $("#rise-comment").click(function(){
+        var value=$("#text").val();
+        var id=$("#rise-comment").data('aid');
+        if(value==""){
+            alert("评论不能为空！");
+        }else{
+            $.ajax({
+                type: 'post',
+                url: '/rise_comment.html',
+                dataType: 'json',
+                data:{id:id,value:value},
+                success: function (data) {
+                    if(data.msg=='1'){
+                        var comment;
+                        $("#text").val("");
+                        if(data.text.rise_comment_reply==0){
+                            idfloor="floor"+data.text.rise_comment_floor;
+                            time=Time(data.text.rise_comment_time);
+                            comment="<div class='list-item reply-wrap'><div class='user-face'> " +
+                                    "<a href='/users/"+data.text.rise_comment_member+"' target='_blank'> " +
+                                    "<img class='user-head' src='/images/head-images/"+data.text.images+"' alt='"+data.text.name+"'> </a> </div> " +
+                                    "<div class='user-con'id='"+idfloor+"'> <div class='user'> " +
+                                    "<a data-aid='"+data.text.rise_comment_member+"' class='comments_a' href='/users/"+data.text.rise_comment_member+"' target='_blank'>"+data.text.name+"</a> " +
+                                    "<a href='#' target='_blank'> <i>"+data.text.level+"</i>级 </a> </div> <p class='user-text'>"+data.text.rise_comment_text+"</p> " +
+                                    "<div class='user-i-nfo'> <span class='number'>"+data.text.rise_comment_floor+"楼</span> <span>"+time+"</span> " +
+                                    "<span data-aid='"+data.text.rise_comment_floor+"' data-value='"+data.text.name+"' data-val='"+data.text.rise_comment_member+"' class='comments'>回复</span> " +
+                                    "</div> </div>";
+                            $("#rise-comment-list").prepend(comment);
+                        }
+                        alert("评论成功！");
+                    }else{
+                        alert("评论失败！")
+                    }
+                }
+            })
+        }
+
+    });
+
+    //用户升阶获取确定
+    function level_power(id){
+        MsgBox.Confirm('恭喜你赢得了肯定！','大家会给予你帮助的！',function(index){
+            $.ajax({
+                type: 'post',
+                url: '/level_power.html',
+                dataType: 'json',
+                data:{id:id},
+                success: function(data){
+                    if(data==1){
+                        history.go(0)
+                    }else{
+                        alert("出错了！");
+                    }
+                },
+            });
+        });
+    }
+</script>
+</html>

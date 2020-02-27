@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>公告 - {$seo.title}</title>
+    <style>
+        .info{
+            float: left;
+            margin-left: 10px;
+        }
+        @media screen and (max-width: 600px){
+            .info {
+                float: right;
+                width:85%;
+                margin-left: 0;
+                height: 100%;
+            }
+            .content {
+                padding-left: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap">
+    <div class="left-p">
+        <p class="left-sign">公告列表</p>
+    </div>
+    <div class="sign-table">
+        <ul class="rank-list">
+            {foreach $article as $d}
+            <li>
+                <div class="rank-item">
+                    <div class="num">{$d.article_id}</div>
+                    <div class="content">
+                        <div class="info ">
+                            <a href="/articles/{$d.article_id}" target="_blank">
+                                <div class="title">{$d.title}</div>
+                            </a>
+                            <div class="detail">
+                                <span class="data-box">分类:{$d.fid}</span>
+                                <span class="data-box">类型:{$d.lid}</span>
+                                <span class="data-box">发布时间:
+                                    {$d.article_time|date="Y-m-d H:i:s",###}
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {/foreach}
+        </ul>
+    </div>
+    <div class="paging-wrap" style="display: block;">
+    <div class="s-paging">
+        {$page}
+    </div>
+</div>
+</div>
+            </div>
+{include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

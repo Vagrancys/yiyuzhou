@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$title} - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="index-section">
+                    <div class=" section-common">
+                        <h2 class="title-common">
+                            精彩推荐
+                        </h2>
+                    </div>
+                    <div class="focus-area">
+                        <div class="carousel-area">
+                            <ul class="carousel-list" style="width: 7600px; margin-right: 0px; margin-left: 0px;">
+                                {foreach $fo as $vo}
+                                <li class="carousel-li">
+                                    <a href="/main/{$vo.manga_id}" target="_blank"
+                                       class="a-carousel-poster">
+                                        <img src="{$vo.img}" alt="{$vo.title}" class="rel-move">
+                                    </a>
+                                    <a href="/main/{$vo.manga_id}" target="_blank" class="a-title">
+                                        <p class="title">{$vo.title}</p>
+                                    </a>
+                                </li>
+                                {/foreach}
+                            </ul>
+                            <div class="control-carousel">
+                                <a class="prev" static="bl=focus_area_poster_tab"></a>
+                                <a class="next" static="bl=focus_area_poster_tab"></a>
+                            </div>
+                            <ul class="carousel-previewer">
+                                <li class="se"></li>
+                                {foreach $fo as $k=>$v}
+                                {if condition="$k eq 0"}{else /}<li class=""></li>{/if}
+                                {/foreach}
+                            </ul>
+                        </div>
+                        <div class="poster-area">
+                            <ul class="poster-list">
+                                {foreach $form as $vo}
+                                <li class="poster-li">
+                                    <a class="a-pic" href="/main/{$vo.manga_id}" target="_blank">
+                                        <img src="{$vo.img}" alt="{$vo.title}">
+                                        <i class="icon-play"></i>
+                                    </a>
+                                    <a class="a-title" href="/main/{$vo.manga_id}" target="_blank">
+                                        <p class="title-index">{$vo.title}</p>
+                                    </a>
+                                </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid">
+                    <div class="focus-area">
+                        <div class="video left width">
+                            <div class="section-common">
+                                <h2 class="title-common">
+                                    最新更新
+                                </h2>
+                                <a href="/lists/1-6-2-----" class="more">更多</a>
+                            </div>
+                            <ul>
+                                {foreach $w as $w1}
+                                <li>
+                                    <a href="/main/{$w1.manga_id}" class="ui-list-ct" title="{$w1.title}" target="_blank">
+                                        <p class="ui-pic">
+                                            <img src="{$w1.img}" alt="{$w1.title}">
+                                        </p>
+                                        <p class="msk-text">{$w1.title}</p>
+                                    </a>
+                                    <span class="msk-txt">更新至:<a href="/play/{$w1.part_id}" target="_blank">{$w1.Collect}</a></span>
+                                </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                        <div class="ranking">
+                            <div class="section-common">
+                                <h2 class="title-common">
+                                    最短捡漏排行
+                                </h2>
+                                <a href="/lists/1-6-2-----" class="more">更多</a>
+                            </div>
+                            <ul>
+                                {foreach $w as $w1}
+                                <li>
+                                    {if condition="$num gt 3"}<i class="rank-num">{$num++}</i>{else/}
+                                    <i class="rank-num rank-num-color">{$num++}</i>{/if}
+                                    <a href="/main/{$w1.part_id}" class="ui-list-ct" title="{$w1.title}" target="_blank">
+                                        <p class="msk-text">{$w1.title}</p>
+                                    </a>
+                                    <span class="msks-txt">{$w1.time}</span>
+                                </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                    {foreach $q as $q1}
+                    {empty name="$q1.one"}
+                    {else /}
+                        <div class="focus-area">
+                            <div class="video left width">
+                                <div class="section-common">
+                                    <h2 class="title-common">
+                                        {$q1.name}
+                                    </h2>
+                                    <a href="/lists/1-6-2-----" class="more">更多</a>
+                                </div>
+                                <ul>
+                                    {foreach $q1.one as $q2}
+                                        <li>
+                                            <a href="/main/{$q2.manga_id}" class="ui-list-ct" title="{$q2.title}" target="_blank">
+                                                <p class="ui-pic">
+                                                    <img src="{$q2.img}" alt="{$q2.title}">
+                                                </p>
+                                                <p class="msk-text">{$q2.title}</p>
+                                            </a>
+                                            <span class="msk-txt">更新至:<a href="/play/{$q2.part_id}" target="_blank">{$q2.Collect}</a></span>
+                                        </li>
+                                    {/foreach}
+                                </ul>
+                            </div>
+                            <div class="ranking">
+                            <div class="section-common">
+                                <h2 class="title-common">
+                                    {$q1.name}排行
+                                </h2>
+                                <a href="/lists/1-6-2-----" class="more">更多</a>
+                            </div>
+                            <ul>
+                                {foreach $q1.two as $q2}
+                                <li>
+                                    {if condition="$q1.there.num gt 3"}<i class="rank-num">{$q1.there.num++}</i>{else/}
+                                    <i class="rank-num rank-num-color">{$q1.there.num++}</i>{/if}
+                                    <a href="/main/{$q2.manga_id}" class="ui-list-ct" title="{$q2.title}" target="_blank">
+                                        <p class="msk-text">{$q2.title}</p>
+                                    </a>
+                                    <span class="msks-txt">{$q2.time}</span>
+                                </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                        </div>
+
+                    {/empty}
+                    {/foreach}
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".carousel-li").mouseenter(function(){
+        $(".control-carousel").show();
+    });
+    $(".carousel-area").mouseleave(function(){
+        $(".control-carousel").hide();
+    });
+    $(document).ready(function() {
+        var length=$(".poster-list li").length;
+        for($i=0;$i<length;$i++){
+            $(".poster-li").eq($i).addClass("n"+$i);
+        }
+        var time=null;
+        var iNow=0;
+        var ul=$(".carousel-list");
+        var showNumber=$(".carousel-previewer").find("li");
+        var oneWidth=$(".carousel-list").find("li").eq(0).width();
+        showNumber.on("click",function(){
+            $(this).addClass("se").siblings().removeClass("se");
+            var index=$(this).index();
+            iNow=index;
+            ul.animate({   "margin-left":-oneWidth*iNow })
+        });
+        $(".prev").on("click",function(){
+            if(iNow==0)
+            {iNow=showNumber.length-1}
+            else{
+                iNow--;
+            };
+
+            showNumber.eq(iNow).addClass("se").siblings().removeClass("se");
+            ul.animate({   "margin-left":-oneWidth*iNow })
+        });
+        $(".next").on("click",function(){
+            if(iNow==showNumber.length-1){iNow=0}else{ iNow++;};
+
+            showNumber.eq(iNow).addClass("se").siblings().removeClass("se");
+
+            ul.animate({   "margin-left":-oneWidth*iNow })
+        });
+        $(".carousel-area").mouseenter(function(){
+            clearInterval(time);
+        }).mouseleave(function(){
+            clearInterval(time);
+            time = setInterval(timer,5000);
+        });
+
+        function timer(){
+            iNow++;
+            if(iNow>showNumber.length-1){
+                iNow=0;
+            }
+            showNumber.eq(iNow).trigger("click");
+        }
+        if(iNow>8){
+            clearInterval(time);
+        }
+        time=setInterval(timer,5000);
+        window.onblur= function(){
+            clearInterval(time);
+        }
+        window.onfocus= function(){
+            time=setInterval(timer,10000);
+        }
+    });
+    $(".poster-li").mouseenter(function(){
+        var li = $(".poster-li").index(this);
+        $(".n"+li+" i").fadeTo(100,1);
+    }).mouseleave(function(){
+        var li = $(".poster-li").index(this);
+        $(".n"+li+" i").fadeTo(100,0);
+    });
+    $(".right-li").mouseenter(function(){
+        var id=$(this).attr("id");
+        $("#right-"+id).show();
+    }).mouseleave(function(){
+        var id=$(this).attr("id");
+        $("#right-"+id).hide();
+    });
+
+    $(".nav-item").mouseenter(function(){
+        $(this).find("ul").show();
+    }).mouseleave(function(){
+        $(this).find("ul").hide();
+    })
+</script>
+</body>
+</html>

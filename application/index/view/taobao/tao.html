@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.title} - {$seo.title}</title>
+     <style>
+        .special-item-text{
+            overflow: hidden;
+        }
+        @media screen and (min-width: 1200px){
+            .special-update{
+                display: none;
+            }
+            .special-item-left{
+                min-height:700px;
+            }
+            .special-item-text {
+                float: left;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="grow-post">
+    <div class="crumbs">
+        <div class="crumbs-left">
+            <a href="/index.html">首页</a> &gt;
+            <a href="/taobao.html">导师区</a> &gt;
+            <a href="/tao/{$vi.manga_id}">{$vi.title}</a>
+        </div>
+    </div>
+    <div class="special-item-left">
+        <div class="special-item-text">
+        <div class="grow-image">
+            <img src="{$vi.img}" alt="{$vi.title}">
+            
+        </div>
+            <div class="special-update grow-height">
+                <div class="special-label">简介：</div>
+                    {$vi.manga_text}
+            </div>
+            <div class="special-update">
+                <span>更新时间 {$vi.manga_time|date="Y-m-d",###}</span>
+            </div>
+         </div>
+        <div class="grow-brief">
+            <div class="special-head">
+                <h1 class="grow-title grow-te" title="{$vi.title}" data-val="{$vi.manga_id}">{$vi.title}</h1>
+                <span class="special-style-item">观看量:{$vi.clicks}</span>
+                <span class="special-style-item"><a href="/main/{$vi.manga_id}">主页</a></span>
+                <div class="crumbs-right">
+                    由 <a href="/users/{$vi.user_id}">{$vi.name}</a> 发布
+                </div>
+            </div>
+            <div class="special-tu">
+                <p class="special-tutor tu tutor-color">导师</p><p class="special-tutor tou">历史导师</p>
+            </div>
+            <div class="tutor">
+                <div class="tutor-j">
+                    {if condition="$vi.member_t eq 1"}
+                        <div class="tutor-level">拥有导师，可以开启<a href="/grow/{$vi.manga_id}">封神之路</a>！</div>
+                        <p>导师: <a href="/users/{$member.id}" data-val="{$member.name}" data-aid="{$member.id}" class="tutor-name">{if condition="$member.nickname eq ''"}
+                            {$member.name}
+                            {else /}
+                            {$member.nickname}
+                            {/if}</a></p>
+                        <p>当选时间:{$clicks.taobao_time|date="Y-m-d H:s:i",###}</p>
+                        <p>当选感言：<span>{$clicks.taobao_text}</span></p>
+                            {if condition="$vi.coin_coin eq 1"}
+                            <button class="tutor-button dan">弹劾导师</button>
+                            {/if}
+
+                    {else /}
+                        <div class="tutor-level">未拥有导师，未开启<a href="/grow/{$vi.manga_id}">封神之路</a>！</div>
+                        {if condition="$vi.coin_coin eq 1"}
+                            {if condition="$vi.member_zhiding eq 1"}
+                                还没有导师：已指定导师<button class="tutor-button zhi">修改</button>
+                            {else /}
+                                还没有导师：<button class="tutor-button zhi">指定导师</button>
+                            {/if}
+                        {else /}
+                            {if condition="$name.id eq ''"}
+                                还没有导师：<button class="tutor-button" onclick="login();">登录</button>
+                            {else /}
+                                {if condition="$vi.member_zhiding eq 1"}
+                                    {if condition="$vi.member_zhi eq 1"}
+                                        指定您当导师：<button class="tutor-button dang">当选</button>
+                                    {else /}
+                                        导师：<button class="tutor-button">已指定导师</button>
+                                    {/if}
+                                {else /}
+                                    还没有导师：<button class="tutor-button dang">当选导师</button>
+                                {/if}
+                            {/if}
+                        {/if}
+
+                    {/if}
+                </div>
+                <div class="tutor-h">
+                    <div class="help-body">
+                        {foreach $li as $i}
+                        <div class="help-title-wrap">
+                            <div class="help-subtitle">
+                                <div class="help-arrow"></div>
+                                <span class="help-subindex">{$num++}</span>
+                                <span>导师：<a href="/users/{$i.id}">{if condition="$i.nickname eq ''"}
+                                    {$i.name}
+                                    {else /}
+                                    {$i.nickname}
+                                    {/if}</a></span>
+                                <span>时间：{$i.taobao_time|date="Y-m-d H:i:s",###}</span>
+                                <span class="tutor-dan">弹劾理由</span>
+                            </div>
+                            <div class="help-subcontent" style="display: none;">
+                                <p>{$i.taobao_text}</p>
+                            </div>
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".tu").click(function(){
+        $(".tutor-j").show();
+        $(".tou").removeClass("tutor-color");
+        $(this).addClass("tutor-color");
+        $(".tutor-h").hide();
+    });
+    $(".tou").click(function(){
+        $(".tutor-h").show();
+        $(".tu").removeClass("tutor-color");
+        $(this).addClass("tutor-color");
+        $(".tutor-j").hide();
+    });
+    $(".dang").click(function(){
+        var title=$(".grow-te").text();
+        $("body").append(
+                "<div class='modal-wrapper'> <div class='modal1-backdrop'></div> <div class='modal1'> " +
+                "<div class='modal-inner'> " +
+                "<h3 class='modal-title'>吐槽"+title+"吧！<div class='buttons' style='top: 32px'><a class='close-btn'></a></div></h3> " +
+                "<div class='modal-content'> " +
+                "<div class='menu-text'> " +
+                "<textarea class='lay-textarea' placeholder='来一次完整的吐槽！'></textarea> </div> " +
+                "<div class='modal-button'><button class='modal-button-click layui-form'>吐槽</button></div> </div> " +
+                "</div></div></div>"
+        );
+    });
+
+    $(".dan").click(function(){
+        var name=$(".tutor-name").data("val");
+        $("body").append(
+                "<div class='modal-wrapper'> <div class='modal1-backdrop'></div> <div class='modal1'> " +
+                "<div class='modal-inner'> " +
+                "<h3 class='modal-title'>吐槽"+name+"当不了吧！<div class='buttons' style='top: 32px'><a class='close-btn'></a></div></h3> " +
+                "<div class='modal-content'> " +
+                " <div class='menu-text'> " +
+                "<textarea class='lay-textarea' placeholder='来一次完整的吐槽！'></textarea> </div> " +
+                "<div class='modal-button'><button class='modal-button-click layui-dan'>吐槽</button></div> </div> " +
+                "</div></div></div>"
+        );
+    });
+
+    $(".zhi").click(function(){
+        var name=$(".tutor-name").data("val");
+        $("body").append(
+                "<div class='modal-wrapper'> <div class='modal1-backdrop'></div> <div class='modal1'> " +
+                "<div class='modal-inner'> " +
+                "<h3 class='modal-title'>指定导师吧！<div class='buttons' style='top: 32px'><a class='close-btn'></a></div></h3> " +
+                "<div class='modal-content'> " +
+                " <div class='menu-text'> " +
+                "<input class='lay-input' placeholder='请输入id'></div> " +
+                "<div class='modal-button'><button class='modal-button-click layui-zhi'>吐槽</button></div> </div> " +
+                "</div></div></div>"
+        );
+    });
+
+    $(document).on('blur','.lay-input',function(){
+        var text=$(this).val();
+        $.ajax({
+            type: 'post',
+            url: '/taozhi.html',
+            dataType: 'json',
+            data:{text:text},
+            success: function (data) {
+                if(data.msg==0){
+                    $(".layui-form-p").remove();
+                }else{
+                    $(".layui-form-p").html(data.text);
+                }
+            }
+        });
+    });
+
+    $(document).on('click','.layui-form',function(){
+        var id=$(".grow-title").data("val");
+        var text=$(".lay-textarea").val();
+        $.ajax({
+            type: 'POST',
+            url: '/taoform.html',
+            dataType: 'json',
+            data:{id:id,text:text},
+            success: function(data){
+                if(data==1){
+                    history.go(0)
+                }
+            },
+        });
+    });
+
+    $(document).on('click','.layui-dan',function(){
+        var id=$(".grow-title").data("val");
+        var member=$(".tutor-name").data("aid");
+        var text=$(".lay-textarea").val();
+        $.ajax({
+            type: 'POST',
+            url: '/taodan.html',
+            dataType: 'json',
+            data:{id:id,text:text,member:member},
+            success: function(data){
+                if(data==1){
+                    history.go(0)
+                }
+            },
+        });
+    });
+
+    $(document).on('click','.layui-zhi',function(){
+        var id=$(".grow-title").data("val");
+        var text=$(".lay-input").val();
+        $.ajax({
+            type: 'POST',
+            url: '/taozhiding.html',
+            dataType: 'json',
+            data:{id:id,text:text},
+            success: function(data){
+                if(data==1){
+                    history.go(0)
+                }
+            },
+        });
+    });
+</script>
+</body>
+</html>

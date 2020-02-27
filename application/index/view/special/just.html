@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.title}的关注汇总 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap assess-header">
+                    <a href="/index.html">首页</a> &gt;
+                    <a href="/main/{$vi.manga_id}">{$vi.title}</a> &gt;
+                     {$vi.title}的关注汇总
+                </div>
+                <div class="line">
+                        <div class="assess-left">
+                            <div class="assess-user" id="manga-id" data-aid="{$vi.manga_id}">
+                                <img src="{$vi.img}">
+                            </div>
+                        </div>
+                        <div class="assess-right">
+                        <ul class="assess-ul">
+                            <li>
+                                <h4>作品名称</h4>
+                                <p>{$vi.title}</p>
+                            </li>
+                            <li>
+                                <h4>关注人数</h4>
+                                <p>
+                                    {if condition="$vi.number neq 0"}
+                                    <i>
+                                        {$vi.number}</i>
+                                    <b>人</b>
+                                    {else /}
+                                    还没有人关注
+                                    {/if}
+                                </p>
+                            </li>
+                            <li>
+                                <h4>个人关注</h4>
+                                <p>{if condition="$member.just_static eq '1'"}
+                                    <a href="javascript:;">已关注</a>
+                                    {else /}
+                                    还没有关注: <a href="javascript:;" onclick="support(this);">关注</a>
+                                    {/if}
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                <div class="sign-table">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th style="width:90px;">排序</th>
+                            <th style="width:90px;">昵称</th>
+                            <th style="width:150px;">关注时间</th>
+                        </tr>
+                        {foreach $just as $j}
+                        <tr>
+                            <th>{$vi.numbers++}</th>
+                            <th><a href="/users/{$j.id}" target="_blank">{$j.name}</a></th>
+                            <th>{$j.manga_just_time|date="Y-m-d H:i:s",###}</th>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="paging-wrap" style="display: block;">
+                    <div class="s-paging">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

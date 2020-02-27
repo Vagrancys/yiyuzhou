@@ -1,0 +1,60 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <?php include("static/admin/header.php")?>
+    <title>新建网站角色 - 网站权限管理</title>
+ </head>
+<body>
+<article class="page-container">
+    <form class="form form-horizontal" action="auth_insert.html" method="post">
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限名称：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" name="title">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>权限级别：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <input type="text" class="input-text" value="二级" name="level">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>地址名称：</label>
+            <div class="formControls col-xs-8 col-sm-9 skin-minimal">
+                <input type="text" class="input-text" name="name">
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>上级权限：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select class="select" size="1" name="parent_id">
+                    <option value="1" selected>一级权限</option>
+                    {foreach $data as $vo}
+                    <option value="{$vo.id}">{$vo.title}</option>
+                    {/foreach}
+                </select>
+				</span>
+            </div>
+        </div>
+        <div class="row cl">
+            <label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>描述：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" name="remark">
+            </div>
+        </div>
+
+        <div class="row cl">
+            <div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+                <input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+            </div>
+        </div>
+    </form>
+</article>
+<?php include("static/admin/footer.php")?>
+</body>
+</html>

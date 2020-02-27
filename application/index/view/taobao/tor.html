@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.mange_theme_title} - {$seo.title}</title>
+    <style>
+        .special-item-text{
+            overflow: hidden;
+        }
+        @media screen and (min-width: 1200px){
+            .special-update{
+                display: none;
+            }
+            .special-item-text {
+                float: left;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="grow-post">
+    <div class="crumbs">
+        <div class="crumbs-left">
+            <a href="/index.html">首页</a> &gt;
+            <a href="/taobao.html">导师区</a> &gt;
+            <a href="/tao/{$vi.mange_theme_id}">{$vi.mange_theme_title}</a>
+        </div>
+    </div>
+    <div class="special-item-left">
+        <div class="special-item-text">
+            <div class="grow-image">
+                <img src="{$vi.mange_theme_img}" alt="{$vi.mange_theme_title}">
+            </div>
+            <div class="special-update">
+                <span>更新时间 {$vi.mange_theme_time|date="Y-m-d",###}</span>
+            </div>
+            <div class="special-update grow-height">
+                <div class="special-label">简介：</div>
+                    {$vi.mange_theme_text}
+            </div>
+        </div>
+        <div class="grow-brief">
+            <div class="special-head">
+                <h1 class="grow-title grow-te" title="{$vi.mange_theme_title}" data-val="{$vi.mange_theme_id}">{$vi.mange_theme_title}</h1>
+                <span class="special-style-item">观看量:{$vi.clicks}</span>
+                <span class="special-style-item"><a href="/theme/{$vi.mange_theme_id}">主页</a></span>
+                <div class="crumbs-right">
+                    由 <a href="/users/{$vi.mange_theme_user}">{$vi.name}</a> 发布
+                </div>
+            </div>
+            <div class="special-tu">
+                <p class="special-tutor tu tutor-color">当前导师</p><p class="special-tutor tou">历史导师</p>
+            </div>
+            <div class="tutor">
+                <div class="tutor-j">
+                    {if condition="$vi.member_t eq 1"}
+                        <div class="tutor-level">拥有导师，可以提升<a href="/grow/{$vi.mange_theme_id}">成长等级</a>！</div>
+                        <p>导师: <a href="/users/{$member.id}" data-val="{$member.name}" data-aid="{$member.id}" class="tutor-name">{$member.name}</a></p>
+                        <p>当选时间:{$level.level_tutor_time|date="Y-m-d H:s:i",###}</p>
+                        <p>当选感言：<span>{$level.level_tutor_text}</span></p>
+                    {else /}
+                        <div class="tutor-level">当前未拥有导师，未能提升<a href="/grow/{$vi.mange_theme_id}">成长等级</a>！</div>
+                            {if condition="$name.id eq ''"}
+                                还没有导师：<button class="tutor-button" onclick="login();">登录</button>
+                            {else /}
+                                还没有导师：<a href="/grow/{$vi.mange_theme_id}">前往</a>
+                            {/if}
+                    {/if}
+                </div>
+                <div class="tutor-h">
+                    <div class="help-body">
+                        {foreach $li as $i}
+                        <div class="help-title-wrap">
+                            <div class="help-subtitle">
+                                <div class="help-arrow"></div>
+                                <span class="help-subindex">{$num++}</span>
+                                <span>导师：<a href="/users/{$i.id}">{$i.name}</a></span>
+                                <span>等级：{$i.level_require_name}</span>
+                                <span>时间：{$i.level_tutor_time|date="Y-m-d H:i:s",###}</span>
+                                <span class="tutor-dan">感言</span>
+                            </div>
+                            <div class="help-subcontent" style="display: none;">
+                                <p>{$i.level_tutor_text}</p>
+                            </div>
+                        </div>
+                        {/foreach}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".tu").click(function(){
+        $(".tutor-j").show();
+        $(".tou").removeClass("tutor-color");
+        $(this).addClass("tutor-color");
+        $(".tutor-h").hide();
+    });
+    $(".tou").click(function(){
+        $(".tutor-h").show();
+        $(".tu").removeClass("tutor-color");
+        $(this).addClass("tutor-color");
+        $(".tutor-j").hide();
+    });
+    $(".dang").click(function(){
+        var title=$(".grow-te").text();
+        $("body").append(
+                "<div class='modal-wrapper'> <div class='modal1-backdrop'></div> <div class='modal1'> " +
+                "<div class='modal-inner'> " +
+                "<h3 class='modal-title'>吐槽"+title+"吧！<div class='buttons' style='top: 32px'><a class='close-btn'></a></div></h3> " +
+                "<div class='modal-content'> " +
+                "<div class='menu-text'> " +
+                "<textarea class='lay-textarea' placeholder='来一次完整的吐槽！'></textarea> </div> " +
+                "<div class='modal-button'><button class='modal-button-click layui-form'>吐槽</button></div> </div> " +
+                "</div></div></div>"
+        );
+    });
+
+    $(".dan").click(function(){
+        var name=$(".tutor-name").data("val");
+        $("body").append(
+                "<div class='modal-wrapper'> <div class='modal1-backdrop'></div> <div class='modal1'> " +
+                "<div class='modal-inner'> " +
+                "<h3 class='modal-title'>吐槽"+name+"当不了吧！<div class='buttons' style='top: 32px'><a class='close-btn'></a></div></h3> " +
+                "<div class='modal-content'> " +
+                " <div class='menu-text'> " +
+                "<textarea class='lay-textarea' placeholder='来一次完整的吐槽！'></textarea> </div> " +
+                "<div class='modal-button'><button class='modal-button-click layui-dan'>吐槽</button></div> </div> " +
+                "</div></div></div>"
+        );
+    });
+
+    $(".zhi").click(function(){
+        var name=$(".tutor-name").data("val");
+        $("body").append(
+                "<div class='modal-wrapper'> <div class='modal1-backdrop'></div> <div class='modal1'> " +
+                "<div class='modal-inner'> " +
+                "<h3 class='modal-title'>指定导师吧！<div class='buttons' style='top: 32px'><a class='close-btn'></a></div></h3> " +
+                "<div class='modal-content'> " +
+                " <div class='menu-text'> " +
+                "<input class='lay-input' placeholder='请输入id'></div> " +
+                "<div class='modal-button'><button class='modal-button-click layui-zhi'>吐槽</button></div> </div> " +
+                "</div></div></div>"
+        );
+    });
+
+    $(document).on('blur','.lay-input',function(){
+        var text=$(this).val();
+        $.ajax({
+            type: 'post',
+            url: '/taozhi.html',
+            dataType: 'json',
+            data:{text:text},
+            success: function (data) {
+                if(data.msg==0){
+                    $(".layui-form-p").remove();
+                }else{
+                    $(".layui-form-p").html(data.text);
+                }
+            }
+        });
+    });
+
+    $(document).on('click','.layui-form',function(){
+        var id=$(".grow-title").data("val");
+        var text=$(".lay-textarea").val();
+        $.ajax({
+            type: 'POST',
+            url: '/taoform.html',
+            dataType: 'json',
+            data:{id:id,text:text},
+            success: function(data){
+                if(data==1){
+                    history.go(0)
+                }
+            },
+        });
+    });
+
+    $(document).on('click','.layui-dan',function(){
+        var id=$(".grow-title").data("val");
+        var member=$(".tutor-name").data("aid");
+        var text=$(".lay-textarea").val();
+        $.ajax({
+            type: 'POST',
+            url: '/taodan.html',
+            dataType: 'json',
+            data:{id:id,text:text,member:member},
+            success: function(data){
+                if(data==1){
+                    history.go(0)
+                }
+            },
+        });
+    });
+
+    $(document).on('click','.layui-zhi',function(){
+        var id=$(".grow-title").data("val");
+        var text=$(".lay-input").val();
+        $.ajax({
+            type: 'POST',
+            url: '/taozhiding.html',
+            dataType: 'json',
+            data:{id:id,text:text},
+            success: function(data){
+                if(data==1){
+                    history.go(0)
+                }
+            },
+        });
+    });
+</script>
+</body>
+</html>

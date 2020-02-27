@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>登录- {$seo.title}</title>
+</head>
+<body>
+    <div class="login-index">
+        <div class="wrapper">
+            <form class="login-form" target="_self" action="front_do_login.html" method="post">
+                <div class="login-layer">
+                        <div class="login-head">
+                            <h3>登录次元</h3>
+                        </div>
+                        <div class="login-content">
+                            <div class="form-item ">
+                                <input id="token" name="__token__" type="hidden" value="{$Request.token}" />
+                                <input class="text"  placeholder="手机号/邮箱/用户名" name="username" maxlength="100" type="text">
+                            </div>
+                            <div class="form-item">
+                                <input class="text"  name="password" type="password" placeholder="密码"  maxlength="20">
+                            </div>
+                            <input type="submit" value="登 录"  class="login-layer-btn">
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="__PUBLIC__/js/jquery-3.2.1.min.js"  type="text/javascript"></script>
+</html>

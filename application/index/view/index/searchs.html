@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>搜索 - {$seo.title} </title>
+	<meta name=renderer content=webkit>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="applicable-device" content="pc,mobile">
+	<meta name="keywords" content="{$seo.keyword}">
+	<meta name="description" content="{$seo.portal}">
+	<link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+</head>
+<body>
+<div class="wrapper-outer">
+	{include file="common/aside"}
+	<div class="inner-wrapper">
+		<div class="wrapper">
+			{include file="common/header"}
+			<div class="wrapper-cont">
+				<form method="post" action="search.html" style="padding-top: 50px;">
+					<div id="search-wrap">
+						<h1 class="h1" >搜索</h1>
+						<div class="logo-input">
+							<div class="input-wrap">
+								<input type="text" value="{$text}" id="search-keyword" autocomplete="off" name="keyword">
+								<div class="bilibili-suggest" style="left: 0px; display: none; margin-top: 5px;"></div>
+							</div>
+							<button id="search-button">
+								<span>搜索</span>
+							</button>
+						</div>
+					</div>
+				</form>
+				<div class="all-other" >
+					<h2 class="h2">结果: <em>找到 “<span class="keyword">{$text}</span>” 相关内容 {$number} 个</em></h2>
+					<div class="search-episode">
+						<ul>
+							{$da}
+							{foreach $form as $v}
+							<li class="episode-li">
+								<div class="left-img">
+									<a href="main/{$v.manga_id}" target="_blank" title="{$v.title}">
+										<img src="{$v.img}" alt="{$v.title}">
+									</a>
+								</div>
+								<div class="right-info">
+									<div class="headline">
+										<a class="title" href="main/{$v.manga_id}" target="_blank" title="{$v.title}">
+											{$v.title}
+										</a>
+									</div>
+									<div class="des"><p>{$v.text}</p></div>
+								</div>
+								<ul class="so-episode">
+									<a class="list" href="main/{$v.manga_id}" target="_blank" title="{$v.manga_text}">
+										<span class="list-title">{$v.title}</span>
+									</a>
+								</ul>
+							</li>
+							{/foreach}
+						</ul>
+					</div>
+					<div class="paging-wrap" style="display: block;">
+						<div class="s-paging">
+							{$page}
+						</div>
+					</div>
+				</div>
+			</div>
+			{include file="common/footer"}
+		</div>
+	</div>
+</div>
+</body>
+</html>

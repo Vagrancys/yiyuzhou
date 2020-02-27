@@ -1,0 +1,46 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<link href="__PUBLIC__/css/login.css" rel="stylesheet" />
+<title>后台登录 - 次元后台</title>
+<style>
+  .p{color: #ffffff;height: 15px;line-height: 15px;padding:10px 0 0 85px;}
+</style>
+</head>
+<body>
+<div class="login-wrapper">
+  <div class="login-box">
+    <form class="form form-horizontal" action="do_login.html" method="post">
+      <div class="row">
+        <input type="hidden" value="{$token}" name="token">
+        <label class="form-label">
+          <i class="icon">账号</i>
+        </label>
+        <div class="formControls">
+          <input name="admin_name" type="text" placeholder="账户" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row">
+        <label class="form-label"><i class="icon">密码</i></label>
+        <div class="formControls">
+          <input name="admin_password" type="password" placeholder="密码" class="input-text size-L">
+        </div>
+      </div>
+      <div class="row">
+        <div class="formControls ">
+          <input class="input-text size-L " style="width: 125px;" name="code" type="text" placeholder="验证码" onblur="if(this.value==''){this.value='验证码:'}" onclick="if(this.value=='验证码:'){this.value='';}" value="验证码:">
+          <img class="img" src="{:captcha_src()}" style="cursor: pointer;" alt="captcha" onclick="this.src='{:captcha_src()}?'+Math.random();"/></div>
+      </div>
+      <div class="row">
+        <div class="formControls">
+          <input style="margin-left: 31px;" type="submit" class="btn static size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <input type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="footer"> 次元</div>
+</body>
+</html>

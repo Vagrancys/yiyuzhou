@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name=renderer content=webkit>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="applicable-device" content="pc,mobile">
+    <meta name="keywords" content="{$vi.title}{$vi.Collect},{$vi.title},动画,动漫,在线,观看,{$seo.keyword}">
+    <meta name="description" content="{$vi.manga_text}">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link   href="/static/index/css/common.css" rel="stylesheet">
+    <title>{$vi.title}{$vi.Collect} - {$seo.title}</title>
+    <style>
+        .share{
+            padding: 15px 17px;
+            overflow: auto;
+        }
+        .share-icon{
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: url(http://css.ykimg.com/youku/dist/img/find/player/player_c5acf49.png) no-repeat;
+        }
+        .share-icon-qq{
+            background-position: -80px -140px;
+        }
+        .share-icon-weibo{
+            background-position: -330px -50px;
+        }
+        .share-icon-qzone{
+            background-position: -330px -90px;
+        }
+        .share-icon-tiebo{
+            background-position: -40px -140px;
+        }
+        .share-dl{
+            padding: 0 20px;
+            height: 32px;
+        }
+        .share-dl dt{
+            padding-right: 10px;
+            float: left;
+            height: 32px;
+            line-height: 32px;
+        }
+        .share-dl dd{
+            padding: 0 5px;
+            float: left;
+        }
+        .brief-info {
+            padding: 18px 0 13px;
+            overflow: hidden;
+        }
+        .module-name {
+            width: 93%;
+            padding-left: 10px;
+            height: 18px;
+            line-height: 18px;
+            font-size: 17px;
+            font-weight: 700;
+            margin: 1px 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .img-src {
+            background: url(//g.alicdn.com/ku/video-page/static/img/gather.76d0b7a.png) 0 0 no-repeat;
+            background-size: 150px 500px;
+        }
+        .down-more-ico {
+            top: 10px;
+            right: 10pt;
+            width: 11px;
+            height: 6px;
+            background-position: 0 0;
+        }
+        .more-ico {
+            position: absolute;
+            right: 10px;
+            overflow: hidden;
+            transition: transform .4s;
+        }
+        .video-score {
+            margin-right: 5px;
+            display: inline-block;
+        }
+        .brief-more {
+            padding: 0 10px;
+            color: #999;
+            display: none;
+            position: relative;
+        }
+        .brief-more .subscribe {
+            overflow: auto;
+            padding: 6px 0 8px;
+        }
+        .brief-img, .brief-img img {
+            border-radius: 50%;
+            width: 34px;
+            height: 34px;
+        }
+        .fl{
+            float: left;
+        }
+        .user-describe {
+            padding-left: 10px;
+        }
+        .subscribe-blue-btn {
+            width: 65px;
+            border: 1px solid #2692ff;
+            border-radius: 20px;
+            height: 35px;
+            line-height: 24px;
+            color: #2692ff;
+            padding: 0 11px;
+        }
+        .fr{
+            float: right;
+        }
+        .brief-score .video-num {
+            display: inline-block;
+            font-size: 14px;
+            color: #999;
+        }
+        .brief-score {
+            padding-left: 10px;
+        }
+        .more-ico.brief-active {
+            transform: rotate(180deg);
+            -webkit-transform: rotate(180deg);
+        }
+        .brief-title {
+            position: relative;
+            margin-bottom: 8px;
+            overflow: hidden;
+        }
+        .video-brief .module-name span.online {
+            width: 90%;
+            background: 0 0;
+            padding: 1px 4px;
+            color: #333;
+            font-size: 1pc;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        @media screen and (min-width: 1200px){
+            .video-brief{
+                display: none;
+            }
+        }
+
+        @media screen and (min-width:600px) and (max-width:1200px) {
+            .share{
+                padding: 0 17px;
+            }
+            .video-brief {
+                display: none;
+            }
+            .crumbs {
+                height: 100%;
+                overflow: auto;
+            }
+            .play-line-ul {
+                float: left;
+                margin-left: 0;
+            }
+        }
+
+        @media screen and (max-width:600px){
+            .share{
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="video-user">
+                <div class="video-info">
+                    <div class="video-title">
+                        <h1 title="{$vi.title}" id="part_id" data-id="{$vi.manga_part_id}">{$vi.title}{$vi.Collect}</h1>
+                    </div>
+                    <div class="video-bread" id="manga-id" data-aid="{$vi.manga_id}">
+                        <a href="/index.html">首页</a> &gt;
+                        <span style="margin-right: 30px;"><a href="/main/{$vi.manga_id}">主页</a></span>
+                        <span><i>{$vi.time|date="Y-m-d",###}</i></span>
+                        <span>
+                            {if condition="$vi.click_static eq 1"}
+                            硬币量:<i>{$vi.click}</i>
+                            {else /}
+                            未开启成长
+                            {/if}
+                        </span>
+                        <span>收藏量:<i>{$vi.collect_number}</i></span>
+                        <span>投币量:<i id="money-number">{$vi.support_money}</i></span>
+                        <span>粉丝量:<i id="fans-number">{$vi.just_number}</i></span>
+                        {if condition="$name.id eq ''"}
+                        {else /}
+                        {if condition="$vi.coin_coin eq '0'"}
+                        <span class="special-style-item">
+                        <a href="javascript:;" id="mange_report" data-value="?table=1&uid={$vi.Uid}&id={$vi.manga_part_id}">举报</a>
+                        </span>
+                        {/if}
+                        {/if}
+                    </div>
+                </div>
+                <div class="user-info">
+                    <div class="video-user-face" >
+                        <a class="video-user-image" href="/users/{$vi.user_id}" title="{$vi.name}" target="_blank">
+                            {if condition="$vi.image eq ''"}
+                            <img id="user-default" src="/images/head-images/default.jpg">
+                            {else /}
+                            <img id="user-avatar"  src="/images/head-images/{$vi.image}">
+                            {/if}
+                        </a>
+                    </div>
+                    <div class="user-data" id="fans-js">
+                        <div class="user-name">
+                            <a href="/users/{$vi.user_id}" title="{$vi.name}" target="_blank">{$vi.name}</a>
+                        </div>
+                        <div class="video-message">
+                            <div>作品：<a href="/videos/{$vi.user_id}">{$v}</a></div>
+                            <div title="{$s}">粉丝：<a href="/fans/{$vi.user_id}" id="fans-num">{$s}</a></div>
+                        </div>
+                        {if condition="$fans.static neq ''"}
+                        {if condition="$fans.fans eq 0"}
+                        {if condition="$name.id eq ''"} <button type="submit" class="manga-video-user-btn" onclick="login(this)">关注</button>{else /}
+                        <button type="submit" id="fans-guan" class="manga-video-user-btn" onclick="fans('{$vi.user_id}')">关注</button>
+                        {/if}
+                        {else /}
+                        <button type="submit" id="fans-qu" class="manga-video-user-btn" onclick="fans_del('{$vi.user_id}')">取消关注</button>
+                        {/if}
+                        {/if}
+                    </div>
+                </div>
+            </div>
+            <div class="wap play-iframe">
+                {if condition="$vi.play_static eq '0'"}
+                {$vi.Line}
+                {else /}
+                {if condition="$vi.play_line eq 0"}
+                <iframe id="play" allowfullscreen="allowfullscreen"
+        mozallowfullscreen="mozallowfullscreen"
+        msallowfullscreen="msallowfullscreen"
+        oallowfullscreen="oallowfullscreen"
+        webkitallowfullscreen="webkitallowfullscreen" src="http://jx.618g.com/?url={$vi.Line}"></iframe>
+                {else /}
+                <iframe id="play" allowfullscreen="allowfullscreen"
+        mozallowfullscreen="mozallowfullscreen"
+        msallowfullscreen="msallowfullscreen"
+        oallowfullscreen="oallowfullscreen"
+        webkitallowfullscreen="webkitallowfullscreen" src="http://player.jfrft.net/index.php?url={$vi.Line}"></iframe>
+                {/if}
+                {/if}
+            </div>
+            <div class="wap share">
+                <dl class="share-dl">
+                    <dt>分享</dt>
+                    <dd><a href="http://connect.qq.com/widget/shareqq/index.html?title={$vi.title} - {$seo.title}&amp;url=http://www.yiyuzhou.com/main/{$vi.manga_id}&amp;desc={$vi.title}{$vi.Collect}" target="_blank" title="分享到QQ好友"><i class="share-icon share-icon-qq"></i></a></dd>
+                    <dd><a href="http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://www.yiyuzhou.com/main/{$vi.manga_id}&amp;pics=&amp;title={$vi.title}{$vi.Collect} - {$seo.title}" target="_blank" title="分享到Qzone"><i class="share-icon share-icon-qzone"></i></a></dd>
+                    <dd><a href="http://v.t.sina.com.cn/share/share.php?url=http://www.yiyuzhou.com/main/{$vi.manga_id}&amp;pic=&amp;title={$vi.title}{$vi.Collect} - {$seo.title}&amp;content=utf8" target="_blank" title="分享到新浪微博"><i class="share-icon share-icon-weibo"></i></a></dd>
+                    <dd><a href="http://tieba.baidu.com/f/commit/share/openShareApi?url=http://www.yiyuzhou.com/main/{$vi.manga_id}&amp;title={$vi.title}{$vi.Collect}{$seo.title}&amp;desc=&amp;pic=" target="_blank" title="分享到贴吧"><i class="share-icon share-icon-tiebo"></i></a></dd>
+                </dl>
+            </div>
+            <div class="wap special-item inner">
+                <div class="special-post">
+                    <div class="crumbs">
+                        <p class="play-p">看到线路一二三四了吗！点击它们切换线路试试！</p>
+                        <ul class="play-line-ul" style="display: block;">                        
+                            <li class="play-line-li">
+                                <p class="play-line play-line-active" data-id="0">线路一</p>
+                            </li>
+                            <li class="play-line-li">
+                                <p class="play-line" data-id="1">线路二</p>
+                            </li>                                                                                       
+                        </ul>
+                    </div>
+                </div>
+                <div class="special-post">
+                    <div class="crumbs">
+                        <p>{$vi.title}资源</p>
+                    </div>
+                    <div>
+                        {$ul}
+                    </div>
+                    <ul class="special-collection" style="display: block;">
+                        {foreach $play as $c}
+                        <li  class="special-collection-li">
+                            <a href="/play/{$c.manga_part_id}" title="{$c.Collect}" class="special-text">
+                                <div class="special-collection-text">
+                                    {if condition="$vi.manga_part_id eq $c.manga_part_id"}
+                                    <p class="special-collection-title play-active">{$c.Collect}</p>
+                                    {else /}
+                                    <p class="special-collection-title">{$c.Collect}</p>
+                                    {/if}
+                                </div>
+                            </a>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+            <div class="wap video-brief">
+                <div class="brief-info" id="brief-info">
+                    <div class="brief-title">
+                        <div class="module-name fl">
+                            <span class="online">{$vi.title} {$vi.Collect}</span>
+                        </div>
+                        <div class="more-ico down-more-ico img-src"></div>
+                    </div>
+                    <div class="brief-score">
+                        <div class="video-score">
+                            <span class="score-int">
+                                <i>{$vi.just_number}</i>粉丝
+                            </span>
+                        </div>
+                        <div class="video-num">
+                            <span>
+                            {if condition="$vi.click_static eq 1"}
+                            <i>{$vi.click}</i>硬币
+                            {else /}
+                            未开启成长
+                            {/if}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="brief-more">
+                    <div class="subscribe clearfix">
+                        <a href="/users/{$vi.user_id}">
+                            <div class="fl brief-img">
+                                {if condition="$vi.image eq ''"}
+                                <img src="/images/head-images/default.jpg">
+                                {else /}
+                                <img src="/images/head-images/{$vi.image}">
+                                {/if}
+                            </div>
+                            <div class="user-describe fl">
+                                <span class="sub">
+                                    {$vi.name}
+                                </span>
+                                <p>
+                                    <a href="/fans/{$vi.user_id}" id="fans-num">{$s}</a>粉丝
+                                </p>
+                            </div>
+                        </a>
+                        {if condition="$fans.static neq ''"}
+                        {if condition="$fans.fans eq 0"}
+                        {if condition="$name.id eq ''"} <button type="submit" class="subscribe-blue-btn fr" onclick="login(this)">关注</button>{else /}
+                        <button type="submit" id="fans-guan" class="subscribe-blue-btn fr" onclick="fans('{$vi.user_id}')">关注</button>
+                        {/if}
+                        {else /}
+                        <button type="submit" id="fans-qu" class="subscribe-blue-btn fr" onclick="fans_del('{$vi.user_id}')">取消关注</button>
+                        {/if}
+                        {/if}
+                    </div>
+                    <p class="brief-desc">{$vi.manga_text}</p>
+                </div>
+            </div>
+            <div class="wap video-text">
+                <p>{$vi.title}</p>
+            </div>
+            <div class="wap special-item">
+                <div class="crumbs">
+                    <p>单集讨论</p>
+                </div>
+                <div class="comment-list" id="comment-list">
+                    {foreach $comment as $c}
+                    <div class="list-item reply-wrap">
+                        <div class="user-face">
+                            <a href="/users/{$c.manga_comment_member}" target="_blank">
+                                {if condition="$c.image eq ''"}
+                                <img class="user-head" src="/images/head-images/default.jpg" alt="{$c.name}">
+                                {else /}
+                                <img class="user-head" src="/images/head-images/{$c.image}" alt="{$c.name}">
+                                {/if}
+                            </a>
+                        </div>
+                        <div class="user-con" id="floor{$c.manga_comment_member}">
+                            <div class="user">
+                                <a data-aid="{$c.manga_comment_member}" class="comments_a" href="/users/{$c.manga_comment_member}" target="_blank">{$c.name}</a>
+                                <a href="#" target="_blank">
+                                    <i>{$c.level}</i>级
+                                </a>
+                            </div>
+                            <p class="user-text">{$c.manga_comment_text}</p>
+                            <div class="user-i-nfo">
+                                <span class="number">{$c.manga_comment_floor}楼</span>
+                                <span>{$c.manga_comment_time|date="Y-m-d H:i:s",###}</span>
+                                <span data-aid="{$c.manga_comment_floor}"data-value="{$c.name}" data-val="{$c.manga_comment_member}" class="comments">回复</span>
+                                <span data-value="?table=0&class=1&uid={$c.manga_comment_member}&video={$vi.manga_id}&id={$c.manga_comment_id}" class="video-comments">举报</span>
+                            </div>
+                            {empty name="$c.comment"}
+                            {else /}
+                            {foreach $c.comment as $cc}
+                            <div class="user-item">
+                                <a class="user-item-a" href="/users/{$cc.manga_comment_member}" target="_blank" class="reply-face">
+                                    {if condition="$cc.image eq ''"}
+                                    <img class="user-head" src="/images/head-images/default.jpg" alt="{$cc.name}">
+                                    {else /}
+                                    <img class="user-head" src="/images/head-images/{$cc.image}" alt="{$cc.name}">
+                                    {/if}
+                                </a>
+                                <div class="user-reply-con">
+                                    <div class="user-user">
+                                        <a href="/users/{$cc.manga_comment_member}" target="_blank" class="name ">{$cc.name}</a>
+                                        <a href="#" target="_blank">
+                                            <i>{$cc.level}</i>级
+                                        </a>
+                                        <span class="text-con">{$cc.manga_comment_text}</span>
+                                    </div>
+                                    <div class="user-i-nfo">
+                                        <span>{$cc.manga_comment_time|date="Y-m-d H:i:s",###}</span>
+                                        <span data-aid="{$c.manga_comment_floor}" data-value="{$cc.name}" data-val="{$c.manga_comment_member}" class="comments">回复</span>
+                                        <span data-value="?table=0&class=1&uid={$cc.manga_comment_member}&video={$vi.manga_id}&id={$cc.manga_comment_id}" class="video-comments">举报</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {/foreach}
+                            <div class="paging-box" style="display: block;">
+                                {$c.pages}
+                            </div>
+                            {/empty}
+                        </div>
+                    </div>
+                    {/foreach}
+                </div>
+                <div class="paging-wrap" style="display: block;">
+                    <div class="s-paging">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script>
+    $(".play-line").click(function(){
+        $(".play-line").removeClass("play-line-active");
+        $(this).addClass("play-line-active");
+        var id=$(this).data('id');
+        var url="{$vi.Line}";
+        var line=['http://jx.618g.com/?url=','http://player.jfrft.net/index.php?url='];
+        $("#play").attr('src',line[id]+url);
+    })
+    $(document).on("click","#brief-info",function(){
+        $(".brief-more").toggle();
+        $(".more-ico").toggleClass("brief-active");
+    });
+</script>
+</body>
+</html>

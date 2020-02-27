@@ -1,0 +1,45 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+<title>我的桌面</title>
+</head>
+<body>
+<div class="page-container">
+	<p class="f-20 text-success text-c">欢迎使用次元 <span class="f-14">1级</span>前端后台系统！</p>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th colspan="7" scope="col">资源统计</th>
+			</tr>
+			<tr class="text-c">
+				<th>统计</th>
+				<th>作品数</th>
+				<th>用户数</th>
+				<th>评论数</th>
+				<th>登录数</th>
+				<th>管理员</th>
+			</tr>
+		</thead>
+		<tbody>
+		{foreach $video as $v}
+			<tr class="text-c">
+				{foreach $v as $vv}
+				<td>{$vv.number}</td>
+				{/foreach}
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+</div>
+<footer class="footer mt-20">
+	<div class="container">
+		<p>次元<br>
+			Copyright &copy;2017 次元 All Rights Reserved.<br>
+			本前端后台系统由<a href="index.html" target="_blank" title="次元">次元</a>修改</p>
+	</div>
+</footer>
+<?php include("static/admin/footer.php")?>
+</body>
+</html>

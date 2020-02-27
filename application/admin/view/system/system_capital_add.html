@@ -1,0 +1,57 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+	<?php include("static/admin/header.php")?>
+<title>资金来源管理</title>
+</head>
+<body>
+<div class="page-container">
+	<form action="system_capital_form.html" method="post" class="form form-horizontal">
+		<div id="tab-category" class="HuiTab">
+			<div class="tabBar cl">
+				<span>资源模块</span>
+			</div>
+			<div class="tabCon">
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">
+						<span class="c-red">*</span>
+						注资机构：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" name="system_capital_title">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">
+						<span class="c-red">*</span>
+						注资额：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<input type="text" class="input-text" name="system_capital_data">
+					</div>
+				</div>
+				<div class="row cl">
+					<label class="form-label col-xs-4 col-sm-3">
+						<span class="c-red">*</span>
+						注资类别：</label>
+					<div class="formControls col-xs-8 col-sm-9">
+						<select class="form-select" type="text" name="system_capital_static">
+							<option value="0">请选择</option>
+							<option value="1">直接注资</option>
+							<option value="2">费用注资</option>
+							<option value="3">其他注资</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-9 col-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</div>
+<?php include("static/admin/footer.php")?>
+</body>
+</html>

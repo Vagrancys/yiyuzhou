@@ -1,0 +1,103 @@
+<div class="user-nav">
+    <div class="user-header">
+            {if condition="$form.image eq ''"}
+            <img id="user-default"  class="user-avatar" src="/images/head-images/default.jpg">
+            {else /}
+            <img id="user-avatar"   class="user-avatar" src="/images/head-images/{$form.image}">
+            {/if}
+      </div>
+    <div class="user-detailed">
+        <div class="user-user-info">
+            <div class="user-basic">
+                <span id="user-name">
+                    {if condition="$form.nickname eq ''"}
+                        {$form.name}
+                    {else /}
+                        {$form.nickname}
+                    {/if}
+                </span>
+                <span class="user-level">
+                    {switch name="$form.level"}
+                        {case value="1"}1级{/case}
+                        {case value="2"}2级{/case}
+                        {case value="3"}3级{/case}
+                        {case value="4"}4级{/case}
+                        {case value="5"}5级{/case}
+                        {case value="6"}6级{/case}
+                        {case value="7"}7级{/case}
+                        {case value="8"}8级{/case}
+                        {case value="9"}9级{/case}
+                        {case value="10"}10级{/case}
+                    {/switch}
+                </span>
+            </div>
+            <div class="h-basic-spacing">
+                {if condition="$name.id eq ''"}
+                <div class="h-si"> {if condition="$form.autograph eq ''"} 未知的签名！{else /}{$form.autograph}{/if}</div>
+                {else /}
+                {if condition="$fans.static neq ''"}
+                <div class="h-si">
+                    {if condition="$form.autograph eq ''"} 未知的签名！{else /}{$form.autograph}{/if}
+                </div>
+                {else /}
+                <div class="h-signs" style="display: none;">{$form.autograph}</div>
+                <input id="h-sign" type="text" placeholder="编辑个性签名" maxlength="60" value="{$form.autograph}">
+                {/if}
+                {/if}
+            </div>
+        </div>
+        <div class="user-action" id="fans-js">
+            {if condition="$fans.static neq ''"}
+            {if condition="$fans.fans eq 0"}
+            {if condition="$name.id eq ''"}
+            <button class="manga-video-user-btn" onclick="login(this)">关注</button>
+            {else /}
+            <button class="manga-video-user-btn" id="fans-guan" onclick="fans('{$form.id}')">关注</button>
+            {/if}
+            {else /}
+            <button class="manga-video-user-btn" id="fans-qu" onclick="fans_del('{$form.id}')">取消关注 </button>
+            {/if}
+            {/if}
+        </div>
+    </div>
+</div>
+<div class="user-inner">
+    <div class="user-tab-links">
+        <a class="user-btn {eq name='$static' value='users'}user-active{/eq}" href="/users/{$form.id}">
+            <span class="user-text">主页</span>
+        </a>
+        <a class="user-btn {eq name='$static' value='theme'}user-active{/eq}" href="/theme_list/{$form.id}">
+            <span class="user-text">系列</span>
+            <span class="user-num">{$num.theme}</span>
+        </a>
+        <a class="user-btn {eq name='$static' value='Video'}user-active{/eq}" href="/Videos/{$form.id}">
+            <span class="user-text">视频</span>
+            <span class="user-num">{$num.video}</span>
+        </a>
+        <a class="user-btn {eq name='$static' value='collect'}user-active{/eq}" href="/collect/{$form.id}">
+            <span class="user-text">收藏夹</span>
+        </a>
+        {if condition="$name.id neq ''"}
+        <a class="user-btn {eq name='$static' value='static'}user-active{/eq}" href="/collect_static.html">
+            <span class="user-text">设置</span>
+        </a>
+        {/if}
+    </div>
+    <div class="user-search">
+        <form class="search-form" method="post" action="/search_videos.html" target="_blank">
+            <input type="text" class="search_videos" name="keyword" placeholder="搜索空间视频">
+            <input type="hidden" name="id" value="{$form.id}">
+            <span class="icon search-btn"> <button class="search-button" type="submit"></button></span>
+        </form>
+    </div>
+    <div class="user-statistics">
+        <a class="user-data-data" title="{$num.follow}" href="/fans/{$form.id}-{$form.id}">
+            <p class="user-data-k">关注数</p>
+            <p class="user-data-v space-attention">{$num.follow}</p>
+        </a>
+        <a class="user-data-data" title="{$num.fans}" href="/fans/{$form.id}">
+            <p class="user-data-k">粉丝数</p>
+            <p class="user-data-v space-fans" id="fans-num">{$num.fans}</p>
+        </a>
+    </div>
+</div>

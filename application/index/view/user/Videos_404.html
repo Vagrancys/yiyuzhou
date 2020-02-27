@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+            {include file="common/user_header"}
+            <div class="wap" style="margin-bottom: 25px;">
+                <div class="video-cuo">
+                    <h1>{$text}</h1>
+                    <a class="video-cuo-button" href="/videos/{$id}">返回视频页</a>
+                </div>
+            </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

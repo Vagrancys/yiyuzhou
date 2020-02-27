@@ -1,0 +1,141 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="Shortcut Icon" href="/favicon.ico" />
+	<?php include("static/admin/header.php")?>
+<title>次元后台</title>
+<meta name="keywords" content="次元网站后台">
+<meta name="description" content="次元">
+</head>
+<body>
+<header class="nav-bar-wrapper">
+	<div class="nav-bar nav-bar-fixed-top">
+		<div class="container-fluid">
+			<a class="logo nav-bar-logo" href="admin.html">次元后台</a>
+			<span class="logo nav-bar-slogan">1级</span>
+			<a class="logo nav-bar-logo-m" href="index.html">次元前台</a>
+		<nav id="user-bar" class="nav nav-bar-nav nav-bar-user-bar hidden-xs">
+			<ul class="cl">
+				<li>管理员</li>
+				<li class="dropDown">
+					<a href="#" class="dropDown_A">{$data} 你好！
+						<i class="Hui-iconfont">&#xe6d5;</i></a>
+					<ul class="menu">
+						<li><a href="#">个人信息</a></li>
+						<li><a href="login.html">切换账户</a></li>
+						<li><a href="login_del.html">退出</a></li>
+					</ul>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</div>
+</header>
+<aside class="aside">
+	<div class="menu-drop-down">
+		{foreach $form as $vo}
+			<dt class="aside-dt">
+				<i class="Hui-iconfont">{$vo.sb}</i>
+				{$vo.module_name}
+				<i class="Hui-iconfont menu-drop-down-arrow">&#xe6d5;</i>
+			</dt>
+			<dd class="aside-dd">
+				<ul>
+					{foreach $vo.data as $v}
+					<li data-href="1">
+						<a data-href="{$v.module_di}" data-title="{$v.module_name}" href="javascript:;">{$v.module_name}</a>
+					</li>
+					{/foreach}
+				</ul>
+			</dd>
+		{/foreach}
+</div>
+</aside>
+<section class="article-box">
+	<div id="tabNav" class="tabNav">
+		<div class="tabNav-wp">
+			<ul id="min-title-list" class="acrossTab cl">
+				<li class="li">
+					<span title="我的桌面" data-href="welcome.html">我的桌面</span>
+					<em></em>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="box" class="article">
+		<div class="show-if-r">
+			<iframe frameborder="0" src="welcome.html"></iframe>
+		</div>
+	</div>
+</section>
+<!--_footer 作为公共模版分离出去-->
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".aside-dt").click(function(){
+			if($(this).children("i").last().css("icon")){
+				$(this).children("i").last().removeClass("icon");
+			}
+			if(!$(".Hui-iconfont").css("icon")){
+				$(".Hui-iconfont").removeClass("icon");
+			}
+			$(this).children("i").last().addClass("icon");
+			$(this).next("dd").slideToggle("slow")
+					.siblings(".aside-dd:visible").slideUp("slow");
+		});
+		$(".dropDown").mouseenter(function(){
+			$(".menu").toggle();
+		}).mouseleave(function(){
+			$(".menu").toggle();
+		});
+
+		$(".aside-dd li a").click(function(){
+			var href=$(this).attr("data-href");
+			var title=$(this).attr("data-title");
+			if(!$("#min-title-list li").css("active")){
+				$("#min-title-list li").removeClass("active");
+			}
+			var li=$("#min-title-list li");
+			var div=$("#box div");
+			var a=$("#min-title-list li").find("span");
+			for (i=0;i<a.length;i++){
+				if ($(a[i]).html()==title){
+					$(li[i]).addClass("active");
+					$(div).hide();
+					$(div[i]).show();
+					return false;
+				}
+			}
+			var text="<li class='li active'><span data-href="+href+">"+title+"</span><i></i><em></em></li>";
+			$("#min-title-list").append(text);
+			if($("#box div").show()){
+				$("#box div").hide();
+			}
+			var box="<div class='show-if-r'><iframe frameborder='0' src="+href+"></iframe></div>";
+			$("#box").append(box);
+		});
+
+		$("#min-title-list").on('click','.li',function(){
+			if(!$(".li").css("active")){
+				$(" .li").removeClass("active");
+			}
+			$(this).addClass("active");
+			if($(".show-if-r").show()){
+				$(".show-if-r").hide();
+			}
+			var href=$("#min-title-list li").index(this);
+			$("#box").find("div").eq(href).show();
+		});
+
+		$("#min-title-list").on('click','i',function(){
+			var i=$("i").parents("li").index();
+			$("#min-title-list").find("li").eq(i).remove();
+			$("#box").find("div").eq(i).remove();
+		});
+	});
+
+</script>
+<?php include("static/admin/footer.php")?>
+<!--请在下方写此页面业务相关的脚本-->
+</body>
+</html>

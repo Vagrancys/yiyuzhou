@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+    <style>
+        @media screen and (max-width: 600px){
+            .col-full{
+                width: 100%;
+                padding: 0;
+            }
+            .small-item {
+                width: 45%;
+                padding: 10px 5px;
+            }
+            .small-item img {
+                width: 100%;
+                height: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                {include file="common/user_header"}
+                <div class="col-full clear">
+                 <div class="page-head">
+                     <p class="page-item">作品</p>
+                 </div>
+                <div class="section-video">
+                    <div class="clear cube-list">
+                        {foreach $vi as $v}
+                        <div class="small-item">
+                            <a target="_blank" class="cover" href="/video/{$v.mange_part_id}">
+                                <div class="cover-div"></div>
+                                <p class="cover-p" style="left: 145px;">{$v.Time}</p>
+                                <img src="{$v.mange_part_img}" alt="{$v.mange_part_name}">
+                            </a>
+                            <a target="_blank" class="title" href="/video/{$v.mange_part_id}" title="{$v.mange_part_name}">{$v.mange_part_name}</a>
+                        </div>
+                        {/foreach}
+                    </div>
+                    <div class="paging-wrap" style="display: block;">
+                        <div class="s-paging">
+                            {$page}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(".cover").mouseenter(function(){
+        $(this).find(".cover-div").show();
+        $(this).find(".cover-p").show();
+    }).mouseleave(function(){
+        $(this).find(".cover-div").hide();
+        $(this).find(".cover-p").hide();
+    });
+</script>
+</html>

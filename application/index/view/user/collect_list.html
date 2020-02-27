@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+    <style>
+    @media screen and (max-width:600px){
+    .small-item {
+    width: 45%;
+    height: 170px;
+    padding: 5px;
+    }
+    .small-item .cover{
+    width: 100%;
+    }
+    .small-item img {
+    width: 100%;
+    }
+    }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                {include file="common/user_header"}
+                <div class="col-full clear">
+                 <div class="page-head">
+                     <p class="page-item"><a href="/collect/{$form.id}">收藏区</a> > <span>{$collect.manga_collect_list_name}</span></p>
+                 </div>
+                <div class="section-video">
+                    <div class="clear cube-list">
+                    {foreach $vi as $v}
+                    <div class="small-item" id="name-{$v.manga_collect_id}">
+                        <a target="_blank" class="cover" href="/main/{$v.manga_collect_manga}">
+                            <div class="cover-div"></div>
+                            <p class="cover-p" style="left: 125px;">{$v.manga_collect_time|date="Y-m-d H:i:s",###}</p>
+                            <img src="{$v.img}" alt="{$v.title}">
+                        </a>
+                        <p class="video-collect-p">
+                            <a target="_blank" class="title" href="/main/{$v.manga_collect_manga}" title="{$v.title}">{$v.title}</a>
+                            {if condition="$name.id neq ''"}
+                            <a class="collect-list-delete" data-id="{$v.manga_collect_id}">删除</a>
+                            {/if}
+                        </p>
+                    </div>
+                    {/foreach}
+                    </div>
+                    <div class="paging-wrap" style="display: block;">
+                        <div class="s-paging">
+                            {$page}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(".cover").mouseenter(function(){
+        $(this).find(".cover-div").show();
+        $(this).find(".cover-p").show();
+    }).mouseleave(function(){
+        $(this).find(".cover-div").hide();
+        $(this).find(".cover-p").hide();
+    });
+    $(".small-item").mouseenter(function(){
+        $(this).find(".collect-list-delete").show();
+    }).mouseleave(function(){
+        $(this).find(".collect-list-delete").hide();
+    });
+    $(".collect-list-delete").click(function(){
+        var id=$(this).data('id');
+        $.ajax({
+            type: 'post',
+            url: '/collect_list_delete.html',
+            dataType: 'json',
+            data: {'id':id},
+            success: function (data) {
+                if(data.msg==1){
+                    $("#name-"+id).remove();
+                }
+            }
+        });
+    });
+</script>
+</html>

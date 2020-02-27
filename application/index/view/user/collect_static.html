@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+    <style>
+        @media screen and (max-width:600px){
+            .col-full {
+                width: 87%;
+            }
+            .collect-item {
+                margin: 0 0px 3px;
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                {include file="common/user_header"}
+                <div class="col-full clear">
+                 <div class="page-head">
+                     <p class="page-item"><a href="/collect/{$form.id}">收藏区</a></p>
+                     <i class="video-collect-new">创建新文件夹</i>
+                 </div>
+                <div class="section-video">
+                    <div class="clear cube-list">
+                    {foreach $vi as $v}
+                    <div class="collect-item" id="item-{$v.manga_collect_list_id}">
+                        <h3 id="name-{$v.manga_collect_list_id}">{$v.manga_collect_list_name}
+                            {if condition="$v.manga_collect_list_static eq 1"}
+                            <i>公开</i>
+                            {else /}
+                            <i>私密</i>
+                            {/if}
+                        </h3>
+                        <ul class="collect-item-ul">
+                            <li class="collect-item-li" data-val="name" data-id="{$v.manga_collect_list_id}">改名</li>
+                            <li class="collect-item-li" data-val="power" data-id="{$v.manga_collect_list_id}">修改权限</li>
+                            <li class="collect-item-li" data-val="move" data-id="{$v.manga_collect_list_id}">移动内容</li>
+                            <li class="collect-item-li" data-val="delete" data-id="{$v.manga_collect_list_id}">删除</li>
+                        </ul>
+                    </div>
+                    {/foreach}
+                    </div>
+                    <div class="paging-wrap" style="display: block;">
+                        <div class="s-paging">
+                            {$page}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    $(".collect-item-li").click(function(){
+        var val=$(this).data('val');
+        var id=$(this).data('id');
+        if(val=='name'){
+            $("body").append("<div class='modal-wrapper'> <div class='modal1-backdrop'></div><div class='modal1 collect-modal'>" +
+                    " <div class='modal-inner collect-inner'> <h1 class='modal-title'>收藏夹改名！<div class='buttons'><a class='close-btn'></a></div></h1> " +
+            " <div class='modal-name collect-list-input'> <input id='collect-name' placeholder='新名称'><a id='collect-name-a' data-id='"+id+"'>修改</a></div></div>");
+        }else if(val=='power'){
+            $("body").append("<div class='modal-wrapper'> <div class='modal1-backdrop'></div><div class='modal1 collect-modal'>" +
+                    " <div class='modal-inner collect-inner'><h1 class='modal-title'>修改权限!<div class='buttons'><a class='close-btn'></a></div></h1> " +
+                    " <div class='modal-name collect-list-input'> <select class='collect-list-select'><option value='1'>公开</option><option value='0'>私密</option></select><a id='collect-power-a' data-id='"+id+"'>修改</a></div></div>");
+        }else if(val=='move'){
+
+        }else{
+            $.ajax({
+                type: 'post',
+                url: '/collect_static_delete.html',
+                dataType: 'json',
+                data: {'id':id},
+                success: function (data) {
+                    if(data.msg==1){
+                        $("#item-"+id).remove();
+                    }
+                }
+            });
+        }
+    });
+
+    $(".video-collect-new").click(function(){
+        $("body").append("<div class='modal-wrapper'> <div class='modal1-backdrop'></div><div class='modal1 collect-modal'>" +
+                " <div class='modal-inner collect-inner'> <h1 class='modal-title'>收藏夹创建！<div class='buttons'><a class='close-btn'></a></div></h1> " +
+                " <div class='modal-name collect-list-input'> <input id='collect-name' placeholder='新建收藏夹'><a id='collect-new-a'>创建</a></div></div>");
+    });
+
+    $(document).on("click","#collect-name-a",function(){
+        var val=$("#collect-name").val();
+            id=$(this).data('id');
+        $.ajax({
+            type: 'post',
+            url: '/collect_static_name.html',
+            dataType: 'json',
+            data: {'val':val,'id':id},
+            success: function (data) {
+                if(data.msg==1){
+                     $(".modal-wrapper").remove();
+                    $("#name-"+id).html(val);
+                }
+            }
+        });
+    });
+
+    $(document).on("click","#collect-power-a",function(){
+        var val=$(".collect-list-select option:selected").val();
+        id=$(this).data('id');
+        $.ajax({
+            type: 'post',
+            url: '/collect_static_power.html',
+            dataType: 'json',
+            data: {'val':val,'id':id},
+            success: function (data) {
+                if(data.msg==1){
+                    $(".modal-wrapper").remove();
+                }
+            }
+        });
+    });
+
+    $(document).on("click","#collect-new-a",function(){
+        var val=$("#collect-name").val();
+        $.ajax({
+            type: 'post',
+            url: '/manga_collect_new.html',
+            dataType: 'json',
+            data: {'val':val},
+            success: function (data) {
+                if(data.msg==1){
+                    $(".modal-wrapper").remove();
+                    $(".cube-list").append("<div class='collect-item' id='item-"+data.num+"'> " +
+                            "<h3 id='name-"+data.num+"'>"+val+"<i>公开</i> </h3> <ul class='collect-item-ul'> " +
+                            "<li class='collect-item-li' data-val='name' data-id='"+data.num+"'>改名</li> " +
+                    "<li class='collect-item-li'' data-val='power'' data-id='"+data.num+"'>修改权限</li> " +
+                    "<li class='collect-item-li' data-val='move' data-id='"+data.num+"'>移动内容</li> " +
+                    "<li class='collect-item-li' data-val='delete' data-id='"+data.num+"'>删除</li> </ul> </div>");
+                }
+            }
+        });
+    });
+</script>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$article.brief} - {$seo.title}</title>
+    <style>
+        .grow-post{
+            min-height: 850px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="grow-post">
+                    <div class="crumbs">
+                        <div class="crumbs-left">
+                            <a href="/article.html">公告主页</a>
+                        </div>
+                        <div class="crumbs-right">
+                            由 官方 发布
+                        </div>
+                    </div>
+                    <div class="special-item">
+                        <div class="special-brief" style="margin-left: 0px">
+                            <div class="special-head">
+                                <h1 class="special-title" title="{$article.title}">{$article.title}</h1>
+                            </div>
+                            <div class="special-update">
+                                <div class="special-label">观看数：</div>
+                                <em>{$article.number}</em>
+                            </div>
+                            <div class="special-update">
+                                <div class="special-label">分类：</div>
+                                <em>{$article.fid}</em>
+                            </div>
+                            <div class="special-update">
+                                <div class="special-label">类型：</div>
+                                <em>{$article.lid}</em>
+                            </div>
+                            <div class="special-update">
+                                <div class="special-label">关键词：</div>
+                                <em>{$article.keywords}</em>
+                            </div>
+                            <div class="special-update">
+                                <div class="special-label">摘要：</div>
+                                <em>{$article.abstract}</em>
+                            </div>
+                            <div class="special-update">
+                                <span>发布时间 {$article.article_time|date="Y-m-d",###}</span>
+                            </div>
+                            <div class="special-update special-width">
+                                <div class="special-label">内容：</div>
+                                <div class="special-desc" style="margin-top: 0px">
+                                    {$article.editorValue}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

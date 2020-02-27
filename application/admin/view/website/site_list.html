@@ -1,0 +1,68 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+
+<title>站点信息管理</title>
+</head>
+<body>
+<article class="page-container">
+	<form action="site_form.html" method="post" class="form form-horizontal" id="form-member-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>站点名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+
+				<input type="text" class="input-text" name="bb" placeholder="{$public.bb}" value="{$public.bb}">
+				<input type="hidden" name="id" value="{$public.id}">
+				<input type="hidden" name="token" value="{$token}">
+				<span>站点名称，将显示在浏览器窗口标题等位置</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>网站名称：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<input type="text" class="input-text" name="site" placeholder="{$public.site}" value="{$public.site}">
+				<p>网站名称，将显示在页面底部的联系方式处</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>网站URL：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="url" placeholder="{$public.url}" value="{$public.url}">
+				<p>网站 URL，将作为链接显示在页面底部</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>管理员邮箱：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="email" placeholder="{$public.email}" v value="{$public.email}">
+				<p>管理员 E-mail，将作为系统发邮件的时候的发件人地址</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>网站备案信息代码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" name="icp" placeholder="{$public.icp}" value="{$public.icp}">
+				<p>	页面底部可以显示 ICP 备案信息，如果网站已备案，在此输入您的授权码，它将显示在页面底部，如果没有请留空</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>网站第三方统计代码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="statcode" class="textarea" onKeyUp="$.Huitextarealength(this,100)" placeholder="{$public.statcode}">{$public.statcode}</textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/100</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+</body>
+</html>

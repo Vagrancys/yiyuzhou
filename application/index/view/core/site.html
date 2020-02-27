@@ -1,0 +1,117 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+    <style>
+
+        @media screen and (max-width: 600px){
+            .passport-list .pl-info .pli-l {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="security_content">
+    <div  class="security-left">
+        <span  class="security-title">个人中心</span>
+        <ul class="security-ul ser-ul">
+            <li  class="security-list ">
+               <span  class="security-nav-name"><a href="/core.html" >首页</a></span></li>
+            <li  class="security-list">
+            <span class="security-nav-name "><a href="/core.html?url=new" >我的信息</a></span></li>
+            <li  class="security-list">
+                <span class="security-nav-name"><a href="/core.html?url=money" >会员硬币</a></span></li>
+            <li class="security-list">
+                <span class="security-nav-name"><a href="/core.html?url=face" >我的头像</a></span></li>
+            <li class="security-list on">
+                <span class="security-nav-name">账号安全</span></li>
+        </ul>
+        <ul class="security-ul">
+            <li  class="security-list-jump">
+                <a  href="/users/{$form.id}" class="security-list-link-jump">个人空间</a></li>
+            <li  class="security-list-jump">
+                <a  href="/create.html" class="security-list-link-jump">创作中心</a></li>
+            <li  class="security-list-jump">
+                <a  href="/rise_list.html" class="security-list-link-jump">升阶中心</a></li>
+            <li  class="security-list-jump">
+                <a  href="/droit.html" class="security-list-link-jump">权利中心</a></li>
+        </ul>
+    </div>
+    <div class="security-right">
+        <div  class="security-right-title">
+            <span class="security-right-title-text">安全中心</span>
+        </div>
+        <ul class="passport-list">
+            <li>
+                <div class="pl-info"><p class="pli-l">绑定邮箱<span class="pli-icon normal"></span></p>
+                    <p class="pli-m">
+                        <input type="text" name="email" class="text" value="{$form.email}">
+                    </p>
+                    {if condition="$form.activation neq 1"}
+                    <button class="btn btn-primary" id="activation" style="padding: 3px 12px;">激活</button>
+                    {/if}
+                </div>
+            </li>
+            <li>
+                <div class="pl-info"><p class="pli-l">设置密码<span class="pli-icon safe"></span></p>
+                    <p class="pli-m"><span>已设置</span></p>
+                    <td id="user_id">
+                        {if condition="$form.email eq ''"}
+                        <p class="btn btn-primary">请验证邮箱！</p>
+                        {else /}
+                        <button type="button" class="btn btn-primary" id="user_email" style="margin: 10px;">修改密码</button>
+                        {/if}
+                    </td>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $("#user_email").click(function(){
+        $.ajax({
+            type: 'post',
+            url: "/user_email.html",
+            dataType: 'json',
+            async:false,
+            success: function(text){
+                if(text==1){
+                    $(this).empty();
+                    var text="<p class='btn btn-primary'>去邮箱验证！</p>";
+                    $("#user_id").html(text);
+                }
+            }
+        });
+    })
+
+    $("#activation").click(function(){
+        $.ajax({
+            type: 'post',
+            url: "/activation_email.html",
+            dataType: 'json',
+            async:false,
+            success: function(text){
+                if(text==1){
+
+                    $text="去邮箱激活！";
+                    $(this).val($text);
+                }
+            }
+        });
+    })
+</script>
+</body>
+</html>

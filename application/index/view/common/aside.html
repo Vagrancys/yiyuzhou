@@ -1,0 +1,57 @@
+{if condition="$name.id eq ''"}
+{else /}
+<aside id="slide-out">
+    <div class="mobile-menu">
+        <div class="search-mobile">
+            <form class="search-form" method="post" action="/search.html" target="_blank">
+                <input class="search-input" placeholder="查询" name="keyword">
+            </form>
+        </div>
+        <div class="mobile-menu">
+            <div class="mobile-face">
+                <a href="/users/{$name.id}" target="_blank" class="face-t">
+                    <div class="face-face">
+                        {if condition="$name.img eq ''"}
+                        <img src="/images/head-images/default.jpg" class="face">
+                        {else /}
+                        <img src="/images/head-images/{$name.img}" class="face">
+                        {/if}
+                    </div>
+                </a>
+            </div>
+            <div class="main-menu">
+                <ul class="menu">
+                    <li><h3>会员中心</h3></li>
+                    <li><a href="/users/{$name.id}">{$name.name}</a></li>
+                    <li><a href="/core.html" target="_blank" class="account">个人中心</a></li>
+                    <li><a href="/create.html" target="_blank" class="member">创作中心</a></li>
+                    <li><a href="/rise_list.html" target="_blank" class="member">升阶中心</a></li>
+                </ul>
+                <ul class="menu">
+                    <li><h3>会员金库</h3></li>
+                    <li><a href="/core.html?url=money" target="_blank">金币：<i>{$users.money}</i></a></li>
+                    <li><a href="/core.html?url=money" target="_blank">收支</a></li>
+                </ul>
+                <ul class="menu">
+                    <li><h3>消息中心</h3></li>
+                    <li><a href="/user_new.html" target="_blank">回复我的<em></em></a></li>
+                    <li><a href="/user_new.html" target="_blank">@我<em></em></a></li>
+                    <li><a href="/user_new.html" target="_blank">收到的赞<em></em></a></li>
+                    <li><a href="/user_new.html" target="_blank">系统通知<em></em></a></li>
+                    <li><a href="/user_new.html" target="_blank">我的消息<em></em></a></li>
+                </ul>
+                <ul class="menu">
+                    <li><h3>投稿中心</h3></li>
+                    <li><a href="/contribute.html" target="_blank">普通投稿</a></li>
+                </ul>
+                <ul class="menu">
+                    <li><h3>其他</h3></li>
+                    <a href="/help.html">帮助</a>
+                    <a href="/develop.html">网站发展必看！</a>
+                    <a id="quit" onclick="quit(this)" class="logout">退出</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</aside>
+{/if}

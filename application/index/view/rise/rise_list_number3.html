@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>升阶区历史汇总 - {$seo.title}</title>
+    <style>
+        .info{
+            float: left;
+            margin-left: 10px;
+        }
+        .content{
+            float: left;
+            width: 50%;
+        }
+        .rise-div{
+            float: left;
+            height: 60px;
+            line-height: 60px;
+            padding: 20px;
+        }
+        .rank-item{
+            overflow: auto;
+        }
+        .sign-table {
+            width: 50%;
+            margin: 0 auto;
+        }
+        @media screen and (max-width: 600px){
+            .info {
+                float: right;
+                width:85%;
+                margin-left: 0;
+                height: 100%;
+            }
+            .content {
+                width: 90%;
+                padding-left: 0;
+            }
+            .sign-table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap">
+                    <div class="sign-table">
+                        <ul class="rank-list">
+                            {foreach $rise as $r}
+                            <li>
+                                <div class="rank-item">
+                                    <div class="content">
+                                        <div class="info ">
+                                            <a href="/articles_list/{$r.manga_article_id}" target="_blank">
+                                                <div class="title">{$r.manga_article_title}</div>
+                                            </a>
+                                            <div class="detail">
+                                                <span class="data-box">发表时间:
+                                                    {$r.manga_article_time|date="Y-m-d H:i:s",###}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>

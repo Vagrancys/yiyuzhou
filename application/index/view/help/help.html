@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>帮助中心 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="main-inner">
+        <div class="help-list">
+            <div class="help-box">
+                <ul class="collapse-list">
+                    {foreach $list as $l}
+                    <li class="collapse-item">
+                        {empty name="$l.Uid"}
+                        {else /}
+                        <div class="help-arrow"></div>
+                        {/empty}
+                        <a class="collapse-title" data-value="{$l.id}">{$l.name}</a>
+                    </li>
+                    <ul class="collapse-sublist">
+                        {foreach $l.Uid as $k=>$h}
+                        {if condition="$k eq 0"}
+                        <li class="collapse-subitem collapse-subitem-active">
+                            <a data-value="{$h.id}"><i class="helper-icon-dots"></i><span>{$h.name}</span></a>
+                        </li>
+                        {else /}
+                        <li class="collapse-subitem">
+                            <a data-value="{$h.id}"><i class="helper-icon-dots"></i><span>{$h.name}</span></a>
+                        </li>
+                        {/if}
+
+                        {/foreach}
+                    </ul>
+                    {/foreach}
+                </ul>
+            </div>
+        </div>
+        <div class="help-content">
+            <div class="help-title-wrap">
+                <div class="help-title" id="title">{$help.0.name}</div>
+            </div>
+            <div class="help-body">
+                {foreach $help as $e}
+                <div class="help-title-wrap">
+                    <div class="help-subtitle">
+                        <div class="help-arrow"></div>
+                        <span class="help-subindex">{$num++}</span>
+                        {$e.title}
+                    </div>
+                    <div class="help-subcontent">
+                        {$e.text}
+                    </div>
+                </div>
+                {/foreach}
+            </div>
+        </div>
+    </div>
+            </div>
+            <{include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".collapse-sublist").hide();
+    $(".collapse-item").click(function(){
+        $(".collapse-item").removeClass("collapse-item-active");
+        $(this).next('.collapse-sublist').slideToggle()
+                .siblings('.collapse-sublist').slideUp();
+        $(this).addClass("collapse-item-active");
+        $(this).firstChild(".collapse-subitem").addClass("collapse-subitem-active");
+    });
+
+
+    $(".collapse-item").click(function(){
+        var id=$(this).find(".collapse-title").data("value");
+        $.ajax({
+            type: 'post',
+            url: 'help_ajax.html',
+            dataType: 'json',
+            data:{'id':id},
+            success: function (help) {
+                if(!help==''){
+                    $("#title").text(help.title);
+                    $(".help-body").html(help.text);
+                }
+            },
+        })
+    });
+    $(".collapse-subitem").click(function(){
+        $(this).siblings().removeClass("collapse-subitem-active");
+        $(this).addClass("collapse-subitem-active");
+        var id=$(this).find("a").data("value");
+        $.ajax({
+            type: 'post',
+            url: 'help_list_ajax.html',
+            dataType: 'json',
+            data:{'id':id},
+            success: function (help) {
+                if(!help==''){
+                    $("#title").text(help.title);
+                    $(".help-body").html(help.text);
+                }
+            },
+        })
+    });
+</script>
+</body>
+</html>

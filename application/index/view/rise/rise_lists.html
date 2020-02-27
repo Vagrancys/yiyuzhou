@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>升阶区 - {$seo.title}</title>
+    <style>
+        .title-input {
+            margin-left: 0;
+        }
+        .form-submit{
+             margin-left: 200px;
+         }
+        @media screen and (max-width: 600px){
+            .form-submit {
+                margin-left: 25%;
+            }
+        }
+        .wap{
+            min-height: 840px;
+        }
+
+        .form-submit a{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap">
+                    <ul class="form-post">
+                        <li>
+                            <dt>标题</dt>
+                        <dd>
+                            <input type="hidden"  id="rise-name" value="{$rise.rise_level_date_id}">
+                            {if condition="$rise.rise_power eq '0'"}
+                            <input type="text" class="title-input" id="rise-money" placeholder="请输入升阶资金">
+                            <span class="form-prompt">当前{$rise.rise_level_date_money}个升阶硬币资金</span>
+                            <span class="form-prompt">需要{$rise.rise_level_date_money_up}个升阶硬币资金</span>
+                            <button type="submit" class="form-submit" onclick="rise_money('{$rise.rise_level_date_id}')" style="margin-left: 10px;">
+                                <span>提交</span>
+                            </button>
+                            {else /}
+                            <span class="form-prompt">活动资金剩余{$rise.rise_level_date_money}个升阶硬币资金</span>
+                            {/if}
+                        </dd>
+                        </li>
+                        <li>
+                            <dt>详细简介</dt>
+                            <dd>
+                                {if condition="$rise.rise_power eq '0'"}
+                                <textarea id="rise-text" style="height:200px" class="form-select">{$rise.rise_level_date_text}</textarea>
+                                {else /}
+                                <p>{$rise.rise_level_date_text}</p>
+                                {/if}
+                            </dd>
+                        </li>
+                    </ul>
+                    <div>
+                        <button type="submit" class="form-submit">
+                            <span><a href="/rise_list.html">返回</a></span>
+                        </button>
+                        <button type="submit" class="form-submit" style="margin-left: 10px;">
+                            <span><a href="/rise/{$rise.rise_level_date_id}">查看升阶</a></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>

@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+	<?php include("static/admin/header.php")?>
+<title>用户查看</title>
+</head>
+<body>
+<div class="wrapper">
+	<img class="avatar" src="./images/head-images/{$user.image}">
+	<dl class="show-dl" style="float: right;width: 690px;">
+		<dt>
+			<span>{$user.name}</span>
+			<span>财富：{$user.money}</span>
+			<span>历史财富：{$user.money_apport}</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">{$user.autograph}</dd>
+	</dl>
+</div>
+<div class="wrapper">
+	<table class="table" style="text-align: center;">
+		<tbody>
+			<tr style="width: 100px;">
+				<th class="text-r" width="30px;">性别：</th>
+				<td  width="40px;">{switch name="$user.sex"}
+					{case value="0"}女{/case}
+					{case value="1"}男{/case}
+					{/switch}</td>
+			</tr>
+			<tr>
+				<th class="text-r">权限等级：</th>
+				<td>{$user.jurisdiction}</td>
+			</tr>
+			<tr>
+				<th class="text-r">手机：</th>
+				<td>{$user.phone}</td>
+			</tr>
+			<tr>
+				<th class="text-r">昵称：</th>
+				<td>{$user.nickname}</td>
+			</tr>
+			<tr>
+				<th class="text-r">等级：</th>
+				<td>{$user.level}</td>
+			</tr>
+			<tr>
+				<th class="text-r">邮箱：</th>
+				<td>{$user.email}</td>
+			</tr>
+			<tr>
+				<th class="text-r">邮箱激活状态：</th>
+				<td>{switch name="$user.activation"}
+					{case value="0"}未激活{/case}
+					{case value="1"}激活{/case}
+					{/switch}</td>
+			</tr>
+			<tr>
+				<th class="text-r">地址：</th>
+				<td>{$user.dizhi}</td>
+			</tr>
+			<tr>
+				<th class="text-r">注册时间：</th>
+				<td>{$user.time|date="Y-m-d H:i:s",###}</td>
+			</tr>
+			<tr>
+				<th class="text-r">财富：</th>
+				<td>{$user.money}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+<!--/_footer 作为公共模版分离出去-->
+
+<!--请在下方写此页面业务相关的脚本-->
+</body>
+</html>

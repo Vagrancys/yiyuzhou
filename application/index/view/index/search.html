@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>搜索 - {$seo.title}</title>
+    <meta name=renderer content=webkit>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="applicable-device" content="pc,mobile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="keywords" content="{$seo.keyword}">
+    <meta name="description" content="{$seo.portal}">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/common.css">
+    <style>
+        .footer{
+            margin-top: 530px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <form method="post" action="search.html">
+    <div class="search-b">
+        <h1 class="h1">搜索</h1>
+        <div class="search-b-bar" style="position:relative;">
+            <div class="b-slt">
+                <span class="txt">综合</span>
+                <div class="b-slt-arrow"></div>
+                <ul class="list" id="search_list" style="left: -1px; right: auto; display: none;">
+                    <li data-value="all" selected="selected" class="b-state-selected">综合</li>
+                </ul>
+            </div>
+            <input type="text" class="search-b-content" name="keyword"  autocomplete="off"
+                   placeholder="搜索你想要的内容...">
+            <button class="search-b-sureBtn">搜 索</button>
+        </div>
+    </div>
+</form>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

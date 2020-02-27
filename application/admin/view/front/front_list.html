@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+	<?php include("static/admin/header.php")?>
+<title>前端模块管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span>
+	前端系统管理
+	<span class="c-gray en">&gt;</span>
+	前端模块管理
+	<a class="btn btn-success radius r" style="line-height:21px;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+	<div class="text-c">
+		<input type="text" placeholder="模块名称" style="width:250px" class="input-text">
+		<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+		<a href="javascript:;" onclick="submit()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+		<a class="btn btn-primary radius" href="system_front_add.html"><i class="Hui-iconfont">&#xe600;</i> 前端添加模块</a>
+		</span>
+		<span class="r">共有数据：<strong>{$number}</strong> 条</span>
+	</div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" id="controlAll"></th>
+					<th width="80">ID</th>
+					<th width="645">模块名称</th>
+					<th width="645">模块id</th>
+					<th width="640">模块地址</th>
+					<th width="100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<form method="post" action="front_del.html" id="form">
+			{foreach $data as $vo}
+				<tr class="text-c">
+					<td><input type="checkbox" class="ck" value="{$vo.id}" name="item[]"></td>
+					<td>{$vo.id}</td>
+
+					<td class="text-l">{if condition="$vo['cid'] eq 0"}{$vo.module_name}
+						{else /}&nbsp;&nbsp;├ {$vo.module_name}
+						{/if}</td>
+					<td>{$vo.dyid}</td>
+					<td class="text-l">{$vo.module_di}</td>
+					<td class="f-14"><a title="编辑" href="system_front_update.html?id={$vo.id}" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="system_category_del(this,'{$vo.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+				</tr>
+			{/foreach}
+			</form>
+
+			</tbody>
+		</table>
+		<div class="paging-wrap" style="display: block;">
+			<div class="s-paging">
+				{$page}
+			</div>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+/*系统-栏目-删除*/
+function system_category_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'get',
+			url: 'front_del.html',
+			dataType: 'json',
+			data:{id:id},
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+</script>
+</body>
+</html>

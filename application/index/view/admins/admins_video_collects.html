@@ -1,0 +1,103 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+<title>视频列表</title>
+</head>
+<body class="pos-r">
+<div>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 视频列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="page-container">
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="admins_video.html" class="btn btn-primary radius">返回视频主页</a></span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<th width="40">ID</th>
+						<th width="60">父作品</th>
+						<th width="100">集数名</th>
+						<th width="100">当前集数描述</th>
+						<th width="90">播放器</th>
+						<th width="100">播放参数</th>
+						<th width="120">下载链接</th>
+						<th width="120">网盘</th>
+						<th width="100">提取码或密码</th>
+						<th width="100">添加时间</th>
+						<th width="100">详情</th>
+						<th width="100">当前集数审核状态</th>
+						<th width="100">排序</th>
+						<th width="100">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				{foreach $data as $vo}
+					<tr class="text-c va-m">
+						<td>{$vo.collectionId}</td>
+						<td>{$vo.Uid}</td>
+						<td>{$vo.Collect}</td>
+						<td>{$vo.Text}</td>
+						<td>{$vo.AddressUid}</td>
+						<td>{$vo.Line}</td>
+						<td>{$vo.Code}</td>
+						<td>{$vo.wedPan}</td>
+						<td>{$vo.panCode}</td>
+						<td>{$vo.Time|date="Y-m-b H-i-s",###}</td>
+						<td>
+							<a style="text-decoration:none" onClick="member_show('作品详情','collect_show','{$vo.Uid}','{$vo.collectionId}','900px','700px')" href="javascript:;" title="详情">
+								<i class="Hui-iconfont">&#xe695;</i>
+							</a>
+						</td>
+						<td class="td-status">
+						{switch name="$vo.Static"}
+						{case value="0"}<span class="label label-danger radius">待审核</span>{/case}
+						{case value="1"}<span class="label label-success radius">审核通过</span>{/case}
+						{case value="2"}<span class="label label-danger radius">审核未通过</span>{/case}
+						{/switch}
+						</td>
+						<td>{$vo.Sort}</td>
+						<td class="td-manage">
+							{switch name="$vo.Static"}
+							{case value="0"}<a style="text-decoration:none" data-value="{$vo.collectionId}" onClick="layers(this)" href="javascript:;" title="审核"><i class="Hui-iconfont">&#xe695;</i></a>{/case}
+							{case value="1"}<a class="c-primary" data-value="{$vo.collectionId}" onClick="layers(this)" href="javascript:;" title="审核通过"><i class="Hui-iconfont">&#xe6dd;</i></a>{/case}
+							{case value="2"}<a class="c-primary" data-value="{$vo.collectionId}" onClick="layers(this)" href="javascript:;" title="审核未通过"><i class="Hui-iconfont">&#xe6e1;</i></a>{/case}
+							{/switch}
+						</td>
+					</tr>
+				{/foreach}
+				</tbody>
+			</table>
+			<div class="paging-wrap" style="display: block;">
+				<div class="s-paging">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+/*产品-审核*/
+function layers(obj){
+	value=$(obj).data('value');
+	value='collect_report.html?id='+value;
+	layer.open({
+		title:'作品审核框',
+		area: ['500px', '400px'],
+		type:2,
+		content:value
+	});
+}
+
+function member_show(title,url,uid,id,w,h){
+	layer.open({
+		type: 2,
+		title: title,
+		shadeClose: true, //点击遮罩关闭层
+		area : [w , h],
+		content: url+'.html?uid='+uid+'&id='+id
+	});
+}
+</script>
+</body>
+</html>

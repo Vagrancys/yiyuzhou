@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的创作中心</title>
+    <style>
+        .profile-m a {
+            color: #000;
+        }
+        .security-left{
+            height: 700px;
+            border-right: 1px solid #e1e2e5;
+        }
+        .security-right {
+            width: 1005px;
+        }
+        .data-rank{
+            margin: 5px;
+            overflow: hidden;
+            height: 100%;
+            border: 1px solid #e5e5e5;
+        }
+        .data-tab{
+            float: left;
+            margin-right: 54px;
+        }
+        .data-tab ul li{
+            float: left;
+        }
+        .data-tab li a {
+            display: block;
+            min-width: 57px;
+            padding: 12px 20px;
+            border-right: 1px solid #e5e5e5;
+            text-align: center;
+        }
+        .data-tab li p{
+            padding: 12px 20px;
+        }
+        .data-tab .on{
+            background: #53b7f7;
+            color:#fff;
+            text-decoration: none;
+        }
+        @media screen and (max-width: 600px){
+            .security-left {
+                height: 100%;
+            }
+            .data-tab li a,.data-tab li p{
+                padding: 10px 10px;
+            }
+            .security-right {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="create_content">
+                    <div  class="security-left">
+                        <span  class="security-title">创作中心</span>
+                        <ul class="security-ul ser-ul">
+                            <li  class="security-list">
+                                <span  class="security-nav-name"><a href="/create.html">首页</a></span></li>
+                            <li  class="security-list on">
+                                <span class="security-nav-name">投稿管理</span></li>
+                        </ul>
+                        <ul class="security-ul">
+                            <li  class="security-list-jump">
+                                <a  href="/users/{$form.id}" target="_blank" class="security-list-link-jump">个人空间</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="security-right">
+
+                        <div class="data-video">
+                            <div class="data-rank">
+                                <div class="data-tab">
+                                    <ul>
+                                        {if condition="$rank eq 1"}
+                                        <li><p class="on">投稿</p></li>
+                                        {else/}
+                                        <li><a href="/create.html?url=article&rank=1">投稿</a></li>
+                                        {/if}
+                                        {if condition="$rank eq 2"}
+                                        <li><p class="on">系列投稿</p></li>
+                                        {else /}
+                                        <li><a href="/create.html?url=article&rank=2">系列投稿</a></li>
+                                        {/if}
+                                        {if condition="$rank eq 3"}
+                                        <li><p class="on">投稿审核</p></li>
+                                        {else /}
+                                        <li><a href="/create.html?url=article&rank=3">投稿审核</a></li>
+                                        {/if}
+                                        {if condition="$rank eq 4"}
+                                        <li><p class="on">系列审核</p></li>
+                                        {else /}
+                                        <li><a href="/create.html?url=article&rank=4">系列审核</a></li>
+                                        {/if}
+                                    </ul>
+                                </div>
+                            </div>
+                            <ul class="data-ul">
+                                {foreach $video as $v}
+                                <li class="data-li">
+                                    <div class="data-div">
+                                        {switch name="$v.mange_theme_static"}
+                                        {case value="0"}<i class="data-i data-i-2">待审核</i>{/case}
+                                        {case value="1"}<i class="data-i data-i-1">通过</i>{/case}
+                                        {case value="2"}<i class="data-i data-i-3">未通过</i>{/case}
+                                        {/switch}
+                                        <img class="data-img" src="{$v.mange_theme_img}">
+                                        <ul class="data-th">
+                                            <li class="data-p"><a href="create.html?url=article&static=check&video={$v.mange_theme_id}&rank={$rank}">查看</a></li>
+                                            <li class="data-p"><a href="create.html?url=article&static=revise&video={$v.mange_theme_id}&rank={$rank}">修改</a></li>
+                                            <li class="data-p"><a href="create.html?url=article&static=data&video={$v.mange_theme_id}&rank={$rank}">数据</a></li>
+                                            <li class="data-p"><a>删除</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                {/foreach}
+                            </ul>
+                            <div class="paging-wrap" style="display: block;">
+                                <div class="s-paging">
+                                    {$page}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

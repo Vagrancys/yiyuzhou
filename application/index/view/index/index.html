@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$seo.title} - 一个成长中的小网站，各方面都让人无语和待完善！</title>
+    <style>
+        .nav-span {
+            width: 55px;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+   {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+           {include file="common/header"}
+           <div class="wrapper-cont">
+               <div class="index-section">
+                <div class=" section-common">
+                    <h2 class="title-common">
+                        精彩推荐
+                    </h2>
+                </div>
+                <div class="focus-area">
+                    <div class="carousel-area">
+                        <ul class="carousel-list" style="width: 7600px; margin-right: 0px; margin-left: 0px;">
+                            {foreach $fo as $vo}
+                            <li class="carousel-li">
+                                <a href="/main/{$vo.manga_id}" target="_blank"
+                                   class="a-carousel-poster">
+                                    <img src="{$vo.img}" alt="{$vo.title}" class="rel-move">
+                                </a>
+                                <a href="/main/{$vo.manga_id}" target="_blank" class="a-title">
+                                    <p class="title">{$vo.title}</p>
+                                </a>
+                            </li>
+                            {/foreach}
+                        </ul>
+                        <div class="control-carousel">
+                            <a class="prev" static="bl=focus_area_poster_tab"></a>
+                            <a class="next" static="bl=focus_area_poster_tab"></a>
+                        </div>
+                        <ul class="carousel-previewer">
+                            <li class="se"></li>
+                            {foreach $fo as $k=>$v}
+                            {if condition="$k eq 0"}{else /}<li class=""></li>{/if}
+                            {/foreach}
+                        </ul>
+                    </div>
+                    <div class="poster-area">
+                        <ul class="poster-list">
+                            {foreach $form as $vo}
+                            <li class="poster-li">
+                                <a class="a-pic" href="/main/{$vo.manga_id}" target="_blank">
+                                    <img src="{$vo.img}" alt="{$vo.title}">
+                                    <i class="icon-play"></i>
+                                </a>
+                                <a class="a-title" href="/main/{$vo.manga_id}" target="_blank">
+                                    <p class="title-index">{$vo.title}</p>
+                                </a>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+               <div class="grid">
+                   <div class="focus-area">
+                   <div class="left width">
+                       <div class="section-common new-div">
+                           <h2 class="title-common">
+                               新番更新表
+                           </h2>
+                           <ul class="title-r">
+                               {foreach $week as $wr}
+                               {if condition="$week_id eq $wr.total_week_id"}
+                               <li class="active nav-span"><a href="javascript:void(0);" data-id="{$wr.total_week_id}" class="total-week">{$wr.total_week_name}</a></li>
+                               {else /}
+                               <li class="nav-span"><a href="javascript:void(0);" data-id="{$wr.total_week_id}" class="total-week">{$wr.total_week_name}</a></li>
+                               {/if}
+                               {/foreach}
+                           </ul>
+                           <a href="/total.html" class="more">更多 ></a>
+                       </div>
+                       <ul class="total-ul">
+                           {if condition="$static eq 0"}
+                           <p style="text-align: center;" id="total-p">暂未更新</p>
+                           {else /}
+                           {foreach $ve as $ma}
+                           <li>
+                               {if condition="$ma.video_static eq 1"}
+                               <a href="/main/{$ma.one.manga_id}" class="ui-list-ct" title="{$ma.one.title}" target="_blank">
+                                   <p class="total-image">
+                                       <img src="{$ma.one.img}" alt="{$ma.one.title}">
+                                   </p>
+                               </a>
+                               <div class="total-text">
+                                   <div class="total-span">{$ma.one.title}</div>
+                                   <span class="total-txt">更新:<a href="/play/{$ma.two.manga_part_id}">{$ma.two.Collect}</a></span>
+                               </div>
+                               {else /}
+                               <a href="{$ma.total_video_url}" class="ui-list-ct" title="{$ma.total_video_name}" target="_blank">
+                                   <p class="total-image">
+                                       <img src="{$ma.total_video_image}" alt="{$ma.total_video_name}">
+                                   </p>
+                               </a>
+                               <div class="total-text">
+                                   <div class="total-span">{$ma.total_video_name}</div>
+                                   <span class="total-txt"><a href="{$ma.total_video_url}">前往</a></span>
+                               </div>
+                               {/if}
+                           </li>
+                           {/foreach} {/if}
+                       </ul>
+                   </div>
+               </div>
+                   <div class="focus-area">
+                   <div class="video left width">
+                       <div class="section-common">
+                           <h2 class="title-common">
+                               最新投稿
+                           </h2>
+                           <span class="title-r">最热的投稿作品</span>
+                           <a href="/home/Anime.html" class="more">更多 ></a>
+                       </div>
+                       <ul style="height:100%">
+                           {foreach $mang as $ma}
+                           <li>
+                               <a href="/video/{$ma.mange_part_id}" class="ui-list-ct" title="{$ma.mange_part_name}" target="_blank">
+                                   <p class="ui-pic">
+                                       <img src="{$ma.mange_part_img}" alt="{$ma.mange_part_name}">
+                                   </p>
+                                   <p class="msk-text">{$ma.mange_part_name}</p>
+                               </a>
+                           </li>
+                           {/foreach}
+                       </ul>
+                   </div>
+                   <div class="ranking">
+                       <div class="section-common">
+                           <h2 class="title-common">
+                               热门投稿
+                           </h2>
+                           <a href="/home/Anime.html" class="more">更多 ></a>
+                       </div>
+                       <ul >
+                           {foreach $mangeking as $ma}
+                           <li>
+                               {if condition="$num2 gt 3"}<i class="rank-num">{$num2++}</i>{else/}
+                               <i class="rank-num rank-num-color">{$num2++}</i>{/if}
+                               <a href="/video/{$ma.mange_part_id}" class="ui-list-ct" title="{$ma.mange_part_name}" target="_blank">
+                                   <p class="msk-text">{$ma.mange_part_name}</p>
+                               </a>
+                               <span class="msks-txt">{$ma.time}</span>
+                           </li>
+                           {/foreach}
+                       </ul>
+                   </div>
+               </div>
+                   <div class="focus-area">
+                   <div class="video left width">
+                       <div class="section-common">
+                           <h2 class="title-common">
+                               动漫
+                           </h2>
+                           <span class="title-r">最热的投稿作品</span>
+                           <a href="/home/Anime.html" class="more">更多 ></a>
+                       </div>
+                       <ul>
+                           {foreach $mange as $ma}
+                           <li>
+                               <a href="/main/{$ma.manga_id}" class="ui-list-ct" title="{$ma.title}" target="_blank">
+                                   <p class="ui-pic">
+                                       <img src="{$ma.img}" alt="{$ma.title}">
+                                   </p>
+                                   <p class="msk-text">{$ma.title}</p>
+                               </a>
+                               <span class="msk-txt">更新至:<a href="/play/{$ma.part_id}">{$ma.Collect}</a></span>
+                           </li>
+                           {/foreach}
+                       </ul>
+                   </div>
+                   <div class="ranking">
+                       <div class="section-common">
+                           <h2 class="title-common">
+                               热门投稿
+                           </h2>
+                           <a href="/home/Anime.html" class="more">更多 ></a>
+                       </div>
+                       <ul >
+                           {foreach $mangapai as $ma}
+                           <li>
+                               {if condition="$num2 gt 3"}<i class="rank-num">{$num2++}</i>{else/}
+                               <i class="rank-num rank-num-color">{$num2++}</i>{/if}
+                               <a href="/main/{$ma.manga_id}" class="ui-list-ct" title="{$ma.title}" target="_blank">
+                                   <p class="msk-text">{$ma.title}</p>
+                               </a>
+                               <span class="msks-txt">{$ma.time}</span>
+                           </li>
+                           {/foreach}
+                       </ul>
+                   </div>
+               </div>
+                   <div class="focus-area">
+                    <div class="video left width">
+                        <div class="section-common">
+                            <h2 class="title-common">
+                                导师区
+                            </h2>
+                            <span class="title-r">共有{$number}个作品可以捡漏</span>
+                            <a href="/taobao.html" class="more">更多 ></a>
+                        </div>
+                        <ul>
+                            {foreach $w as $w1}
+                            <li>
+                                <a href="/tor/{$w1.mange_theme_id}" class="ui-list-ct" title="{$w1.mange_theme_title}" target="_blank">
+                                    <p class="ui-pic">
+                                        <img src="{$w1.mange_theme_img}" alt="{$w1.mange_theme_title}">
+                                    </p>
+                                    <p class="msk-text">{$w1.mange_theme_title}</p>
+                                </a>
+                                <span class="msk-txt">查看:<a href="/tor/{$w1.mange_theme_id}">点击</a></span>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                    <div class="ranking">
+                        <div class="section-common">
+                            <h2 class="title-common">
+                                潜力排行
+                            </h2>
+                            <a href="/taobao.html" class="more">更多 ></a>
+                        </div>
+                        <ul>
+                            {foreach $taopai as $tao}
+                            <li>
+                                {if condition="$num gt 3"}<i class="rank-num">{$num++}</i>{else/}
+                                <i class="rank-num rank-num-color">{$num++}</i>{/if}
+                                <a href="/tao/{$tao.mange_theme_id}" class="ui-list-ct" title="{$tao.mange_theme_title}" target="_blank">
+                                    <p class="msk-text">{$tao.mange_theme_title}</p>
+                                </a>
+                                <span class="msks-txt">{$tao.time}</span>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+                   <div class="focus-area">
+                <div class="video left width">
+                    <div class="section-common">
+                        <h2 class="title-common">
+                            成长区
+                        </h2>
+                        <span class="title-r">升级最快的投稿作品</span>
+                        <a href="/level/1" class="more">更多 ></a>
+                    </div>
+                    <ul>
+                        {foreach $level as $l}
+                        <li>
+                            <a href="/grow/{$l.mange_theme_id}" class="ui-list-ct" title="{$l.mange_theme_title}" target="_blank">
+                                <p class="ui-pic">
+                                    <img src="{$l.mange_theme_img}" alt="{$l.mange_theme_title}">
+                                </p>
+                                <p class="msk-text">{$l.mange_theme_title}</p>
+                            </a>
+                            <span class="msk-txt">当前影响力:<a href="/grow/{$l.mange_theme_id}">{$l.level_date_level}</a>级</span>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <div class="ranking">
+                    <div class="section-common">
+                        <h2 class="title-common">
+                            成长潜力排行
+                        </h2>
+                        <a href="/level/1" class="more">更多 ></a>
+                    </div>
+                    <ul>
+                        {foreach $levelpai as $l}
+                        <li>
+                            {if condition="$num1 gt 3"}<i class="rank-num">{$num1++}</i>{else/}
+                            <i class="rank-num rank-num-color">{$num1++}</i>{/if}
+                            <a href="/grow/{$l.mange_theme_id}" class="ui-list-ct" title="{$l.mange_theme_title}" target="_blank">
+                                <p class="msk-text">{$l.mange_theme_title}</p>
+                            </a>
+                            <span class="msks-txt">{$l.time}</span>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+            </div>
+               </div>
+           </div>
+           {include file="common/footer"}
+       </div>
+   </div>
+</div>
+<script type="text/javascript">
+    $(".carousel-li").mouseenter(function(){
+        $(".control-carousel").show();
+    });
+    $(".carousel-area").mouseleave(function(){
+        $(".control-carousel").hide();
+    });
+    $(document).ready(function() {
+        var length=$(".poster-list li").length;
+        for($i=0;$i<length;$i++){
+            $(".poster-li").eq($i).addClass("n"+$i);
+        }
+        var time=null;
+        var iNow=0;
+        var ul=$(".carousel-list");
+        var showNumber=$(".carousel-previewer").find("li");
+        var oneWidth=$(".carousel-list").find("li").eq(0).width();
+        showNumber.on("click",function(){
+            $(this).addClass("se").siblings().removeClass("se");
+            var index=$(this).index();
+            iNow=index;
+            ul.animate({   "margin-left":-oneWidth*iNow })
+        });
+        $(".prev").on("click",function(){
+            if(iNow==0)
+            {iNow=showNumber.length-1}
+            else{
+                iNow--;
+            };
+
+            showNumber.eq(iNow).addClass("se").siblings().removeClass("se");
+            ul.animate({   "margin-left":-oneWidth*iNow })
+        });
+        $(".next").on("click",function(){
+            if(iNow==showNumber.length-1){iNow=0}else{ iNow++;};
+
+            showNumber.eq(iNow).addClass("se").siblings().removeClass("se");
+
+            ul.animate({   "margin-left":-oneWidth*iNow })
+        });
+        $(".carousel-area").mouseenter(function(){
+            clearInterval(time);
+        }).mouseleave(function(){
+            clearInterval(time);
+            time = setInterval(timer,4500);
+        });
+
+        function timer(){
+            iNow++;
+            if(iNow>showNumber.length-1){
+                iNow=0;
+            }
+            showNumber.eq(iNow).trigger("click");
+        }
+        if(iNow>8){
+            clearInterval(time);
+        }
+        time=setInterval(timer,4500);
+        window.onblur= function(){
+            clearInterval(time);
+        }
+        window.onfocus= function(){
+            time=setInterval(timer,10000);
+        }
+    });
+
+
+    $(".poster-li").mouseenter(function(){
+        var li = $(".poster-li").index(this);
+        $(".n"+li+" i").fadeTo(100,1);
+    }).mouseleave(function(){
+        var li = $(".poster-li").index(this);
+        $(".n"+li+" i").fadeTo(100,0);
+    });
+
+</script>
+</body>
+</html>

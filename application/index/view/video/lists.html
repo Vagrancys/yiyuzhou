@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>异宇宙电影频道列表 - {$seo.title}</title>
+    <style>
+        @media screen and (max-width:600px){
+            .nav-filter-section li {
+                min-width: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap main">
+    <div class="nav-filter">
+        <div class="nav-filter-content">
+            <dl class="nav-filter-section">
+                <h3 class="dt">频道</h3>
+                <ul class="nav-filter-ul">
+                    {$header}
+                </ul>
+            </dl>
+            <dl class="nav-filter-section">
+                <h3 class="dt">类型</h3>
+                <ul class="nav-filter-ul">
+                    {$type}
+                </ul>
+            </dl>
+            {foreach $one as $z}
+            <dl class="nav-filter-section">
+                <h3 class="dt">{$z.name}</h3>
+                <ul class="nav-filter-ul">
+                    {$z.text}
+                </ul>
+            </dl>
+            {/foreach}
+        </div>
+    </div>
+    <div class="videos">
+        <ul class="videos-ul">
+            {empty name="$zx"}
+             <h1 class="h1">视频库为空！</h1>
+            {else /}
+            {foreach $zx as $c}
+            <li class="nav-video-item">
+                        <div >
+                            <a href="/main/{$c.Uid}" target="_blank" title="{$c.Text}" class="nav-video-link">
+                                <img src="{$c.img}" alt="{$c.Text}">
+                                {if condition="$c.Coin eq 0"}
+                                {else /}
+                                <span class="nav-video-update">{$c.Coin}金币</span>
+                                {/if}
+                            </a>
+                        </div>
+                        <div class="nav-video-primary">
+                            <h4 class="nav-video-title">
+                                <a href="/main/{$c.Uid}" title="{$c.Text}" target="_blank">{$c.Text}</a>
+                            </h4>
+                        </div>
+                    </li>
+            {/foreach}
+            {/empty}
+        </ul>
+    </div>
+    <div class="paging-wrap" style="display: block;">
+        <div class="s-paging">
+            {$page}
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

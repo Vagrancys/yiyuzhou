@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+    <style>
+        .el-select {
+            background-color: #fff;
+            background-image: none;
+            border-radius: 4px;
+            border: 1px solid #bfcbd9;
+            box-sizing: border-box;
+            color: #1f2d3d;
+            font-size: inherit;
+            height: 36px;
+            line-height: 1;
+            outline: 0;
+            padding: 3px 10px;
+            transition: border-color .2s cubic-bezier(.645,.045,.355,1);
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="security_content">
+    <div  class="security-left">
+        <span  class="security-title">个人中心</span>
+        <ul class="security-ul ser-ul">
+            <li  class="security-list ">
+               <span  class="security-nav-name"><a href="/core.html" >首页</a></span></li>
+            <li  class="security-list on">
+            <span class="security-nav-name ">我的信息</span></li>
+            <li  class="security-list">
+                <span class="security-nav-name"><a href="/core.html?url=money" >会员硬币</a></span></li>
+            <li class="security-list">
+                <span class="security-nav-name"><a href="/core.html?url=face" >我的头像</a></span></li>
+            <li class="security-list">
+                <span class="security-nav-name"><a href="/core.html?url=site" >账号安全</a></span></li>
+        </ul>
+        <ul class="security-ul">
+            <li  class="security-list-jump">
+                <a  href="/users/{$form.id}" class="security-list-link-jump">个人空间</a></li>
+            <li  class="security-list-jump">
+                <a  href="/create.html" class="security-list-link-jump">创作中心</a></li>
+            <li  class="security-list-jump">
+                <a  href="/rise_list.html" class="security-list-link-jump">升阶中心</a></li>
+            <li  class="security-list-jump">
+                <a  href="/droit.html" class="security-list-link-jump">权利中心</a></li>
+        </ul>
+    </div>
+    <div class="security-right">
+        <div  class="security-right-title">
+            <span class="security-right-title-text">我的信息</span>
+        </div>
+        <div class="user-setting-warp">
+            <form action="user_form.html" method="post" enctype="multipart/form-data">
+                <input type="hidden" value="{$form.id}" name="id" id="id">
+                    <div class="el-form-item">
+                        <label class="el-form-item-label">昵称:</label>
+                        <div class="el-form-item__content">
+                            <div class="el-input">
+                                <input placeholder="你的昵称" type="text" name="nickname" class="el-input-inner" value="{$form.nickname}">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="el-form-item ">
+                        <label class="el-form-item-label">用户名:</label>
+                        <div class="el-form-item__content">
+                            <span class="userinfo-username">{$form.name}</span>
+                        </div>
+                    </div>
+                    <div class="el-form-item ">
+                        <label class="el-form-item-label">用户名:</label>
+                        <div class="el-form-item__content">
+                            <select class="el-select">
+                                <option name="sex" value="1">未知</option>
+                                <option name="sex" value="2">男</option>
+                                <option name="sex" value="3">女</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="el-form-item ">
+                        <label class="el-form-item-label">生日:</label>
+                        <div class="el-form-item__content">
+                            <select class="el-select">
+                                <option name="sex" value="0">未知</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="el-form-item">
+                        <label class="el-form-item-label">我的签名:</label>
+                        <div class="el-form-item__content">
+                            <div class="el-textarea">
+                                <textarea placeholder="设置您的签名" name="autograph" class="el-textarea-inner"  style="min-height: 33px;" >{$form.autograph}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="el-form-item">
+                        <div class="el-form-item__content">
+                            <div class="padding-dom"></div>
+                            <div class="user-my-btn-warp">
+                                <button type="submit" class="el-button el-button--primary"><span>保存</span></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

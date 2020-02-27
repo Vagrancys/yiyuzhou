@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.title}的金币汇总 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap assess-header">
+                <a href="/index.html">首页</a> &gt;
+                <a href="/main/{$vi.manga_id}">{$vi.title}</a> &gt;
+                {$vi.title}的金币汇总
+            </div>
+                <div class="line">
+                    <div class="assess-left">
+                        <div class="assess-user" id="manga-id" data-aid="{$vi.manga_id}">
+                            <img src="{$vi.img}">
+                        </div>
+                    </div>
+                    <div class="assess-right">
+                    <ul class="assess-ul">
+                        <li>
+                            <h4>作品名称</h4>
+                            <p>{$vi.title}</p>
+                        </li>
+                        <li>
+                            <h4>投币人数</h4>
+                            <p>
+                                {if condition="$vi.number neq 0"}
+                                <i>
+                                    {$vi.number}</i>
+                                <b>人</b>
+                                {else /}
+                                还没有人投币
+                                {/if}
+                            </p>
+                        </li>
+                        <li>
+                            <h4>个人投币</h4>
+                            <p> {if condition="$member.money_static eq '1'"}
+                                <i>
+                                    {$member.manga_support_number}</i>
+                                <b>金币</b>
+                                {else /}
+                                还没有投币: <a href="javascript:;" onclick="support(this);">投币</a>
+                                {/if}
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                </div>
+                <div class="sign-table">
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th style="width:90px;">排序</th>
+                            <th style="width:90px;">昵称</th>
+                            <th >投币数量</th>
+                            <th style="width:150px;">投币时间</th>
+                        </tr>
+                        {foreach $assess as $n}
+                        <tr>
+                            <th>{$vi.numbers++}</th>
+                            <th><a href="/users/{$n.id}" target="_blank">{$n.name}</a></th>
+                            <th>{$n.manga_support_number}</th>
+                            <th>{$n.manga_support_time|date="Y-m-d H:i:s",###}</th>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+
+                    </table>
+                </div>
+                <div class="paging-wrap" style="display: block;">
+                    <div class="s-paging">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

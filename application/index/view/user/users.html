@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                {include file="common/user_header"}
+                <div class="wap" id="page-index">
+                    <div class="user-p"><p class="p-active" data-id="1">投稿展示</p><p data-id="2">公开信息</p></div>
+                    <div class="users-1">
+                    </div>
+                    <div class="col-2">
+                        <div class="home-section" style="">
+                            {if condition="$name.id eq ''"}
+                            <a href="javascript:;" onclick="login(this)">视频投稿</a>
+                            <a href="javascript:;" onclick="login(this)">投稿管理</a>
+                            {else /}
+                            <a href="/contribute.html" target="_blank">视频投稿</a>
+                            {if condition="$name.id eq $form.id "}
+                            <a href="/create.html" target="_blank">投稿管理</a>
+                            {/if}
+                            {/if}
+                        </div>
+                        <div class="home-section"><h3 class="section-title">公告</h3>
+                                {if condition="$name.id eq ''"}
+                                <div style="min-height: 300px;"> {if condition="$form.notice eq ''"} 未知的公告！{else /}{$form.notice}{/if}</div>
+                                {else /}
+                                {if condition="$fans.static neq ''"}
+                                <div style="min-height: 300px;"> {if condition="$form.notice eq ''"} 未知的公告！{else /}{$form.notice}{/if}</div>
+                                {else /}
+                                <div class="home-notice">
+                                <div class="home-text">{$form.notice}</div>
+                                <textarea class="text-notice" placeholder="编辑公告！">{$form.notice}</textarea>
+                                </div>
+                                {/if}
+                                {/if}
+                        </div>
+                        <div class="home-section">
+                            <div class="section-title">
+                                <span class="icon"></span> <span>对外信息</span>
+                            </div>
+                            <div class="user-news">
+                                <div class="row">
+                                    <div class="item">
+                                        <span class="icon"></span>
+                                        <span class="text">UID：{$form.id}</span>
+                                    </div>
+                                    <div class="item">
+                                        <span class="icon"></span>
+                                        <span class="text">注册于 {$form.time|date="Y-m-d",###}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $(".user-p p").click(function(){
+        $(".user-p p").removeClass('p-active');
+        $(this).addClass("p-active");
+        var id=$(this).data('id');
+        if(id=="1"){
+            $(".users-1").show();
+            $(".col-2").hide();
+        }else{
+            $(".users-1").hide();
+            $(".col-2").show();
+        }
+    });
+</script>
+</html>

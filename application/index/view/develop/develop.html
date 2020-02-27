@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$seo.title} - 网站发展状况</title>
+     <style>
+        @media screen and (max-width: 600px){
+            .develop-p1 {
+                overflow: hidden;
+                height: 100%;
+            }
+            .develop-level-bar {
+                width: 70%;
+            }
+            .develop-level-button button{
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="develop-wrapper">
+    <div class="develop-div">
+        <h1 class="develop-h1">异宇宙动漫</h1>
+        <div>
+            <div class="develop-title">
+                如果想了解本网站请点击 <button class="develop-button">查看</button> 可能会对你产生影响！
+            </div>
+            <div class="develop-p">
+                <div class="develop-span">
+                    {foreach $develop_text as $d_t}
+                    {if condition="$d_t.develop_text_id eq 1"}
+                    <span class="develop-active develop-q" data-aid="{$d_t.develop_text_id}">{$d_t.develop_text_title}</span>
+                    {else /}
+                    <span class="develop-q" data-aid="{$d_t.develop_text_id}">{$d_t.develop_text_title}</span>
+                    {/if}
+                    {/foreach}
+                </div>
+                {foreach $develop_text as $d_text}
+                {if condition="$d_text.develop_text_id eq 1"}
+                <div id="text-{$d_text.develop_text_id}" class="text-p" style="display: block;">
+                    {$d_text.develop_text_text}
+                    <p class="develop-p-span">{$d_text.develop_text_time|date="Y-m-d H;i;s",###}<span class="develop-button-span">关闭</span></p>
+                </div>
+                {else /}
+                <div id="text-{$d_text.develop_text_id}" class="text-p">
+                    {$d_text.develop_text_text}
+                    <p class="develop-p-span">{$d_text.develop_text_time|date="Y-m-d H;i;s",###}<span class="develop-button-span">关闭</span></p>
+                </div>
+                {/if}
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="develop-div">
+        <div class="develop-data">
+            <h2 class="develop-h2">网站数据</h2>
+            {foreach $develop_data as  $d_data}
+            <h3>{$d_data.develop_data_header_name}</h3>
+            <p class="develop-data-p">
+                {foreach $d_data.central as $d_central}
+                <span>{$d_central.develop_data_central_name}：{$d_central.develop_data_central_data}</span>
+                {/foreach}
+            </p>
+            {/foreach}
+        </div>
+    </div>
+    {foreach $develop_function as $d_function}
+        <div class="develop-div">
+        <div class="develop-header">{$d_function.develop_function_name}</div>
+        <div class="develop-p1">
+            <div class="develop-level">等级<span class="develop-level-span" id="{$d_function.develop_function_title}-level-{$d_function.develop_function_id}">{$d_function.level_name}级</span></div>
+            <div class="develop-level-bar">
+                <div class="develop-progress-bar" id="{$d_function.develop_function_title}-width-{$d_function.develop_function_id}" style="{$d_function.praise_num}">
+                    <span class="develop-progress-text" id="{$d_function.develop_function_title}-data-{$d_function.develop_function_id}">{$d_function.develop_function_praise}/{$d_function.develop_function_praise_up}</span>
+                </div>
+            </div>
+            <div class="develop-level-button" id="{$d_function.develop_function_id}">
+                {if condition="$d_function.login_static eq 1"}
+                {if condition="$d_function.support_static eq 1"}
+                <button class="develop-level-support">已支持</button>
+                {else /}
+                <button class="develop-level-support" data-value="{$d_function.develop_function_title}" data-val="1" data-id="{$d_function.develop_function_id}">支持</button>
+                {/if}
+                {else /}
+                <button><a href="/login.html">登录</a></button>
+                {/if}
+                <button class="develop-level-support"><a href="/develop_list.html?static={$d_function.develop_function_id}">查看</a></button>
+            </div>
+        </div>
+        <div class="develop-p1">
+            {foreach $d_function.list as $key=>$d_list}
+            {if condition="$key eq 0"}
+            <p class="develop-qie-p level-p-radius develop-title" data-val="{$d_list.develop_function_title}" data-id="{$d_list.develop_function_id}">{$d_list.develop_function_name}</p>
+            {else /}
+            <p class="develop-title" data-val="{$d_list.develop_function_title}" data-id="{$d_list.develop_function_id}">{$d_list.develop_function_name}</p>
+            {/if}
+            {/foreach}
+            {if condition="$d_function.login_static eq 1"}
+            <button class="develop-p1-button" data-val="{$d_list.develop_function_title}" data-id="{$d_function.develop_function_id}">提交意见</button>
+            {else /}
+            <button class="develop-p1-button"><a href="/login.html" style="color: #fff;">登录</a></button>
+            {/if}
+        </div>
+        {foreach $d_function.list as $key=>$d_lists}
+            {if condition="$key eq 0"}
+        <div class="develop-chunk develop-chunk-show" id="{$d_lists.develop_function_title}s-{$d_lists.develop_function_id}">
+            {foreach $d_lists.comment as $d_comment}
+            <div class="develop-chunk-div">
+                <div class="develop-chunk-header">
+                    <span>{$d_comment.develop_comment_id}</span>
+                    <span>{$d_comment.comment_level}级</span>
+                    <span><a href="/users/{$d_comment.develop_comment_user}">{$d_comment.comment_name}</a></span>
+                    <span>{$d_comment.develop_comment_title}</span>
+                    <span>{$d_comment.develop_comment_support}人支持
+                        {if condition="$d_comment.support_static eq 1"}
+                            <button class="develop-chunk-support">已支持</button>
+                            {else /}
+                            <button class="develop-chunk-support" data-id="{$d_comment.develop_comment_id}">支持</button>
+                            {/if}
+                    </span>
+                    <span>{$d_comment.develop_comment_time|date="Y-m-d H:i:s",###}</span>
+                    <span>待处理</span>
+                    <span><button class="develop-chunk-hover" data-val="{$d_lists.develop_function_title}" data-aid="{$d_comment.develop_comment_id}">查看</button></span>
+                </div>
+                <div class="develop-chunk-text" id="{$d_lists.develop_function_title}-{$d_comment.develop_comment_id}">
+                    <h3>{$d_comment.develop_comment_title}</h3>
+                    <div>{$d_comment.develop_comment_text}</div>
+                    <div class="develop-chunk-time">发布于{$d_comment.develop_comment_time|date="Y-m-d H:i:s",###}</div>
+                    <div class="develop-chunk-actions">
+                        <button class="develop-chunk-hover develop-chunk-right" data-val="{$d_lists.develop_function_title}" data-aid="{$d_comment.develop_comment_id}">收起</button>
+                    </div>
+                </div>
+            </div>
+            {/foreach}
+        </div>
+            {else /}
+            <div class="develop-chunk" id="{$d_lists.develop_function_title}s-{$d_lists.develop_function_id}">
+                {foreach $d_lists.comment as $d_comment}
+                <div class="develop-chunk-div">
+                    <div class="develop-chunk-header">
+                        <span>{$d_comment.develop_comment_id}</span>
+                        <span>{$d_comment.comment_level}级</span>
+                        <span><a href="/users/{$d_comment.develop_comment_user}">{$d_comment.comment_name}</a></span>
+                        <span>{$d_comment.develop_comment_title}</span>
+                        <span>{$d_comment.develop_comment_support}人支持
+                            {if condition="$d_comment.support_static eq 1"}
+                            <button class="develop-chunk-support">已支持</button>
+                            {else /}
+                            <button class="develop-chunk-support" data-id="{$d_comment.develop_comment_id}">支持</button>
+                            {/if}
+                        </span>
+                        <span>{$d_comment.develop_comment_time|date="Y-m-d H:i:s",###}</span>
+                        <span>待处理</span>
+                        <span><button class="develop-chunk-hover" data-val="{$d_lists.develop_function_title}" data-aid="{$d_comment.develop_comment_id}">查看</button></span>
+                    </div>
+                    <div class="develop-chunk-text" id="{$d_lists.develop_function_title}-{$d_comment.develop_comment_id}">
+                        <h3>{$d_comment.develop_comment_title}</h3>
+                        <div>{$d_comment.develop_comment_text}</div>
+                        <div class="develop-chunk-time">发布于{$d_comment.develop_comment_time|date="Y-m-d H:i:s",###}</div>
+                        <div class="develop-chunk-actions">
+                            <button class="develop-chunk-hover develop-chunk-right" data-val="{$d_lists.develop_function_title}" data-aid="{$d_comment.develop_comment_id}">收起</button>
+                        </div>
+                    </div>
+                </div>
+                {/foreach}
+            </div>
+            {/if}
+        {/foreach}
+    </div>
+    {/foreach}
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(".develop-button").click(function(){
+        $(".develop-p").toggle();
+    });
+    $(".develop-button-span").click(function(){
+        $(".develop-p").hide();
+    });
+    $(".develop-q").click(function(){
+        $(".develop-q").removeClass("develop-active");
+        $(this).addClass("develop-active");
+        $(".text-p").hide();
+        var id=$(this).data('aid');
+        $("#text-"+id).show();
+    });
+
+    $(".develop-chunk-hover").click(function(){
+        var val=$(this).data("val");
+        var num=$(this).data("aid");
+        var text="#"+val+"-"+num;
+        $(text).toggle();
+    });
+
+    $(".develop-chunk-right").click(function(){
+        var val=$(this).data("val");
+       var id=$(this).data("aid");
+        var text="#"+val+"-"+id;
+        $(text).hide();
+    });
+    $(".develop-title").click(function(){
+        $(this).siblings('.develop-title').removeClass("develop-qie-p");
+        $(this).addClass("develop-qie-p");
+        $(this).parent('.develop-p1').siblings('.develop-chunk').hide();
+        var val=$(this).data("val");
+        var id=$(this).data("id");
+        var text="#"+val+"s-"+id;
+        $(text).show();
+    });
+    $(document).on("click",".develop-level-support",function(){
+        var value=$(this).data("value");
+        var val=$(this).data("val");
+        var id=$(this).data("id");
+        $.ajax({
+            type: 'post',
+            url: '/develop_support_ajax.html',
+            dataType: 'json',
+            data:{val:val,id:id},
+            success:function(data){
+                if(data.num==1){
+                    $("#"+id).find(".develop-level-support").remove()
+                    $("#"+id).html(data.text);
+                    $("#"+value+"-level-"+id).text(data.level);
+                    $("#"+value+"-width-"+id).width(data.width);
+                    $("#"+value+"-data-"+id).text(data.data);
+                }
+            }
+        });
+    });
+
+    $(".develop-p1-button").click(function(){
+        var value=$(this).data("value");
+        var id=$(this).data("id");
+        $.ajax({
+            type:'post',
+            url:'/develop_comment_ajax.html',
+            dataType:'json',
+            data:{id:id},
+            success:function(data){
+                if(data.num==1){
+                    $("body").append(
+                            "<div class='modal-wrapper'> <div class='modal1-backdrop'></div> <div class='modal1'> " +
+                            "<div class='modal-inner'> " +
+                            "<h3 class='modal-title'>吐槽吧！<div class='buttons' style='top: 32px'><a class='close-btn'></a></div></h3> " +
+                            "<div class='modal-name'> <input id='comment-input' placeholder='吐槽的核心！'></div>" +
+                            "<div class='modal-subtitle'>请选择要吐槽的对象</div> <div class='modal-content'> " +
+                            "<div class='menu-inner'> <select class='menu-select' id='comment-uid'> " +
+                            data.text+"</select> </div> <div class='menu-text'> " +
+                            "<textarea id='comment-textarea' placeholder='来一次完整的吐槽！'></textarea> </div> " +
+                            "<div class='modal-button'><button class='modal-button-click'>吐槽</button></div> </div> " +
+                            "</div></div></div>"
+                    );
+                }
+            }
+        })
+    });
+
+    $(document).on("click",".modal-button-click",function(){
+        var input=$("#comment-input").val();
+        var uid=$("#comment-uid").val();
+        var text=$("#comment-textarea").val();
+        $.ajax({
+            type:'post',
+            url:"/develop_comments_ajax.html",
+            data:{input:input,uid:uid,text:text},
+            success:function(data){
+                if(data.num==1){
+                    $(".modal-wrapper").remove();
+                    alert("吐槽成功！");
+                }else{
+                    $(".modal-wrapper").remove();
+                    alert("吐槽失败！");
+                }
+            }
+        })
+    });
+
+    $(document).on("click",'.close-btn',function(){
+        $(".modal-wrapper").remove();
+    });
+
+    $(".develop-chunk-support").click(function(){
+        var id=$(this).data("id");
+        $.ajax({
+            type: 'post',
+            url: '/develop_user_support_ajax.html',
+            dataType: 'json',
+            data:{id:id},
+            success:function(data){
+                if(data.num==1){
+                    window.location.reload();
+                }
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,120 @@
+<!--_meta 作为公共模版分离出去-->
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+
+<title>添加用户</title>
+</head>
+<body>
+<article class="page-container">
+	<form action="optimize_form.html" method="post" class="form form-horizontal" id="form-member-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>图片后加载：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="hidden" name="id" value="{$public.id}">
+				<input type="hidden" name="token" value="{$token}">
+				{if condition="$public.lazyload eq 'on'"}
+				<div class="radio-box">
+					<input  name="lazyload" type="radio" checked>
+					<label >开</label>
+				</div>
+				<div class="radio-box">
+					<input name="lazyload" type="radio">
+					<label>关</label>
+				</div>
+				{else /}
+				<div class="radio-box">
+					<input   name="lazyload" type="radio" >
+					<label>开</label>
+				</div>
+				<div class="radio-box">
+					<input name="lazyload" type="radio" checked>
+					<label >关</label>
+				</div>
+				{/if}
+				<span>当开启后，页面中的图片在浏览器的当前窗口时再加载，可明显降低访问量很大的站点的服务器负担，建议开启本功能</span>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>session是否关闭：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				{if condition="$public.sessionclose eq 'on'"}
+				<div class="radio-box">
+					<input  name="sessionclose" type="radio" checked>
+					<label >开</label>
+				</div>
+				<div class="radio-box">
+					<input name="sessionclose" type="radio">
+					<label>关</label>
+				</div>
+				{else /}
+				<div class="radio-box">
+					<input   name="sessionclose" type="radio" >
+					<label>开</label>
+				</div>
+				<div class="radio-box">
+					<input name="sessionclose" type="radio" checked>
+					<label >关</label>
+				</div>
+				{/if}
+				<p>关闭session机制以后，可明显降低站点的服务器负担，建议在线用户数超过2万时开启本功能</p>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+$(function(){
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$("#form-member-add").validate({
+		rules:{
+			username:{
+				required:true,
+				minlength:2,
+				maxlength:16
+			},
+			sex:{
+				required:true,
+			},
+			mobile:{
+				required:true,
+				isMobile:true,
+			},
+			email:{
+				required:true,
+				email:true,
+			},
+			uploadfile:{
+				required:true,
+			},
+			
+		},
+		onkeyup:false,
+		focusCleanup:true,
+		success:"valid",
+		submitHandler:function(form){
+			//$(form).ajaxSubmit();
+			var index = parent.layer.getFrameIndex(window.name);
+			//parent.$('.btn-refresh').click();
+			parent.layer.close(index);
+		}
+	});
+});
+</script> 
+<!--/请在上方写此页面业务相关的脚本-->
+</body>
+</html>

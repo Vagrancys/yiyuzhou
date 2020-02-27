@@ -1,0 +1,67 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+
+<?php include("static/admin/header.php")?>
+<title>签到记录</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 签到记录 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<form method="post" action="member_list.html">
+		<div class="text-c"> 用户名：
+			<input type="text" name="name" class="input-text Wdate" style="width:120px;">
+			用户ID：
+			<input type="text" name="id" class="input-text Wdate" style="width:120px;">
+			用户组：
+			<input type="text" name="level" class="input-text" style="width:250px">
+			<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+		</div>
+	</form>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="r">共有数据：<strong>{$number}</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="80">ID</th>
+				<th width="100">用户名</th>
+				<th width="150">签到时间</th>
+				<th width="40">签到次数</th>
+				<th width="90">连续签到</th>
+				<th width="100">连续月签到</th>
+				<th width="100">连续周签到</th>
+				<th width="130">年</th>
+				<th width="70">月</th>
+				<th>日</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach $data as $v}
+				<tr class="text-c">
+					<td>{$v.id}</td>
+					<td>{$v.name}</td>
+					<td>{$v.sign_time|date="Y-m-d H-i-s",###}</td>
+					<td>{$v.sign_number}</td>
+					<td>{$v.sign_con}</td>
+					<td>{$v.sign_month}</td>
+					<td>{$v.sign_week}</td>
+					<td>{$v.year}</td>
+					<td>{$v.month}</td>
+					<td>{$v.day}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+		<div class="paging-wrap" style="display: block;">
+			<div class="s-paging">
+				{$page}
+			</div>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+<!--请在下方写此页面业务相关的脚本-->
+</body>
+</html>

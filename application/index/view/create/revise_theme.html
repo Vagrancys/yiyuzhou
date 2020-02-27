@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的创作中心</title>
+    <style>
+        .profile-m a {
+            color: #000;
+        }
+        .security-left{
+            height: 700px;
+            border-right: 1px solid #e1e2e5;
+        }
+        @media screen and (max-width: 600px){
+            .security-left {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="create_content">
+                    <div  class="security-left">
+                        <span  class="security-title">创作中心</span>
+                        <ul class="security-ul ser-ul">
+                            <li  class="security-list">
+                                <span  class="security-nav-name"><a href="/create.html">首页</a></span></li>
+                            <li  class="security-list on">
+                                <span class="security-nav-name">投稿管理</span></li>
+                        </ul>
+                        <ul class="security-ul">
+                            <li  class="security-list-jump">
+                                <a  href="/users/{$form.id}" target="_blank" class="security-list-link-jump">个人空间</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="security-right">
+                            <p class="data-check-p"><a href="/create.html?url=article">投稿管理</a> > {$works.mange_theme_title}</p>
+                            <h1 class="contribute-title">修改</h1>
+                            <form class="conform" name="post" action="works_theme_form.html" method="post">
+                                <div class="form-title">
+                                    <dt>标题</dt>
+                                    <dd>
+                                        <input type="hidden" name="mange_theme_user" value="{$works.mange_theme_user}">
+                                        <input type="hidden" name="mange_theme_id" value="{$works.mange_theme_id}">
+                                        <input type="hidden" name="number" value="{$number}">
+                                        <input type="text" class="title-input" name="mange_theme_title" value="{$works.mange_theme_title}">
+                                    </dd>
+                                </div>
+                                <div class="form-ul">
+                                    <ul class="form-post">
+                                        <li class="form-post-h4"><h4>作品信息</h4></li>
+                                        <li>
+                                            <dt>分类</dt>
+                                            <dd>
+                                                <select class="form-select" id="select" type="text" name="mange_theme_page"  >
+                                                    <option value="{$works.id}">{$works.name}</option>
+                                                    {foreach $collect as $page}
+                                                    <option value="{$page.id}">{$page.name}</option>
+                                                    {/foreach}
+                                                </select>
+                                                <span class="form-prompt"></span>
+                                            </dd>
+                                        </li>
+                                        <li>
+                                            <dt>封面</dt>
+                                            <dd style="height: 350px;width: 645px;" id="head-text">
+                                                <div id="uploader" class="wu-example" onclick="head_image();" style="display: none;">
+                                                    点击选择封面
+                                                </div>
+                                                <div id="head-image" class="head-image"><img src="{$works.mange_theme_img}"></div>
+                                                <input id="head-name" name="mange_theme_img" value="{$works.mange_theme_img}" type="hidden">
+                                                <div id="xiu-image" class="wu-example xiu-image" onclick="head_image();">修改封面</div></dd>
+                                            </dd>
+                                        </li>
+                                        <li>
+                                            <dt>详细简介</dt>
+                                            <dd>
+                                                <textarea name="mange_theme_text" style="height:200px" class="form-select">{$works.mange_theme_text}</textarea>
+                                                <span class="form-prompt"></span>
+                                            </dd>
+                                        </li>
+                                        <li class="form-post-h4 "><h4>你的资源信息</h4></li>
+                                        <li>
+                                            <table class="collect-table">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="text"  class="form-collect" name="mange_theme_class" value="{$works.mange_theme_class}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"  class="form-collect" name="mange_theme_line"  value="{$works.mange_theme_line}">
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"  class="form-collect" name="mange_theme_pass" value="{$works.mange_theme_pass}">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <button type="submit"  class="form-submit">
+                                    <span> 修改作品 </span>
+                                </button>
+                            </form>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

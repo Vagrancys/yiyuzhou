@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+	<?php include("static/admin/header.php")?>
+<title>资金来源管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span>
+	系统管理
+	<span class="c-gray en">&gt;</span>
+	网站资源来源管理
+	<a class="btn btn-success radius r" style="line-height:21px;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+	<div class="text-c">
+		<input type="text" placeholder="模块名称" style="width:250px" class="input-text">
+		<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+		<a href="javascript:;" onclick="submit()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+		<a class="btn btn-primary radius" href="system_capital_add.html"><i class="Hui-iconfont">&#xe600;</i> 添加模块</a>
+		</span>
+		<span class="r">共有数据：<strong>{$number}</strong> 条</span>
+	</div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" id="controlAll" ></th>
+					<th width="80">ID</th>
+					<th width="645">注资机构</th>
+					<th width="645">注资额</th>
+					<th width="640">注资类别</th>
+					<th width="640">注资时间</th>
+					<th width="640">注资有效性</th>
+					<th width="300">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<form method="post" action="system_capital_del.html" id="form">
+			{foreach $data as $vo}
+				<tr class="text-c">
+					<td><input type="checkbox" class="ck" value="{$vo.system_capital_id}" name="item[]"></td>
+					<td>{$vo.system_capital_id}</td>
+					<td>{$vo.system_capital_title}</td>
+					<td>{$vo.system_capital_data}</td>
+					<td>{switch name="$vo.system_capital_static"}
+						{case value="1"}直接注资{/case}
+						{case value="2"}费用注资{/case}
+						{case value="3"}其他注资{/case}
+						{/switch}
+					</td>
+					<td>{$vo.system_capital_time|date="Y-m-d h:i:s",###}</td>
+					<td class="td-status">{switch name="$vo.system_capital_wu"}
+					{case value="0"}<span class="label label-defaunt radius">无效</span>{/case}
+					{case value="1"}<span class="label label-success radius">有效</span>{/case}
+					{/switch}</td>
+					<td class="td-manage">
+						{switch name="$vo.system_capital_wu"}
+						{case value="0"}<a style="text-decoration:none" data-value="{$vo.system_capital_id}" onclick="money_start(this)" href="javascript:;" title="有效性">
+						<i class="Hui-iconfont">&#xe6e1;</i>
+					</a>{/case}
+						{case value="1"}<a style="text-decoration:none" data-value="{$vo.system_capital_id}" onClick="money_stop(this)" href="javascript:;" title="无效性">
+						<i class="Hui-iconfont">&#xe631;</i>
+					</a>{/case}
+						{/switch}
+						<a title="删除" href="javascript:;" onclick="del(this,'{$vo.system_capital_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
+				</tr>
+			{/foreach}
+			</form>
+			</tbody>
+		</table>
+		<div class="paging-wrap" style="display: block;">
+			<div class="s-paging">
+				{$page}
+			</div>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+/*资源-删除*/
+function del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'get',
+			url: 'system_capital_del.html',
+			dataType: 'json',
+			data:{id:id},
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+
+/*资源-停用*/
+function money_stop(obj){
+	var id=$(obj).data('value');
+	layer.confirm('确认要停用吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: 'system_capital_static.html',
+			dataType: 'json',
+			data:{id:id,static:0},
+			success: function(data){
+				$text="<a style='text-decoration:none' data-value='"+id+"' onClick='money_start(this)' href='javascript:;' title='启用'><i class='Hui-iconfont'>&#xe6e1;</i></a>";
+				$(obj).parents("tr").find(".td-manage").prepend($text);
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+				$(obj).remove();
+				layer.msg('已停用!',{icon: 5,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+
+/*资源-启用*/
+function money_start(obj){
+	var id=$(obj).data('value');
+	layer.confirm('确认要启用吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: 'system_capital_static.html',
+			dataType: 'json',
+			data:{id:id,static:1},
+			success: function(data){
+				$text="<a style='text-decoration:none' data-value='"+id+"' onClick='money_stop(this)' href='javascript:;' title='停用'><i class='Hui-iconfont'>&#xe631;</i></a>";
+				$(obj).parents("tr").find(".td-manage").prepend($text);
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+				$(obj).remove();
+				layer.msg('已启用!',{icon: 6,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+</script>
+</body>
+</html>

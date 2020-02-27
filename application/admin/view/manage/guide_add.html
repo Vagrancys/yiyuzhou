@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+<title>添加导流</title>
+</head>
+<body>
+<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="guide_list.html" class="btn btn-primary radius"> 返回主页</a></span> </div>
+<article class="page-container">
+	<form action="guide_form.html" method="post" class="form form-horizontal" id="form-member-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>导流频道：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<select class="select" size="1" id="select" name="guide_index" onchange="doPush();">
+					<option value="0" selected>首页</option>
+					{foreach $nav as $n}
+					<option value="{$n.id}">{$n.name}</option>
+					{/foreach}
+				</select>
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>作品：</label>
+			<div class="formControls col-xs-8 col-sm-9 skin-minimal">
+				<select class="select" id="select1" size="1" name="guide_video">
+					<option value="" selected>请选择作品</option>
+				</select>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<input class="btn btn-primary radius" type="submit" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+			</div>
+		</div>
+	</form>
+</article>
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+	function doPush(){
+		var index=$("#select option:selected").val();
+		$.ajax({
+			type: 'post',
+			url: "guide_ajax.html",
+			dataType: 'json',
+			data:{'index':index},
+			async:false,
+			success: function(text){
+				if(!text==''){
+					$("#select1").empty().append(text);
+				}
+			}
+		});
+	}
+</script>
+</body>
+</html>

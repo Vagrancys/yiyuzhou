@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.mange_theme_title} - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="grow-post">
+    <div class="crumbs crumbs-padding-left">
+        <div class="crumbs-left">
+            <a href="/index.html">首页</a> &gt;
+            <a href="/level/1">成长区</a> &gt;
+            <a href="/grow/{$vi.mange_theme_id}">{$vi.mange_theme_title}</a>
+        </div>
+        <div class="crumbs-right">
+            由 <a href="/users/{$vi.mange_theme_user}">
+            {$vi.name}</a> 整理分享
+        </div>
+    </div>
+    <div class="special-item special-item-left">
+        <div class="grow-image">
+            <img src="{$vi.mange_theme_img}" alt="{$vi.mange_theme_title}">
+        </div>
+        <div class="grow-brief">
+            <div class="special-head">
+                <h1 class="grow-title" title="{$vi.mange_theme_title}">{$vi.mange_theme_title}</h1>
+                <span class="special-style-item">观看量:{$number.number}</span>
+                <span class="special-style-item"><a href="/main/{$vi.mange_theme_id}">作品主页</a></span>
+            </div>
+        </div>
+        <div class="level-cheng">
+        <div class="level-title">
+            <p class="level-p-radius level-p-color">0</p>
+        </div>
+        <div class="level-text level-show">
+            {if condition="$dao.level_static eq '1'"}
+            <div class="level-text-p">已拥有导师: <a href="/users/{$dao.member_id}" target="_blank">
+                {$dao.member_name}
+            </a></div>
+            <div class="level-text-button">
+                {if condition="$dao.member_static eq '1'"}
+                <button class="level-button" onclick="level(this,'{$vi.mange_theme_id}')">开启成长之路</button>{else /}
+                <button class="level-button">无权限开启</button>{/if}
+            </div>
+            {else /}
+            <div class="level-text-p">未拥有导师: <a href="/tor/{$vi.mange_theme_id}">前往导师页</a></div>
+            {/if}
+        </div>
+    </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

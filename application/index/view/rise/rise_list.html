@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>升阶区 - {$seo.title}</title>
+    <style>
+        .info{
+            float: left;
+            margin-left: 10px;
+        }
+        .content{
+            float: left;
+            width: 50%;
+        }
+        .rise-div{
+            float: left;
+            height: 60px;
+            line-height: 60px;
+            padding: 20px;
+        }
+        .rank-item{
+            overflow: auto;
+        }
+        @media screen and (max-width: 600px){
+            .info {
+                float: right;
+                width:85%;
+                margin-left: 0;
+                height: 100%;
+            }
+            .rise-div {
+                padding: 5px;
+            }
+            .content {
+                padding-left: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap">
+                    <div class="left-p">
+                        <p class="left-sign">升阶中心</p>
+                    </div>
+                    <div class="sign-table">
+                        <ul class="rank-list">
+                            {foreach $rise as $r}
+                            <li>
+                                <div class="rank-item">
+                                    <div class="num">{$r.member_level_rise_level}级</div>
+                                    <div class="content">
+                                        <div class="info ">
+                                            <a href="/users/{$r.member_level_rise_name}" target="_blank">
+                                                <div class="title">{$r.name}</div>
+                                            </a>
+                                            <div class="detail">
+                                                <span class="data-box">升阶状态:
+                                                {switch name="$r.member_level_rise_static"}
+                                                {case value="0"}升阶获取中{/case}
+                                                {case value="1"}升阶获取完成{/case}
+                                                {/switch}
+                                                </span>
+                                                <span class="data-box">升阶时间:
+                                                    {$r.member_level_rise_time|date="Y-m-d H:i:s",###}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="rise-div"><a href="/rise_list.html?rise={$r.member_level_rise_id}" target="_blank">设置升阶</a></div>
+                                    <div class="rise-div"><a href="/rise/{$r.member_level_rise_id}" target="_blank">查看升阶</a></div>
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>

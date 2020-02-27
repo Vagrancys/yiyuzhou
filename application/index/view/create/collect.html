@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的创作中心</title>
+    <link href="/static/index/lib/layui/css/layui.css" rel="stylesheet">
+    <style>
+        .profile-m a {
+            color: #000;
+        }
+        .security-left{
+            height: 700px;
+            border-right: 1px solid #e1e2e5;
+        }
+        @media screen and (max-width: 600px){
+            .security-left {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="create_content">
+                    <div  class="security-left">
+                        <span  class="security-title">创作中心</span>
+                        <ul class="security-ul ser-ul">
+                            <li  class="security-list">
+                                <span  class="security-nav-name"><a href="/create.html">首页</a></span></li>
+                            <li  class="security-list on">
+                                <span class="security-nav-name">投稿管理</span></li>
+                        </ul>
+                        <ul class="security-ul">
+                            <li  class="security-list-jump">
+                                <a  href="/users/{$form.id}" target="_blank" class="security-list-link-jump">个人空间</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="security-right">
+                        <p class="data-check-p"><a href="/create.html?url=article">投稿管理</a> > {$works.title}</p>
+                        <h1 class="contribute-title">修改</h1>
+                        <form class="conform" name="post" action="works_collect_form.html" method="post">
+                            <div class="form-title">
+                                <dd>
+                                    <input type="hidden" name="user_id" value="{$works.user_id}">
+                                    <input type="hidden" name="manga_id" value="{$works.manga_id}">
+                                    <input type="hidden" name="title" value="{$works.title}">
+                                </dd>
+                            </div>
+                            <div class="form-ul">
+                                <ul class="form-post">
+                                    <li class="form-post-h4 "><h4>你的资源信息</h4></li>
+                                    <li>
+                                        <dt>添加集数</dt>
+                                        <dd>
+                                            <button class="collect" type="button" id="manga-collect">添加</button>
+                                        </dd>
+                                    </li>
+                                    <li>
+                                        <table class="collect-table">
+                                            <tbody id="tr-collect" data-val="{$number}">
+                                            <tr>
+                                                <th>集数名
+                                                    <span class="form-prompt"> 注意！请填写正确的集数</span>
+                                                </th>
+                                                <th>在线播放地址 <span class="form-prompt"> 填写正确的播放地址参数或播放参数</span></th>
+                                                <th>操作</th>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="hidden" name="manga_part_id[]" value="">
+                                                    <input type="text"  class="form-collect" name="Collect[]" value="第{$number}集">
+                                                </td>
+                                                <td>
+                                                    <input type="text"  class="form-collect" name="Line[]" style="width: 98%" value="">
+                                                </td>
+                                                <td>
+                                                    <input class="collect" type="button" value="必须">
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <button type="submit"  class="form-submit">
+                                    <span> 修改作品 </span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

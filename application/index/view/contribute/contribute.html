@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>次元中心-{$seo.title}</title>
+    <style>
+    .login-quit {
+    height: 15px;
+    width: 15px;
+    }
+    #slide-out-open span, #slide-out-open span:after, #slide-out-open span:before, .login-quit span, .login-quit span:after {
+        width: 15px;
+    }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wrapper-form">
+                    <h1 class="contribute-title">作品发布</h1>
+                    <form class="conform" name="post" action="mangaCb_post.html" method="post">
+                        <div class="form-title">
+                            <dt>标题</dt>
+                            <dd>
+                                <input type="hidden" name="user_id" value="{$users.id}">
+                                <input type="text" class="title-input" name="title" onchange="manga_conform(this)" placeholder="请输入标题">
+                                <p class="title-p"></p>
+                            </dd>
+                        </div>
+                        <div class="form-ul">
+                            <ul class="form-post">
+                                <li class="form-post-h4"><h4>作品信息</h4></li>
+                                <li>
+                                    <dt>类型</dt>
+                                    <dd>
+                                        <select class="form-select" id="select" onchange="doTotal();" type="text"
+                                                name="page">
+                                            <option value="0">请选择</option>
+                                            {foreach $nav as $n}
+                                            <option value="{$n.id}">{$n.name}</option>
+                                            {/foreach}
+                                        </select>
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>种类</dt>
+                                    <dd class="form-select1">
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>地域</dt>
+                                    <dd class="form-select2">
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>播放状态</dt>
+                                    <dd class="form-select3">
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>属性</dt>
+                                    <dd class="form-select4">
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>时间</dt>
+                                    <dd class="form-select5">
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>封面</dt>
+                                    <dd style="height: 350px;width: 645px;" id="head-text">
+                                        <div id="uploader" class="wu-example" onclick="head_image();">
+                                            点击选择封面
+                                        </div>
+                                        <div id="head-image" class="head-image">
+                                        </div>
+                                        <input id="head-name" name="img" value="" type="hidden">
+                                    </dd>
+                                </li>
+                                <li>
+                                    <dt>详细简介</dt>
+                                    <dd>
+                                        <textarea name="manga_text" style="height:200px" class="form-select form-text"></textarea>
+                                        <span class="form-prompt">不要填写本作厂商官网以外的网址</span>
+                                    </dd>
+                                </li>
+                                <li class="form-post-h4 ">
+                                    <h4>你的资源信息</h4>
+                                </li>
+                                <li>
+                                    <dt>添加集数</dt>
+                                    <dd>
+                                        <button class="collect" type="button" id="mangaCb">添加</button>
+                                    </dd>
+                                </li>
+                                <li class="li-190">
+                                    <table class="collect-table">
+                                        <tbody>
+                                        <tr>
+                                            <th>下载类型</th>
+                                            <th>下载链接</th>
+                                            <th>解压码和提取码</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-collect" name="downClass" value="百度云">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-collect" name="downLine">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-collect" name="downPass">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                                <li class="li-190">
+                                    <table class="collect-table">
+                                        <tbody id="trCb">
+                                        <tr>
+                                            <th>集数名
+                                                <span class="form-prompt"> 注意！请填写正确的集数</span>
+                                            </th>
+                                            <th>在线播放地址 <span class="form-prompt"> 填写正确的播放地址参数或播放参数</span></th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <input type="text" class="form-collect" name="Collect[]" value="第1集">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-collect" name="Line[]">
+                                            </td>
+                                            <td>
+                                                <input class="collect" type="button" value="必须">
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <button type="button" class="form-submit" id="form-submit">
+                            发表作品
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+<script>
+    $("#form-submit").click(function(){
+        var t1=false,t2=false,t3=false,t4=false,t5=false,t6=false,t7=false,t8=false;
+        var title=$(".title-input").val();
+        var single=$("input[name=single]:checked").val();
+        var select=$("#select option:selected").val();
+        var region=$("input[name=region]:checked").val();
+        var play=$("input[name=play]:checked").val();
+        var nature=$(".nature").is(":checked");
+        var age=$("input[name=age]:checked").val();
+        var img=$("#head-name").val();
+        if(img==""){
+            tips("封面未选择！");
+        }else{
+            t8=true;
+        }
+        if(age){
+            t7=true;
+        }else{
+            tips("时间未选择！");
+        }
+        if(nature||select==5){
+            t6=true;
+        }else{
+            tips("属性未选择！");
+        }
+        if(play||select==5){
+            t5=true;
+        }else{
+            tips("播放状态未选择！");
+        }
+        if(region){
+            t4=true;
+        }else{
+            tips("地域未选择！");
+        }
+        if(single){
+            t3=true;
+        }else{
+            tips("种类未选择！");
+        }
+        if(select==''){
+            tips("类型未选择！");
+        }else{
+            t2=true;
+        }
+        if(!(title=="")){
+            t1=true;
+        }else{
+            tips("标题未取！");
+        }
+        if(t1&&t2&&t3&&t4&&t5&&t6&&t7&&t8){
+            $('form').submit();
+            return true;
+        }
+
+    });
+    function tips(text){
+        $("body").append(
+                "<div class='login'> <h1>错误提示！<a class='login-quit'> <span></span> " +
+                "</a></h1> " +
+                        "<p>"+text+"</p>"+
+                "</div>"
+        );
+        width(".login");
+    }
+</script>
+</html>

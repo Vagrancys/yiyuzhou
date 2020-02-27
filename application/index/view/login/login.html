@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>登录- {$seo.title}</title>
+    <style>
+        #cnzz_stat_icon_1272914326{
+            display: none;
+        }
+        #pass-form-tips{
+            color: #00a1d9;
+            float: right;
+            font-size: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login">
+            <h1><a href="/index.html" title="异宇宙动漫">异宇宙动漫</a><p id="pass-form-tips"></p></h1>
+            <div id="login">
+                <p>
+                    <label>用户名或电子邮件地址<br>
+                    <input type="text" id="userName" class="input" size="20"></label>
+                </p>
+                <p>
+                    <label>密码<br>
+                    <input type="password" id="passWord" class="input" size="20"></label>
+                </p>
+                <p class="forgetmenot"><label><input name="check" type="checkbox" value="true" checked>记住我的登录信息</label></p>
+                <p class="submit">
+                    <button type="submit" id="login-submit" class="login-submit button button-primary button-large">登录</button>
+                </p>
+            </div>
+            <p id="nav">
+                <a href="/register.html">注册</a> | 	<a href="/retrieve.html">找回密码？</a>
+            </p>
+            <p id="backtoblog"><a href="/index.html">← 返回到异宇宙动漫</a></p>
+    </div>
+</body>
+{$web.statcode}
+<script src="__PUBLIC__/js/jquery-3.2.1.min.js"  type="text/javascript"></script>
+<script src="__PUBLIC__/js/common.js"  type="text/javascript"></script>
+<script>
+    $("#login-submit").click(function(){
+        var username =$("#userName").val();
+        var password =$("#passWord").val();
+        var check;
+        $("input:checkbox[name='check']:checked").each(function() {
+            check=$(this).val();
+        });
+        if ('' == username) {
+            return false;
+        }
+        if ('' == password) {
+            return false;
+        }
+        var url = "/login_pass.html";
+        $.post(
+                url,
+                {username:username, password: password,check:check},
+                function (data) {
+                    if (data.flag == '1') {
+                        window.location.href="index.html";
+                    } else {
+                        setTimeout(function () {
+                            $("#pass-form-tips").html(data.msg).show();
+                        }, 100);
+                    }
+                });
+    });
+    width(".login");
+</script>
+</html>

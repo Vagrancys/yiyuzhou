@@ -1,0 +1,61 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+<title>我的桌面</title>
+</head>
+<body>
+<div class="page-container">
+	<p class="f-20 text-success text-c">欢迎使用次元 <span class="f-14">1级</span>后台模版！</p>
+	<p>上次登录IP：{$static.ip}  上次登录时间：{$static.go_time|date="Y-m-d H:i:s",###}</p>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th colspan="7" scope="col">信息统计</th>
+			</tr>
+			<tr class="text-c">
+				<th>统计</th>
+				<th>作品数</th>
+				<th>用户数</th>
+				<th>评论数</th>
+				<th>登录数</th>
+				<th>管理员</th>
+			</tr>
+		</thead>
+		<tbody>
+		{foreach $video as $v}
+			<tr class="text-c">
+				{foreach $v as $vv}
+				<td>{$vv.number}</td>
+				{/foreach}
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+	<table class="table table-border table-bordered table-bg mt-20">
+		<thead>
+			<tr>
+				<th colspan="2" scope="col">服务器信息</th>
+			</tr>
+		</thead>
+		<tbody>
+			{foreach name="info" item="in"}
+				<tr>
+					<td>{$key}</td>
+					<td>{$in}</td>
+				</tr>
+			{/foreach}
+		</tbody>
+	</table>
+</div>
+<footer class="footer mt-20">
+	<div class="container">
+		<p>感谢次元<br>
+			Copyright &copy;2017-2017 次元 All Rights Reserved.<br>
+			本后台系统由<a href="admin.html" target="_blank" title="次元">次元</a>修改</p>
+	</div>
+</footer>
+<?php include("static/admin/footer.php")?>
+</body>
+</html>

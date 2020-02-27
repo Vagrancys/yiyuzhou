@@ -1,0 +1,137 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+    <style>
+        .info{
+            margin-left: 10px;
+        }
+        .num {
+            width: 120px;
+        }
+        .content {
+            padding-top: 20px;
+            padding-left: 120px;
+        }
+        @media screen and (max-width: 1200px) and (min-width: 600px){
+            .num {
+                width: 20%;
+            }
+            .content {
+                padding-left: 20%;
+            }
+            .sign-a {
+                margin: 0 20%;
+            }
+        }
+
+        @media screen and (max-width: 600px){
+            .info {
+                float: right;
+                width:88%;
+                margin-left: 0;
+                height: 100%;
+            }
+            .content {
+                padding-left: 40px;
+            }
+            .num {
+                font-size: 20px;
+                width: 15%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="security_content">
+    <div  class="security-left">
+        <span  class="security-title">个人中心</span>
+        <ul class="security-ul ser-ul">
+            <li  class="security-list ">
+               <span  class="security-nav-name"><a href="/core.html" >首页</a></span></li>
+            <li  class="security-list">
+            <span class="security-nav-name "><a href="/core.html?url=new" >我的信息</a></span></li>
+            <li  class="security-list on">
+                <span class="security-nav-name">会员硬币</span></li>
+            <li class="security-list">
+                <span class="security-nav-name"><a href="/core.html?url=face" >我的头像</a></span></li>
+            <li class="security-list">
+                <span class="security-nav-name"><a href="/core.html?url=setting" >账号安全</a></span></li>
+        </ul>
+        <ul class="security-ul">
+            <li  class="security-list-jump">
+                <a  href="/users/{$form.id}" class="security-list-link-jump">个人空间</a></li>
+            <li  class="security-list-jump">
+                <a  href="/create.html" class="security-list-link-jump">创作中心</a></li>
+            <li  class="security-list-jump">
+                <a  href="/rise_list.html" class="security-list-link-jump">升阶中心</a></li>
+            <li  class="security-list-jump">
+                <a  href="/droit.html" class="security-list-link-jump">权利中心</a></li>
+        </ul>
+    </div>
+    <div class="security-right">
+        <div  class="security-right-title">
+            <span class="security-right-title-text">我的硬币</span>
+        </div>
+        <div class="user-setting-warp">
+            <div  class="coin-content">
+                <div  class="coin-index-title">
+                    <p class="coin-rest-p">硬币余额:{$form.money}</p>
+                </div>
+                <div  class="coin-left-content">
+                    <div class="left-p">
+                        <p class="left-sign" style="float: left;margin-right: 20px;"><a href="core.html?url=money&coin=" >收入列表</a></p>
+                        <p class="left-sign"><a href="core.html?url=money&coin=user" style="color: #00a1d6;">支出列表</a></p>
+                    </div>
+                    <div class="table-wrapper">
+                        <ul class="rank-list">
+                            {foreach $coin as $c}
+                            <li>
+                                <div class="rank-item">
+                                    <div class="num">{$num++}</div>
+                                    <div class="content">
+                                        <div class="info ">
+                                            <a href="/main/{$c.manga_id}">{$c.title}</a>
+                                            <div class="detail">
+                                                <span class="data-box">消费者:
+                                                    {if condition="$c.nickname eq ''"}
+                                                    {$c.name}
+                                                    {else /}
+                                                     {$c.nickname}
+                                                    {/if}
+                                                </span>
+                                                <span class="data-box">真实消费的硬币:{$c.manga_money}</span>
+                                                <span class="data-box">虚拟消费的金币:{$c.manga_money_dummy}</span>
+                                                <span class="data-box">消费时间:{$c.coin_time|date="Y-m-d H:i:s",###}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            {/foreach}
+                        </ul>
+                    </div>
+                </div>
+                <div class="paging-wrap" style="display: block;width: 93%">
+                    <div class="s-paging">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

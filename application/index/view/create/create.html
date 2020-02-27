@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的创作中心</title>
+    <style>
+        .profile-m a {
+            color: #000;
+        }
+        .security-left{
+            height: 700px;
+            border-right: 1px solid #e1e2e5;
+        }
+        @media screen and (max-width: 600px){
+            .security-left {
+                height: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="create_content">
+    <div  class="security-left">
+        <span  class="security-title">创作中心</span>
+        <ul class="security-ul ser-ul">
+            <li  class="security-list on">
+                <span  class="security-nav-name">首页</span></li>
+            <li  class="security-list">
+                <span class="security-nav-name"><a href="/create.html?url=article" >投稿管理</a></span></li>
+        </ul>
+        <ul class="security-ul">
+            <li  class="security-list-jump">
+                <a  href="/users/{$form.id}" target="_blank" class="security-list-link-jump">个人空间</a></li>
+        </ul>
+    </div>
+    <div class="security-right">
+        <div class="data-card">
+            <div class="data-title"><p>数据概览</p></div>
+            <div class="data-box">
+                <div class="section play">
+                    <div class="data-name"><i class="icon-font icon-play"></i>
+                        播放
+                    </div>
+                    <div class="data-value">
+                        <div class="text-content"><span>0</span></div>
+                    </div>
+                </div>
+                <div class="section comment">
+                    <div class="data-name"><i class="icon-font icon-message"></i>
+                        评论
+                    </div>
+                    <div class="data-value">
+                        <div class="text-content"><span>0</span></div>
+                    </div>
+                </div>
+                <div class="section fans">
+                    <div class="data-name"><i class="icon-font icon-fans"></i>
+                        粉丝
+                    </div>
+                    <div class="data-value">
+                        <div class="text-content"><span>0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+
+	{include file="common/seo_header"}
+	<title>次元前端后台 - {$seo.title}</title>
+	<link rel="stylesheet" type="text/css" href="static/admin/css/common.css">
+	<link rel="stylesheet" type="text/css" href="static/admin/css/icon-font/1.0.8/iconfont.css">
+</head>
+<body>
+{include file="common/header"}
+<aside class="aside" style="top:218px;">
+	<div class="menu-drop-down">
+		{if condition="$admins.static eq '1'"}
+		<dt class="aside-dt">
+			管理员 {$admins.name} 你好
+			<i class="Hui-iconfont menu-drop-down-arrow">&#xe6d5;</i>
+		</dt>
+		<dd class="aside-dd">
+			<ul>
+				<li><a data-href="front_login.html" data-title="切换用户" href="javascript:;">切换用户</a></li>
+				<li><a data-href="front_login_del.html" data-title="退出" href="javascript:;">退出</a></li>
+			</ul>
+		</dd>
+		{/if}
+		{foreach $form as $vo}
+			<dt class="aside-dt">
+				<i class="Hui-iconfont">{$vo.sb}</i>
+				{$vo.module_name}
+				<i class="Hui-iconfont menu-drop-down-arrow">&#xe6d5;</i>
+			</dt>
+			<dd class="aside-dd">
+				<ul>
+					{foreach $vo.power as $v}
+					<li>
+						<a data-href="{$v.module_di}" data-title="{$v.module_name}" href="javascript:;">{$v.module_name}</a>
+					</li>
+					{/foreach}
+				</ul>
+			</dd>
+		{/foreach}
+</div>
+</aside>
+<section class="article-box" style="top:218px;">
+	<div id="tabNav" class="tabNav">
+		<div class="tabNav-wp">
+			<ul id="min-title-list" class="acrossTab cl">
+				<li class="li">
+					<span title="前端管理" data-href="welcomes.html">前端管理</span>
+					<em></em>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div id="box" class="article">
+		<div class="show-if-r">
+			<iframe frameborder="0" src="welcomes.html"></iframe>
+		</div>
+	</div>
+</section>
+{include file="common/footer"}
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".aside-dt").click(function(){
+			if($(this).children("i").last().css("icon")){
+				$(this).children("i").last().removeClass("icon");
+			}
+			if(!$(".Hui-iconfont").css("icon")){
+				$(".Hui-iconfont").removeClass("icon");
+			}
+			$(this).children("i").last().addClass("icon");
+			$(this).next("dd").slideToggle("slow")
+					.siblings(".aside-dd:visible").slideUp("slow");
+		});
+		$(".dropDown").mouseenter(function(){
+			$(".menu").toggle();
+		}).mouseleave(function(){
+			$(".menu").toggle();
+		});
+
+		$(".aside-dd li a").click(function(){
+			var href=$(this).attr("data-href");
+			var title=$(this).attr("data-title");
+			if(!$("#min-title-list li").css("active")){
+				$("#min-title-list li").removeClass("active");
+			}
+			var li=$("#min-title-list li");
+			var div=$("#box div");
+			var a=$("#min-title-list li").find("span");
+			for (i=0;i<a.length;i++){
+				if ($(a[i]).html()==title){
+					$(li[i]).addClass("active");
+					$(div).hide();
+					$(div[i]).show();
+					return false;
+				}
+			}
+			var text="<li class='li active'><span data-href="+href+">"+title+"</span><i></i><em></em></li>";
+			$("#min-title-list").append(text);
+			if($("#box div").show()){
+				$("#box div").hide();
+			}
+			var box="<div class='show-if-r'><iframe frameborder='0' src="+href+"></iframe></div>";
+			$("#box").append(box);
+		});
+
+		$("#min-title-list").on('click','.li',function(){
+			if(!$(".li").css("active")){
+				$(" .li").removeClass("active");
+			}
+			$(this).addClass("active");
+			if($(".show-if-r").show()){
+				$(".show-if-r").hide();
+			}
+			var href=$("#min-title-list li").index(this);
+			$("#box").find("div").eq(href).show();
+		});
+
+		$("#min-title-list").on('click','i',function(){
+			var i=$("i").parents("li").index();
+			$("#min-title-list").find("li").eq(i).remove();
+			$("#box").find("div").eq(i).remove();
+		});
+	});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的消息中心 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="help-list">
+            <div class="help-box">
+                <ul class="collapse-list">
+                    <li class="collapse-item collapse-item-active">
+                        <p>消息中心</p>
+                    </li>
+                    <li class="collapse-item collapse-item-active">
+                        <a href="/user_new.html">我的消息</a>
+                    </li>
+                    <li class="collapse-item collapse-item-active">
+                        <a href="/user_new.html?static=reply">回复我的</a>
+                    </li>
+                    <li class="collapse-item collapse-item-active">
+                        <a href="/user_new.html?static=i">@我的</a>
+                    </li>
+                    <li class="collapse-item collapse-item-active">
+                        <a href="/user_new.html?static=praise">收到的赞</a>
+                    </li>
+                    <li class="collapse-item collapse-item-active">
+                        <a class="collapse-title">系统通知</a>
+                    </li>
+
+                    <li class="collapse-item collapse-item-active">
+                        <a>私信存档</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+                <div class="help-content">
+            <div class="help-title-wrap">
+                <div id="title">系统消息</div>
+            </div>
+            <div class="help-body">
+                {foreach $news as $n}
+                <div class="help-title-wrap">
+                    <div class="help-subtitle">
+                        <span class="help-subindex float">{++$nu}</span>
+                        <ul class="help-ul">
+                            <li> 消息人 ：{$n.name} </li>
+                            <li>消息类型 ：{$n.newsName}</li>
+                            <li>消息时间 ：{$n.time|date="Y-m-d",###}</li>
+                            <li style="float: right;" onclick="new_del(this,'{$n.user_new_system_id}','system')">删除</li>
+                        </ul>
+                        <p>消息内容 ：{$n.user_new_system_text}</p>
+                    </div>
+                </div>
+                {/foreach}
+                <div class="paging-wrap" style="display: block;">
+                    <div class="s-paging">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

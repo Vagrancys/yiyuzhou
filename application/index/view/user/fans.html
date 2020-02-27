@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$form.name}的个人空间 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                {include file="common/user_header"}
+                <div class="fans-content">
+                    <p class="page-item">
+                        <a class="play-active" href="/fans/{$form.id}-{$form.id}">关注</a> |
+                        <a href="/fans/{$form.id}">粉丝</a>
+                    </p>
+                    <ul>
+                        {foreach $fan as $f}
+                        <li class="list-item clear">
+                            <a target="_blank" class="cover" href="/users/{$f.user_id}">
+                                {if condition="$f.image eq ''"}
+                                <img  src="/images/head-images/default.jpg" alt="{$f.name}">
+                                {else /}
+                                <img  src="/images/head-images/{$f.image}" alt="{$f.name}">
+                                {/if}
+                            </a>
+                            <div class="content">
+                                <a target="_blank" class="title" href="/users/{$f.user_id}">
+                                    <span>
+                                          {if condition="$f.nickname eq ''"}
+                                             {$f.name}
+                                            {else /}
+                                             {$f.nickname}
+                                            {/if}
+                                    </span>
+                                </a>
+                                <div class="desc" title="{$f.autograph}">{$f.autograph}</div>
+                                {if condition="$f.user_id eq $static"}
+                                {else /}
+                                    {if condition="$f.fans_static eq 0"}
+                                        <div class="fans-action">
+                                            <span class="fans-action-btn" onclick="fans('{$f.id}')">+ 关注</span>
+                                        </div>
+                                    {else /}
+                                        <div class="fans-action">
+                                            <span class="fans-action-btn" onclick="fans_del('{$f.id}')">取消关注</span>
+                                        </div>
+                                    {/if}
+                                {/if}
+                            </div>
+                        </li>
+                        {/foreach}
+                    </ul>
+                </div>
+                <div class="paging-wrap" style="display: block;">
+            <div class="s-paging">
+                {$page}
+            </div>
+        </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

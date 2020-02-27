@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.mange_theme_title} - {$seo.title}</title>
+    <link   href="/static/index/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @media screen and (max-width: 600px)
+        {
+            .special-brief{
+                min-height: 200px;
+                margin-left: 0;
+            }
+
+            .level-left{
+                margin-right: 1%;
+                width: 35%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="grow-post">
+                    <div class="crumbs">
+                        <div class="crumbs-left">
+                            <a href="/index.html">首页</a> &gt;
+                            <a href="/level/1">成长区</a> &gt;
+                            <a href="/grow/{$vi.mange_theme_id}">{$vi.mange_theme_title}</a>
+                        </div>
+                        <div class="crumbs-right">
+                            由 <a href="/users/{$vi.mange_theme_user}">{$vi.name}</a> 整理分享
+                        </div>
+                    </div>
+                    <div class="special-item special-item-left">
+                        <div class="special-image">
+                            <img src="{$vi.mange_theme_img}" alt="{$vi.mange_theme_title}">
+                        </div>
+                        <div class="special-brief">
+                            <div class="special-head">
+                                <h1 class="grow-title" title="{$vi.mange_theme_title}" data-aid="{$vi.mange_theme_id}" >{$vi.mange_theme_title}</h1>
+                                <span class="special-style-item level" data-val="{$number.level}">观看量:{$number.number}</span>
+                                <span class="special-style-item"><a href="/theme/{$vi.mange_theme_id}">作品主页</a></span>
+                                <span class="special-style-item"><a href="/tor/{$vi.mange_theme_id}">导师主页</a></span>
+                            </div>
+
+                        </div>
+                        <div class="level-cheng">
+                        <div class="level-title">
+                            {$l_text}
+                        </div>
+                        {$level_text}
+                        <div class="level-text" id="level{$l_l.level}">
+                            {if condition="$l_l.level egt 1"}
+                            <div class="level-text-p level-text-p2">
+                                <div class="level-text-div">硬币量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.progress_num}>
+                                    {$l_l.progress}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 2"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">收藏量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.shou_num}>
+                                    {$l_l.shou}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 3"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">评价量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.assess_num}>
+                                        {$l_l.assess}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 4"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">评论量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.comment_num}>
+                                        {$l_l.comment}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 5"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">支持量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.support_num}>
+                                        {$l_l.support}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 6"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">粉丝量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.just_num}>
+                                        {$l_l.just}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 7"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">荣誉量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.honor_num}>
+                                        {$l_l.honor}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 8"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">贡献量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.offer_num}>
+                                        {$l_l.offer}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.level egt 9"}
+                            <div class="level-text-p">
+                                <div class="level-text-div">靠山量：</div>
+                                <div class="level-text-p1 progress">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60"
+                                         aria-valuemin="0" aria-valuemax="100" {$l_l.backer_num}>
+                                        {$l_l.backer}
+                                    </div>
+                                </div>
+                            </div>
+                            {/if}
+                            {if condition="$l_l.tutor_static eq 1"}
+                            <div class="level-text-p">
+                                已拥有导师: <a href="/users/{$l_l.tutor_id}" target="_blank" class="level-name" data-val="{$l_l.tutor_name}">{$l_l.tutor_name}</a>
+                                {if condition="$vi.member_static eq 1"}
+                                <button class="tutor-button level_dan level-number" data-aid="{$l_l.number}">弹劾导师</button>
+                                {/if}
+                            </div>
+
+                            {else /}
+                            <div class="level-text-p">
+                                <div class="level-text-div level-q1">未拥有导师:</div>
+                                {if condition="$vi.member_static eq 1"}
+                                {if condition="$l_l.level_yu eq 1"}
+                                <button class="level-button level-left level_zhi">修改导师</button>
+                                {else /}
+                                <button class="level-button level-left level_zhi">指定导师</button>
+                                {/if}
+                                {else /}
+                                {if condition="$l_l.up eq 1"}
+                                {if condition="$l_l.zhiding eq 1"}
+                                {if condition="$l_l.zhi eq 1"}
+                                <button class="level-button level-left level_dang">成为导师</button>
+                                {else /}
+                                <button class="level-button level-left">已指定导师</button>
+                                {/if}
+                                {else /}
+                                <button class="level-button level-left level_dang">成为导师</button>
+                                {/if}
+                                {else /}
+                                <button class="level-button level-left">不能成为导师</button>
+                                {/if}
+                                {/if}
+                            </div>
+                            {/if}
+                            {if condition="$l_l.tutor_static eq 1"}
+                            {if condition="$l_l.level_up eq 1"}
+                            <div class="level-text-p">已满足条件</div>
+                            <div class="level-text-button">
+                                {if condition="$vi.member_static eq 1"}
+                                <button class="level-button" onclick="level(this,'{$vi.mange_theme_id}')">开启成长之路</button>
+                                {else /}
+                                <button class="level-button">无权限升级</button>
+                                {/if}
+                            </div>
+                            {else /}
+                            <div class="level-text-p">未满足条件</div>
+                            <div class="level-text-button">
+                                <button class="level-button">无法开启成长</button>
+                            </div>
+                            {/if}
+                            {else /}
+                            <div class="level-text-p">未满足条件</div>
+                            <div class="level-text-button">
+                                <button class="level-button">无法开启成长</button>
+                            </div>
+                            {/if}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

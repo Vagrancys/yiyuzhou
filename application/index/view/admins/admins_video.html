@@ -1,0 +1,77 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+<title>视频列表</title>
+</head>
+<body class="pos-r">
+<div>
+	<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 产品管理 <span class="c-gray en">&gt;</span> 视频列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+	<div class="page-container">
+		<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> </span> <span class="r">共有数据：<strong>54</strong> 条</span> </div>
+		<div class="mt-20">
+			<table class="table table-border table-bordered table-bg table-hover table-sort">
+				<thead>
+					<tr class="text-c">
+						<th width="40">ID</th>
+						<th width="60">标题</th>
+						<th width="100">主分类</th>
+						<th width="100">副分类</th>
+						<th width="90">官网</th>
+						<th width="100">相关</th>
+						<th width="100">投稿者</th>
+						<th width="120">投稿时间</th>
+						<th width="100">作者</th>
+						<th width="100">描述</th>
+						<th>详情</th>
+						<th width="100">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+				{foreach $data as $vo}
+					<tr class="text-c va-m">
+						<td>{$vo.id}</td>
+						<td>{$vo.title}</td>
+						<td>{$vo.page}</td>
+						<td>{$vo.single}</td>
+						<td>{$vo.official}</td>
+						<td>{$vo.correlation|mb_substr=0,9,'utf-8'}</td>
+						<td>{$vo.user_id}</td>
+						<td>{$vo.time|date="Y-m-d",###}</td>
+						<td>{$vo.author}</td>
+						<td>{$vo.video_text|mb_substr=258,20,'utf-8'}</td>
+						<td>
+							<a style="text-decoration:none" onClick="member_show('作品详情','video_show','{$vo.id}','900px','700px')" href="javascript:;" title="详情">
+								<i class="Hui-iconfont">&#xe695;</i>
+							</a>
+						</td>
+						<td class="td-manage">
+							<a title="审核子集" href="admins_video_collects.html?id={$vo.id}" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe720;</i></a>
+						</td>
+					</tr>
+				{/foreach}
+				</tbody>
+			</table>
+			<div class="paging-wrap" style="display: block;">
+				<div class="s-paging">
+					{$page}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+function member_show(title,url,id,w,h){
+	layer.open({
+		type: 2,
+		title: title,
+		shadeClose: true, //点击遮罩关闭层
+		area : [w , h],
+		content: url+'.html?id='+id
+	});
+}
+</script>
+</body>
+</html>

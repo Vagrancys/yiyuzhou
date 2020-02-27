@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>签到池 - {$seo.title}</title>
+    <style>
+        .info{
+            margin-left: 10px;
+        }
+        .num {
+            width: 120px;
+        }
+        .content {
+            padding-top: 20px;
+            padding-left: 120px;
+        }
+        .data-rank{
+            margin: 5px;
+            overflow: hidden;
+            height: 100%;
+            border: 1px solid #e5e5e5;
+        }
+        .data-tab{
+            float: left;
+            margin-right: 54px;
+        }
+        .data-tab ul li{
+            float: left;
+        }
+        .data-tab li a {
+            display: block;
+            min-width: 57px;
+            padding: 12px 20px;
+            border-right: 1px solid #e5e5e5;
+            text-align: center;
+        }
+        .data-tab li p{
+            padding: 12px 20px;
+        }
+        .data-tab .on{
+            background: #53b7f7;
+            color:#fff;
+            text-decoration: none;
+        }
+        @media screen and (max-width: 1200px) and (min-width: 600px){
+            .num {
+                width: 20%;
+            }
+            .content {
+                padding-left: 20%;
+            }
+            .sign-a {
+                margin: 0 20%;
+            }
+        }
+
+        @media screen and (max-width: 600px){
+            .info {
+                float: right;
+                width:72%;
+                margin-left: 0;
+                height: 100%;
+            }
+            .content {
+                padding-left: 25px;
+            }
+            .num {
+                 font-size: 20px;
+                 width: 21%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wap">
+                <div class="pool">
+                        <h1>签到池</h1>
+                        <div style="overflow: hidden;">
+                            <p class="pool-p">{$money.money_number}个硬币</p>
+                            <p class="pool-span">{$money.money_time|date="Y-m-d H:i:s",###}添加</p>
+                        </div>
+                        <ul class="pool-ul">
+                            <li><h4>直接添加历史</h4>
+                                <p><a href="sign.html?static=1">查看</a></p>
+                            </li>
+                            <li><h4>广告费添加历史</h4>
+                                <p><a href="sign.html?static=2">查看</a></p>
+                            </li>
+                            <li><h4>其他收入待添加</h4>
+                                <p><a href="sign.html?static=3">查看</a></p>
+                            </li>
+                        </ul>
+                    </div>
+                <div class="main">
+                    <div class="line">
+                        <div class="sign-left">
+                            {if condition="$sign eq 1"}
+                            <a class="sign-a">已签到</a>
+                            {else /}
+                            {if condition="$name.id eq ''"}
+                            <a class="sign-a" href="/login.html">登录</a>
+                            {else /}
+                            <a class="sign-a" onclick="sign('{$name.id}')">签到</a>
+                            {/if}
+                            {/if}
+                        </div>
+                        <div class="sign-right">
+                            <div class="sign-user">
+                                {if condition="$users.image eq ''"}
+                                <a class="sign-avatar" href="#">
+                                <img src="/images/head-images/default.jpg">
+                                </a>
+                                {else /}
+                                <a class="sign-avatar" href="users/{$name.id}">
+                                    <img src="/images/head-images/{$users.image}">
+                                </a>
+                                {/if}
+                            {if condition="$name.id eq ''"}
+                                <span>需要登录</span>
+                                </div>
+                                <ul class="sign-ul">
+                                    <li><h4>总签到</h4><p><i>无</i><b>天</b></p></li>
+                                    <li><h4>连续签到</h4><p><i>无</i><b>天</b></p></li>
+                                    <li><h4>连续月签到</h4><p><i>无</i><b>天</b></p></li>
+                                    <li><h4>总天数</h4><p><i>无</i><b>天</b></p></li>
+                                    <li><h4>已签到</h4><p><i>无</i><b>人</b></p></li>
+                                    <li><h4>硬币量</h4><p><i>无</i><b>个</b></p></li>
+                                </ul>
+                            {else /}
+                            <span>{$name.name}</span>
+                            </div>
+                            <ul class="sign-ul">
+                                <li><h4>总签到</h4><p><i>{$signs.sign_number}</i><b>天</b></p></li>
+                                <li><h4>连续签到</h4><p><i>{$signs.sign_con}</i><b>天</b></p></li>
+                                <li><h4>连续月签到</h4><p><i>{$signs.sign_month}</i><b>天</b></p></li>
+                                <li><h4>总天数</h4><p><i>{$signs.sign_number}</i><b>天</b></p></li>
+                                <li><h4>已签到</h4><p><i>{$number}</i><b>人</b></p></li>
+                                <li><h4>硬币量</h4><p><i>{$names.money}</i><b>个</b></p></li>
+                            </ul>
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            <div class="data-rank">
+                <div class="data-tab">
+                    <ul>
+                        {if condition="$rank eq 1"}
+                        <li><p class="on">今日排名</p></li>
+                        {else/}
+                        <li><a href="/sign.html?rank=1">今日排名</a></li>
+                        {/if}
+                        {if condition="$rank eq 2"}
+                        <li><p class="on">历史排名</p></li>
+                        {else /}
+                        <li><a href="/sign.html?rank=2">历史排名</a></li>
+                        {/if}
+                    </ul>
+                </div>
+            </div>
+                <div class="sign-table">
+                    <ul class="rank-list">
+                        {foreach $numbers as $n}
+                        <li>
+                            <div class="rank-item">
+                                <div class="num">第{$num++}名</div>
+                                <div class="content">
+                                    <div class="info ">
+                                        <a href="users/{$n.id}" target="_blank">                                    
+                                         {if condition="$n.nickname eq ''"}
+                                            {$n.name}
+                                            {else /}
+                                            {$n.nickname}
+                                            {/if}</a>
+                                        <div class="detail">
+                                            <span class="data-box">总天数:{$n.sign_number}</span>
+                                            <span class="data-box">连续签到:{$n.sign_con}</span>
+                                            <span class="data-box">月天数:{$n.sign_month}</span>
+                                    <span class="data-box">上次签到时间:
+                                        {$n.sign_time|date="Y-m-d H:i:s",###}
+                                    </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {/foreach}
+                    </ul>
+                    </div>
+                <div class="paging-wrap" style="display: block;">
+                    <div class="s-paging">
+                        {$page}
+                    </div>
+                </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

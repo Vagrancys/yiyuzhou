@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+	<?php include("static/admin/header.php")?>
+<title>模块管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页
+	<span class="c-gray en">&gt;</span>
+	系统管理
+	<span class="c-gray en">&gt;</span>
+	网站资源管理
+	<a class="btn btn-success radius r" style="line-height:21px;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a>
+</nav>
+<div class="page-container">
+	<div class="text-c">
+		<input type="text" placeholder="模块名称" style="width:250px" class="input-text">
+		<button class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20">
+		<span class="l">
+		<a href="javascript:;" onclick="submit()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a>
+		<a class="btn btn-primary radius" href="system_money_add.html"><i class="Hui-iconfont">&#xe600;</i> 添加模块</a>
+		</span>
+		<span class="r">共有数据：<strong>{$number}</strong> 条</span>
+	</div>
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th width="25"><input type="checkbox" id="controlAll" ></th>
+					<th width="80">ID</th>
+					<th width="645">资源名称</th>
+					<th width="645">资源数量</th>
+					<th width="640">资源时间</th>
+					<th width="640">资源状态</th>
+					<th width="300">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+			<form method="post" action="system_money_del.html" id="form">
+			{foreach $data as $vo}
+				<tr class="text-c">
+					<td><input type="checkbox" class="ck" value="{$vo.money_id}" name="item[]"></td>
+					<td>{$vo.money_id}</td>
+					<td>{$vo.money_name}</td>
+					<td>{$vo.money_number}</td>
+					<td>{$vo.money_time}</td>
+					<td class="td-status">
+						{switch name="$vo.money_static"}
+						{case value="0"}<span class="label label-defaunt radius">已停用</span>{/case}
+						{case value="1"}<span class="label label-success radius">已启用</span>{/case}
+						{/switch}
+					</td>
+					<td class="td-manage">
+						{switch name="$vo.money_static"}
+						{case value="0"}<a style="text-decoration:none" data-value="{$vo.money_id}" onclick="money_start(this)" href="javascript:;" title="启用">
+						<i class="Hui-iconfont">&#xe6e1;</i>
+					</a>{/case}
+						{case value="1"}<a style="text-decoration:none" data-value="{$vo.money_id}" onClick="money_stop(this)" href="javascript:;" title="停用">
+						<i class="Hui-iconfont">&#xe631;</i>
+					</a>{/case}
+						{/switch}
+						<a title="编辑" href="system_money_update.html?id={$vo.money_id}" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a>
+						<a title="删除" href="javascript:;" onclick="system_money_del(this,'{$vo.money_id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a>
+					</td>
+				</tr>
+			{/foreach}
+			</form>
+
+			</tbody>
+		</table>
+		<div class="paging-wrap" style="display: block;">
+			<div class="s-paging">
+				{$page}
+			</div>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+<script type="text/javascript">
+/*资源-删除*/
+function system_money_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'get',
+			url: 'system_money_del.html',
+			dataType: 'json',
+			data:{id:id},
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+
+/*资源-停用*/
+function money_stop(obj){
+	var id=$(obj).data('value');
+	layer.confirm('确认要停用吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: 'system_money_static.html',
+			dataType: 'json',
+			data:{id:id,static:0},
+			success: function(data){
+				$text="<a style='text-decoration:none' data-value='"+id+"' onClick='money_start(this)' href='javascript:;' title='启用'><i class='Hui-iconfont'>&#xe6e1;</i></a>";
+				$(obj).parents("tr").find(".td-manage").prepend($text);
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+				$(obj).remove();
+				layer.msg('已停用!',{icon: 5,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+
+/*资源-启用*/
+function money_start(obj){
+	var id=$(obj).data('value');
+	layer.confirm('确认要启用吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: 'system_money_static.html',
+			dataType: 'json',
+			data:{id:id,static:1},
+			success: function(data){
+				$text="<a style='text-decoration:none' data-value='"+id+"' onClick='money_stop(this)' href='javascript:;' title='停用'><i class='Hui-iconfont'>&#xe631;</i></a>";
+				$(obj).parents("tr").find(".td-manage").prepend($text);
+				$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+				$(obj).remove();
+				layer.msg('已启用!',{icon: 6,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>新番总结区 - {$seo.title}</title>
+     <style>
+           @media screen and (max-width:600px){
+            .nav-total-span {
+                line-height: 50px;
+                padding: 5px 0;
+            }
+            .nav-filter-content {
+                padding: 0;
+            }
+            .nav-total-span {
+                line-height: 40px;
+            }
+        }
+     </style>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap main">
+    <div class="nav-filter">
+        <div class="nav-filter-content">
+            <div class="nav-filter-section" style="height: 40px;">
+                <h3 class="dt"><a href="/taobao.html">新番总结表</a></h3>
+                <span class="nav-total-span">按时间来排位</span>
+                <div class="nav-location">
+                    <a class="btn-success" href="javascript:location.replace(location.href);" title="刷新" >刷新</a>
+                </div>
+
+            </div>
+            <div class="nav-filter-section">
+                {foreach $month as $m}
+                {if condition="$month_id eq $m.total_month_id"}
+                <span class="nav-total-span total1-active"><a href="/total.html?month={$m.total_month_id}">{$m.total_month_name}</a></span>
+                {else /}
+                <span class="nav-total-span"><a href="/total.html?month={$m.total_month_id}">{$m.total_month_name}</a></span>
+                {/if}
+                {/foreach}
+            </div>
+            <div class="nav-filter-section">
+                {foreach $week as $w}
+                {if condition="$week_id eq $w.total_week_id"}
+                <span class="nav-total-span total-active"><a href="/total.html?month={$month_id}&week={$w.total_week_id}">{$w.total_week_name}</a></span>
+                {else /}
+                <span class="nav-total-span"><a href="/total.html?month={$month_id}&week={$w.total_week_id}">{$w.total_week_name}</a></span>
+                {/if}
+                {/foreach}
+            </div>
+        </div>
+    </div>
+    <div class="videos">
+        <ul class="videos-ul">
+            {empty name="$ve"}
+             <h1 class="h1">视频库为空！</h1>
+            {else /}
+            {foreach $ve as $v}
+            <li class="nav-video-item">
+                <div >
+                    <a href="/main/{$v.total_video_manga_id}" target="_blank" title="{$v.total_video_name}" class="nav-video-link">
+                        <img src="{$v.total_video_image}" alt="{$v.total_video_name}">
+                    </a>
+                </div>
+                <div class="nav-video-primary">
+                    <h4 class="nav-video-total">
+                        <a href="/main/{$v.total_video_manga_id}" title="{$v.total_video_name}" target="_blank">{$v.total_video_name}</a>
+                        <span class="nav-video-span"><a href="/main/{$v.total_video_manga_id}" title="{$v.total_video_name}" target="_blank">前往</a></span>
+                    </h4>
+                </div>
+            </li>
+            {/foreach}
+            {/empty}
+        </ul>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>{$vi.title}的文章资讯汇总 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="wap assess-header">
+    <a href="/index.html">首页</a> &gt;
+    <a href="/mange/{$vi.manga_id}">{$vi.title}</a> &gt;
+    {$vi.title}的文章资讯汇总
+</div>
+                <div class="wap">
+                    <div class="line">
+                        <div class="assess-left">
+                            <div class="assess-user">
+                            <a class="assess-avatar" href="/mange/{$vi.manga_id}">
+                                <img src="{$vi.img}">
+                            </a>
+                            </div>
+                        </div>
+                        <div class="assess-right">
+                        <ul class="assess-ul">
+                            <li>
+                                <h4>作品名称</h4>
+                                <p>{$vi.title}</p>
+                            </li>
+                            <li>
+                                <h4>文章数</h4>
+                                <p>
+                                    {if condition="$vi.number neq 0"}
+                                    <i>
+                                        {$vi.number}</i>
+                                    <b>篇</b>
+                                    {else /}
+                                    还没有投稿
+                                    {/if}
+                                </p>
+                            </li>
+                            <li>
+                                <h4>个人文章数</h4>
+                                <p>
+                                    {if condition="$vi.member_number neq 0"}
+                                    <i>
+                                        {$vi.member_number}</i>
+                                    <b>篇</b>
+                                    {else /}
+                                    还没有投稿
+                                    {/if}
+                                </p>
+                            </li>
+                            <li>
+                                <h4>投稿</h4>
+                                <p>
+                                    <a href="/articlecb/{$vi.manga_id}">投稿</a>
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
+                    </div>
+                </div>
+                <div class="wap">
+    <div class="sign-table">
+        <table>
+            <tbody>
+            <tr>
+                <th style="width:90px;">排序</th>
+                <th style="width:120px;">类型</th>
+                <th>标题</th>
+                <th >投稿者</th>
+                <th style="width:150px;">投稿时间</th>
+            </tr>
+            {foreach $article as $a}
+            <tr>
+                <th>{$vi.numbers++}</th>
+                <th>{$a.manga_article_class}</th>
+                <th><a href="/articles_list/{$a.manga_article_id}" >{$a.manga_article_title}</a></th>
+                <th><a href="/users/{$a.id}" target="_blank">{$a.name}</a></th>
+                <th>{$a.manga_article_time|date="Y-m-d H:i:s",###}</th>
+            </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+    <div class="paging-wrap" style="display: block;">
+        <div class="s-paging">
+            {$page}
+        </div>
+    </div>
+</div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

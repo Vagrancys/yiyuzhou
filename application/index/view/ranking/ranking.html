@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {include file="common/seo_header"}
+    <title>异宇宙动漫排行榜 - {$seo.title}</title>
+</head>
+<body>
+<div class="wrapper-outer">
+    {include file="common/aside"}
+    <div class="inner-wrapper">
+        <div class="wrapper">
+            {include file="common/header"}
+            <div class="wrapper-cont">
+                <div class="rank-left">
+        <div class="rank-level">
+            <h1>设计制作中</h1>
+            <!--<h1>作品等级</h1>
+            <ul>
+                <li>超神</li>
+                <li>神  九级</li>
+                <li>半神八级</li>
+                <li>神话七级</li>
+                <li>传说六级</li>
+                <li>史诗五级</li>
+                <li>传奇四级</li>
+                <li>王者三级</li>
+                <li>精英二级</li>
+                <li>勇者一级</li>
+                <li>凡人零级</li>
+            </ul>-->
+        </div>
+    </div>
+                <div class="rank-right">
+        <div class="rank-inner">
+            <ul class="rank-menu">
+                {foreach $ranks as $a}
+                {if condition="$pa.total eq $a.id"}
+                <li><a style="color: #00a1d6;" href="ranking.html?total={$a.id}&page=">{$a.name}</a></li>
+                {else /}
+                <li><a href="ranking.html?total={$a.id}&page=">{$a.name}</a></li>
+                {/if}
+                {/foreach}
+            </ul>
+        </div>
+        <div class="rank-tab-wrp">
+            <ul class="rank-tab">
+                {if condition="$pa.page eq ''"}
+                <li><a style="color: #00a1d6;" href="ranking.html?page=&total={$pa.total}">全站</a></li>
+                {else /}
+                <li><a href="ranking.html?page=&total={$pa.total}">全站</a></li>
+                {/if}
+                {foreach $rank as $s}
+                {if condition="$pa.page eq $s.id"}
+                <li><a style="color: #00a1d6;" href="ranking.html?page={$s.id}&total={$pa.total}">{$s.name}</a></li>
+                {else /}
+                <li><a href="ranking.html?page={$s.id}&total={$pa.total}">{$s.name}</a></li>
+                {/if}
+                {/foreach}
+            </ul>
+        </div>
+        <ul class="rank-list">
+            {foreach $ras as $ra}
+            <li>
+                <div class="rank-item">
+                    <div class="num">{++$number}</div>
+                    <div class="content">
+
+                        <div class="preview">
+                            <a href="main/{$ra.manga_id}" target="_blank">
+                                <img src="{$ra.img}" loaded="loaded" alt="{$ra.title}" style="opacity: 1;">
+                            </a>
+                        </div>
+                        <div class="info ">
+                            <a href="main/{$ra.manga_id}" target="_blank">
+                                <div class="title">{$ra.title}</div>
+                            </a>
+                            <div class="detail">
+                                <span class="data-box">观看量:{$ra.clicks}</span>
+                                <span class="data-box">收藏量:{$ra.channel}</span>
+                                <span class="data-box">投稿者:
+                                    <a href="users/{$ra.user_id}" target="_blank">{$ra.name}</a>
+                                </span>
+                            </div>
+                            <div class="pts" title="综合评分">
+                                <div>{$ra.honor}</div>
+                                综合评分
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {/foreach}
+        </ul>
+        <div class="paging-wrap" style="display: block;">
+            <div class="s-paging">
+                {$page}
+            </div>
+        </div>
+    </div>
+            </div>
+            {include file="common/footer"}
+        </div>
+    </div>
+</div>
+</body>
+</html>

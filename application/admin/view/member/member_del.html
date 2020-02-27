@@ -1,0 +1,119 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<?php include("static/admin/header.php")?>
+<title>删除的用户</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 用户中心 <span class="c-gray en">&gt;</span> 删除的用户<a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<div class="text-c"> 日期范围：
+		<input type="text" id="datemin" class="input-text Wdate" style="width:120px;">
+		-
+		<input type="text" id="datemax" class="input-text Wdate" style="width:120px;">
+		<input type="text" class="input-text" style="width:250px" placeholder="输入会员名称、电话、邮箱" id="" name="">
+		<button type="submit" class="btn btn-success radius"><i class="Hui-iconfont">&#xe665;</i> 搜用户</button>
+	</div>
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"><a href="javascript:;" onclick="submit()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe6e2;</i> 批量删除</a> </span> <span class="r">共有数据：<strong>88</strong> 条</span> </div>
+	<div class="mt-20">
+	<table class="table table-border table-bordered table-hover table-bg table-sort">
+		<thead>
+			<tr class="text-c">
+				<th width="25"><input type="checkbox" id="controlAll"></th>
+				<th width="80">ID</th>
+				<th width="100">用户名</th>
+				<th width="40">性别</th>
+				<th width="90">手机</th>
+				<th width="150">邮箱</th>
+				<th width="100">地址</th>
+				<th width="130">加入时间</th>
+				<th width="70">状态</th>
+				<th width="100">操作</th>
+			</tr>
+		</thead>
+		<tbody>
+		<form method="post" action="member_del_date.html" id="form">
+		{foreach $data as $v}
+			<tr class="text-c">
+				<td><input type="checkbox" class="ck" value="{$v.id}" name="item[]"></td>
+				<td>{$v.id}</td>
+				<td>{$v.name}</td>
+				<td>{$v.sex}</td>
+				<td>{$v.phone}</td>
+				<td>{$v.email}</td>
+				<td class="text-l">{$v.dizhi}</td>
+				<td>{$v.time|date="Y-m-d H-i-s",###}</td>
+				<td class="td-status"><span class="label label-defaunt radius">已删除</span></td>
+				<td class="td-manage"><a style="text-decoration:none" href="javascript:;" onClick="member_restore(this,'{$v.id}')" title="还原"><i class="Hui-iconfont">&#xe66b;</i></a> <a title="删除" href="javascript:;" onclick="member_dell(this,'{$v.id}')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+			</tr>
+		{/foreach}
+		</form>
+		</tbody>
+	</table>
+		<div class="paging-wrap" style="display: block;">
+			<div class="s-paging">
+				{$page}
+			</div>
+		</div>
+	</div>
+</div>
+<!--_footer 作为公共模版分离出去-->
+<?php include("static/admin/footer.php")?>
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript">
+/*用户-还原*/
+function member_restore(obj,id){
+	layer.confirm('确认要还原吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: 'member_del_restore.html',
+			dataType: 'json',
+			data:{id:id},
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已还原!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});
+	});
+}
+
+function ck(qx){
+	var  ck=document.getElementsByClassName("ck")
+	if(qx.checked){
+		for(i=0;i<ck.length;i++){
+			ck[i].setAttribute("checked","checked");
+		}
+	}else{
+		for(i=0;i<ck.length;i++){
+			ck[i].removeAttribute("checked");
+		}
+	}
+}
+function submit(){
+	$("#form").submit();
+}
+/*用户-删除*/
+function member_dell(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: 'member_del_date.html',
+			dataType: 'json',
+		    data:{id:id},
+			success: function(data){
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				console.log(data.msg);
+			},
+		});		
+	});
+}
+</script> 
+</body>
+</html>
